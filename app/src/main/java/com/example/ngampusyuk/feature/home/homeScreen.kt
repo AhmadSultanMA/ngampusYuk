@@ -19,12 +19,14 @@ import com.example.ngampusyuk.feature.main.components.homeComponents.Berita
 import com.example.ngampusyuk.feature.main.components.homeComponents.Fitur
 import com.example.ngampusyuk.feature.main.components.homeComponents.Iklan
 import com.example.ngampusyuk.feature.main.components.homeComponents.InfoKampus
+import com.example.ngampusyuk.feature.main.components.homeComponents.KampusBox
+import com.example.ngampusyuk.feature.main.components.homeComponents.RekomendasiKampus
 
 @Composable
 fun HomeScreen(navController: NavController) {
     LazyColumn(modifier = Modifier.fillMaxSize()) {
         item {
-            AppBar(name = "irza", modifier = Modifier.height(180.dp))
+            AppBar(name = "irza", modifier = Modifier.height(190.dp))
             Spacer(modifier = Modifier.height(10.dp))
             Iklan()
             Spacer(modifier = Modifier.height(10.dp))
@@ -32,9 +34,11 @@ fun HomeScreen(navController: NavController) {
             Spacer(modifier = Modifier.height(10.dp))
             Fitur()
             Spacer(modifier = Modifier.height(10.dp))
+            RekomendasiKampus()
+            Spacer(modifier = Modifier.height(10.dp))
             Berita()
             Spacer(modifier = Modifier.height(20.dp))
-
         }
+
     }
 }

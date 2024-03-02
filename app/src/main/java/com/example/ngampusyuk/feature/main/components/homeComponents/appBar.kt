@@ -21,20 +21,18 @@ import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -81,7 +79,7 @@ fun AppBar(
                             Text(
                                 text = "Hallo, ${name} !",
                                 color = Color.White,
-                                style = TextStyle(fontSize = 24.sp, fontWeight = FontWeight.SemiBold)
+                                style = TextStyle(fontSize = 24.sp, fontWeight = FontWeight.SemiBold, fontFamily = FontFamily(Font(R.font.poppins_semibold)))
                             )
                             Spacer(modifier = Modifier.width(10.dp))
                             Icon(
@@ -92,11 +90,10 @@ fun AppBar(
                             )
                         }
 
-                        Spacer(modifier = Modifier.height(5.dp))
                         Text(
                             text = "Mulai langkahmu disini",
                             color = Color.White,
-                            style = TextStyle(fontSize = 15.sp)
+                            style = TextStyle(fontSize = 15.sp, fontFamily = FontFamily(Font(R.font.poppins_regular))),
                         )
                     }
                 }
@@ -115,8 +112,9 @@ fun AppBar(
                     }
                 )
             }
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(10.dp))
             SearchField(value = searchText.value, onValueChange = { searchText.value = it }, Modifier.fillMaxWidth())
+            Spacer(modifier = Modifier.height(10.dp))
         }
     }
 }
@@ -136,7 +134,7 @@ fun SearchField(
         value = value,
         shape = RoundedCornerShape(20.dp),
         onValueChange = onValueChange,
-        placeholder = { Text("Cari Fakultas", color = Color.Black) },
+        placeholder = { Text("Cari Fakultas", color = Color.Black, style = TextStyle(fontFamily = FontFamily(Font(R.font.poppins_regular)))) },
         leadingIcon = {
             Icon(
                 imageVector = Icons.Filled.Search,

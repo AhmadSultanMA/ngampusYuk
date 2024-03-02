@@ -1,33 +1,123 @@
 package com.example.ngampusyuk.feature.main.components.homeComponents
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.FavoriteBorder
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.ngampusyuk.R
+import com.example.ngampusyuk.ui.theme.CustDarkGreen
 
 @Composable
 fun RekomendasiKampus(modifier: Modifier = Modifier) {
+    val items = listOf("1. Universitas Indonesia (UI)", "2. Universitas Gajah Mada (UGM)", "3. Institut Teknologi Bandung (ITB)")
     Column(
-        modifier.padding(start = 25.dp, end = 25.dp)
+        modifier.padding(start = 15.dp, end = 15.dp)
     ) {
         Text(
             text = "Rekomendasi Kampus",
             color = Color.Black,
             style = TextStyle(fontSize = 15.sp, fontWeight = FontWeight.Medium),
-            modifier = Modifier.padding(start = 25.dp, end = 25.dp)
-
         )
         Text(
             text = "Top 10 Universitas terbaik menurut Kemendikbud",
             color = Color.Gray,
-            style = TextStyle(fontSize = 12.sp),
-            modifier = Modifier.padding(start = 25.dp, end = 25.dp)
+            style = TextStyle(fontSize = 12.sp)
         )
+        Spacer(modifier.height(10.dp))
+        items.forEach{
+            item -> KampusBox(text = item)
+            Spacer(modifier.height(10.dp))
+        }
+    }
+}
+
+@Composable
+fun KampusBox(modifier: Modifier = Modifier, text : String) {
+    Card(
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = 8.dp
+        )
+    ) {
+        Row (
+            modifier
+                .fillMaxWidth()
+                .fillMaxHeight()
+                .background(color = Color.White)
+                .padding(12.dp),
+            verticalAlignment = Alignment.Top,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ){
+            Row {
+                Image(
+                    modifier = Modifier.width((0.4f * 100).dp),
+                    painter = painterResource(id = R.drawable.kampus_ui),
+                    contentDescription = "kampusUI"
+                )
+                Spacer(modifier = Modifier.width(15.dp))
+                Column {
+                    Text(
+                        text = text,
+                        style = TextStyle(fontSize = 13.sp, fontWeight = FontWeight.Medium)
+                    )
+                    Text(
+                        text = "JL. Bulaksumur, Sleman. D.I Yogyakarta",
+                        style = TextStyle(fontSize = 10.sp, fontWeight = FontWeight.Light)
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Text(
+                            text = "Akreditasi : Unggul",
+                            Modifier
+                                .background(
+                                    color = CustDarkGreen,
+                                    shape = RoundedCornerShape(10.dp)
+                                )
+                                .padding(vertical = 2.dp, horizontal = 16.dp),
+                            style = TextStyle(fontSize = 10.sp, fontWeight = FontWeight.SemiBold, color = Color.White)
+                        )
+                        Spacer(modifier = Modifier.width(5.dp))
+                        Text(
+                            text = "PTN - BH",
+                            Modifier
+                                .background(
+                                    color = CustDarkGreen,
+                                    shape = RoundedCornerShape(10.dp)
+                                )
+                                .padding(vertical = 2.dp, horizontal = 16.dp),
+                            style = TextStyle(fontSize = 10.sp, fontWeight = FontWeight.SemiBold, color = Color.White)
+                        )
+                    }
+                }
+            }
+            Icon(
+                imageVector = Icons.Outlined.FavoriteBorder,
+                contentDescription = "Love Icon",
+                modifier = Modifier.size(24.dp)
+            )
+        }
     }
 }
