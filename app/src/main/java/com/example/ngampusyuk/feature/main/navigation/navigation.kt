@@ -8,6 +8,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.ngampusyuk.feature.home.HomeScreen
 import com.example.ngampusyuk.feature.main.route.Screen
+import com.example.ngampusyuk.feature.signIn.SignIn
 import com.example.ngampusyuk.feature.splash.SplashScreen
 
 @Composable
@@ -22,6 +23,10 @@ fun Navigation() {
 
         composable(route = Screen.Home.route) {
             HomeScreen(navController = navController)
+        }
+
+        composable(route = Screen.SignIn.route) {
+            SignIn(navController = navController)
         }
     }
 }
