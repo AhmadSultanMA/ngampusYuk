@@ -38,6 +38,7 @@ import androidx.navigation.NavController
 import com.example.ngampusyuk.R
 import com.example.ngampusyuk.feature.main.components.profileComponent.ProfileBar
 import com.example.ngampusyuk.feature.main.navigation.BottomNavigationBar
+import com.example.ngampusyuk.feature.main.route.Screen
 import com.example.ngampusyuk.ui.theme.CustBlue
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -48,7 +49,13 @@ fun Profile(navController : NavController) {
     Scaffold(
         floatingActionButton = {
             EditFloatingButton(
-                onClick = {}
+                onClick = {
+                    navController.navigate(Screen.EditProfile.route){
+                        popUpTo(Screen.Profil.route) {
+                            inclusive = true
+                        }
+                    }
+                }
             )
         },
         floatingActionButtonPosition = FabPosition.End,
@@ -66,47 +73,49 @@ fun Profile(navController : NavController) {
                 .background(color = CustBlue)
                 .fillMaxSize(),
         ) {
-                Box(
+            Box(
+                modifier = Modifier
+                    .offset(0.dp, 150.dp)
+                    .background(color = Color.White, shape = RoundedCornerShape(10))
+                    .fillMaxWidth()
+                    .padding(bottom = 30.dp)
+            ){
+                Column(
                     modifier = Modifier
-                        .offset(0.dp, 100.dp)
-                        .background(color = Color.White, shape = RoundedCornerShape(10))
-                        .fillMaxWidth()
-                        .padding(bottom = 30.dp)
-                ){
-                    Column(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .offset(0.dp, -55.dp)
-                    ) {
-                        Box(modifier = Modifier.fillMaxWidth()) {
-                            Image(
-                                modifier = Modifier
-                                    .width(widthScreen * 0.3f)
-                                    .fillMaxWidth()
-                                    .align(Alignment.Center),
-                                painter = painterResource(id = R.drawable.profil),
-                                contentDescription = "profilImage"
-                            )
-                        }
-                        Text(
-                            modifier = Modifier.fillMaxWidth(),
-                            text = "Irza",
-                            style = TextStyle(fontSize = 24.sp, fontWeight = FontWeight.SemiBold, textAlign = TextAlign.Center)
+                        .fillMaxSize()
+                        .offset(0.dp, -55.dp)
+                ) {
+                    Box(modifier = Modifier.fillMaxWidth()) {
+                        Image(
+                            modifier = Modifier
+                                .width(widthScreen * 0.3f)
+                                .fillMaxWidth()
+                                .align(Alignment.Center),
+                            painter = painterResource(id = R.drawable.profil),
+                            contentDescription = "profilImage"
                         )
-                        Text(
-                            modifier = Modifier.fillMaxWidth(),
-                            text = "Sekolah Menengah Atas",
-                            style = TextStyle(fontSize = 14.sp, color = Color.Gray, textAlign = TextAlign.Center)
-                        )
-                        Spacer(modifier = Modifier.height(15.dp))
-                        Box(modifier = Modifier.padding(start = 15.dp, end = 15.dp)) {
-                            ProfileBar(modifier = Modifier.padding(start = 15.dp, end = 15.dp))
-                        }
                     }
-
+                    Text(
+                        modifier = Modifier.fillMaxWidth(),
+                        text = "Irza",
+                        style = TextStyle(
+                            fontSize = 24.sp,
+                            fontWeight = FontWeight.SemiBold,
+                            textAlign = TextAlign.Center
+                        )
+                    )
+                    Text(
+                        modifier = Modifier.fillMaxWidth(),
+                        text = "Sekolah Menengah Atas",
+                        style = TextStyle(fontSize = 14.sp, color = Color.Gray, textAlign = TextAlign.Center)
+                    )
+                    Spacer(modifier = Modifier.height(15.dp))
+                    Box(modifier = Modifier.padding(start = 15.dp, end = 15.dp)) {
+                        ProfileBar(modifier = Modifier.padding(start = 15.dp, end = 15.dp))
+                    }
                 }
             }
-
+        }
     }
 }
 

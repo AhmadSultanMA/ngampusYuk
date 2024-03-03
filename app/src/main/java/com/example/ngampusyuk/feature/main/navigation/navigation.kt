@@ -6,6 +6,7 @@ import androidx.navigation.NavDestination
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.ngampusyuk.feature.editProfile.EditProfile
 import com.example.ngampusyuk.feature.home.HomeScreen
 import com.example.ngampusyuk.feature.main.route.Screen
 import com.example.ngampusyuk.feature.profile.Profile
@@ -32,6 +33,10 @@ fun Navigation() {
 
         composable(route = Screen.Profil.route) {
             Profile(navController = navController)
+        }
+
+        composable(route = Screen.EditProfile.route) {
+            EditProfile(navController = navController)
         }
     }
 }
