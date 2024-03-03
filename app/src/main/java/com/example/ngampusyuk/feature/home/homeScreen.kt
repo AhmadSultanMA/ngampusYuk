@@ -31,14 +31,15 @@ import com.example.ngampusyuk.feature.main.navigation.BottomNavigationBar
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(navController: NavController) {
-    Scaffold(bottomBar =  {
+    Scaffold(
+        bottomBar =  {
         BottomAppBar(
             tonalElevation = 8.dp,
             containerColor = Color.White,
         ) {
             BottomNavigationBar(navController = navController)
         }
-    },) {
+    }) {
         LazyColumn(modifier = Modifier.fillMaxSize()) {
             item {
                 AppBar(name = "irza", modifier = Modifier.height(190.dp))

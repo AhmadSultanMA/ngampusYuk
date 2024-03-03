@@ -6,12 +6,14 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -77,8 +79,7 @@ fun SignIn(navController: NavController) {
                     .height(screenHeight * 0.55f)
             ) {
                Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.SpaceBetween) {
-                   Spacer(modifier = Modifier.height(20.dp))
-
+                   Spacer(modifier = Modifier.height(10.dp))
                    Text(modifier = Modifier.fillMaxWidth(),
                        text = "Sign In",
                        style = TextStyle(
@@ -87,7 +88,6 @@ fun SignIn(navController: NavController) {
                            textAlign = TextAlign.Center
                        )
                    )
-                   Spacer(modifier = Modifier.height(10.dp))
                    Column {
                        Text(text = "Email",
                            style = TextStyle(
@@ -107,7 +107,6 @@ fun SignIn(navController: NavController) {
                        Spacer(modifier = Modifier.height(10.dp))
                        PasswordField(value = password.value, onValueChange = { password.value = it },Modifier.height(50.dp))
                    }
-                   Spacer(modifier = Modifier.height(20.dp))
                    Box(modifier = Modifier
                        .fillMaxWidth()
                        .background(color = CustDarkBlue, shape = RoundedCornerShape(20.dp))
@@ -123,7 +122,12 @@ fun SignIn(navController: NavController) {
                    ){
                        Text(modifier = Modifier.padding(vertical = 10.dp),text = "Sign In", style = TextStyle(color = Color.White, fontWeight = FontWeight.SemiBold, fontSize = 19.sp))
                    }
-                   Spacer(modifier = Modifier.height(20.dp))
+                   Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
+                       Text(text = "Don't have an account?", style = TextStyle(color = Color.Gray, fontSize = 12.sp))
+                       Spacer(modifier = Modifier.width(5.dp))
+                       Text(text = "Sign Up", style = TextStyle(color = CustDarkBlue, fontSize = 12.sp))
+                   }
+                   Spacer(modifier = Modifier.height(10.dp))
                }
             }
         }
