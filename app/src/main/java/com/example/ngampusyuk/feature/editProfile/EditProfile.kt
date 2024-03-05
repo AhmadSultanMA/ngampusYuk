@@ -4,7 +4,6 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -36,10 +35,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.ngampusyuk.R
-import com.example.ngampusyuk.feature.main.route.Screen
 import com.example.ngampusyuk.ui.theme.CustBlue
 import com.example.ngampusyuk.ui.theme.CustDarkBlue
-import kotlin.math.round
 
 @Composable
 fun EditProfile(navController: NavController) {

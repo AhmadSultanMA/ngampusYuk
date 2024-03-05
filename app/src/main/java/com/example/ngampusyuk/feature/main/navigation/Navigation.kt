@@ -1,8 +1,6 @@
 package com.example.ngampusyuk.feature.main.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavController
-import androidx.navigation.NavDestination
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -12,6 +10,7 @@ import com.example.ngampusyuk.feature.main.route.Screen
 import com.example.ngampusyuk.feature.profile.Profile
 import com.example.ngampusyuk.feature.signIn.SignIn
 import com.example.ngampusyuk.feature.splash.SplashScreen
+import com.example.ngampusyuk.feature.universitas.UniversitasScreen
 
 @Composable
 fun Navigation() {
@@ -37,6 +36,10 @@ fun Navigation() {
 
         composable(route = Screen.EditProfile.route) {
             EditProfile(navController = navController)
+        }
+
+        composable(route = Screen.Universitas.route) {
+            UniversitasScreen(navController = navController)
         }
     }
 }

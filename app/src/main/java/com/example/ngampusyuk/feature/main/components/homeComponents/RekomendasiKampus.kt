@@ -2,6 +2,7 @@ package com.example.ngampusyuk.feature.main.components.homeComponents
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -28,11 +29,13 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.ngampusyuk.R
+import com.example.ngampusyuk.feature.main.route.Screen
 import com.example.ngampusyuk.ui.theme.CustDarkGreen
 
 @Composable
-fun RekomendasiKampus(modifier: Modifier = Modifier) {
+fun RekomendasiKampus(navController: NavController,modifier: Modifier = Modifier) {
     val items = listOf("1. Universitas Indonesia (UI)", "2. Universitas Gajah Mada (UGM)", "3. Institut Teknologi Bandung (ITB)")
     Column(
         modifier.padding(start = 15.dp, end = 15.dp)
@@ -49,18 +52,26 @@ fun RekomendasiKampus(modifier: Modifier = Modifier) {
         )
         Spacer(modifier.height(10.dp))
         items.forEach{
-            item -> KampusBox(text = item)
+            item -> KampusBox(navController,text = item)
             Spacer(modifier.height(10.dp))
         }
     }
 }
 
 @Composable
-fun KampusBox(modifier: Modifier = Modifier, text : String) {
+fun KampusBox(navController: NavController ,modifier: Modifier = Modifier, text : String) {
     Card(
         elevation = CardDefaults.cardElevation(
             defaultElevation = 8.dp
-        )
+        ),
+        modifier = Modifier
+            .clickable {
+                navController.navigate(Screen.Universitas.route) {
+                    popUpTo(Screen.Home.route) {
+                        inclusive = true
+                    }
+                }
+            },
     ) {
         Row (
             modifier
@@ -74,7 +85,7 @@ fun KampusBox(modifier: Modifier = Modifier, text : String) {
             Row {
                 Image(
                     modifier = Modifier.width((0.4f * 100).dp),
-                    painter = painterResource(id = R.drawable.kampus_ui),
+                    painter = painterResource(id = R.drawable.logo_ui),
                     contentDescription = "kampusUI"
                 )
                 Spacer(modifier = Modifier.width(15.dp))
