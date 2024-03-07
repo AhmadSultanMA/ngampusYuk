@@ -8,6 +8,7 @@ val Pink80 = Color(0xFFEFB8C8)
 val CustBlue = Color(0xFF40A2D8)
 val CustLightBlue = Color(0xFFDCF2F1)
 val CustSecondary = Color(0xFF7FC7D9)
+val CustSecondary10 = Color(0xFFBDEAE8)
 val CustDarkGreen = Color(0xFF176B87)
 val CustDarkBlue = Color(0xFF0B60B0)
 

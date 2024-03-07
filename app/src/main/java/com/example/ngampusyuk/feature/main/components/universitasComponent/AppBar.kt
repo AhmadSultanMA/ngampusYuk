@@ -76,7 +76,7 @@ fun AppBar(modifier: Modifier = Modifier,) {
                     }
                 }
             }
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(10.dp))
             Row(modifier.fillMaxWidth(),horizontalArrangement = Arrangement.SpaceBetween) {
                 Card(
                     modifier.width(screenWidth*0.27f),
