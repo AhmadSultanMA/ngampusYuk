@@ -1,9 +1,8 @@
-package com.example.ngampusyuk.feature.main.components.universitasComponent
+package com.example.ngampusyuk.feature.main.components.universitasComponents
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -28,7 +27,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.ngampusyuk.R
-import com.example.ngampusyuk.ui.theme.CustLightBlue
 
 @Composable
 fun AppBar(modifier: Modifier = Modifier,) {

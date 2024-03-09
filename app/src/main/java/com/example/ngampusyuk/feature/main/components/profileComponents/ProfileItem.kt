@@ -1,4 +1,4 @@
-package com.example.ngampusyuk.feature.main.components.profileComponent
+package com.example.ngampusyuk.feature.main.components.profileComponents
 
 import com.example.ngampusyuk.R
 

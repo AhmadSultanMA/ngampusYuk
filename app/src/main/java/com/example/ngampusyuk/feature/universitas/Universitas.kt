@@ -13,9 +13,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.ngampusyuk.feature.main.components.universitasComponent.AppBar
-import com.example.ngampusyuk.feature.main.components.universitasComponent.InformasiJurusan
-import com.example.ngampusyuk.feature.main.components.universitasComponent.Kontak
+import com.example.ngampusyuk.feature.main.components.universitasComponents.AppBar
+import com.example.ngampusyuk.feature.main.components.universitasComponents.InformasiJurusan
+import com.example.ngampusyuk.feature.main.components.universitasComponents.Kontak
 import com.example.ngampusyuk.feature.main.navigation.BottomNavigationBar
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")

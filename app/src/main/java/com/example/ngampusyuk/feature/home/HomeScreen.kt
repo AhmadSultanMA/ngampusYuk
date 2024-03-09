@@ -46,7 +46,7 @@ fun HomeScreen(navController: NavController) {
                 Spacer(modifier = Modifier.height(10.dp))
                 RekomendasiKampus(navController)
                 Spacer(modifier = Modifier.height(10.dp))
-                Berita()
+                Berita(navController)
                 Spacer(modifier = Modifier.height(100.dp))
             }
 

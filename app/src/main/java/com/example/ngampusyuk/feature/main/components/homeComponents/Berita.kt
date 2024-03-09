@@ -2,6 +2,7 @@ package com.example.ngampusyuk.feature.main.components.homeComponents
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -29,10 +30,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.ngampusyuk.R
+import com.example.ngampusyuk.feature.main.route.Screen
 
 @Composable
-fun Berita(modifier : Modifier = Modifier) {
+fun Berita(navController : NavController,modifier : Modifier = Modifier) {
     val screenWidth = LocalConfiguration.current.screenWidthDp.dp
     Column(
         modifier.padding(start = 15.dp, end = 15.dp)
@@ -44,7 +47,14 @@ fun Berita(modifier : Modifier = Modifier) {
         )
         Spacer(modifier.height(10.dp))
         Row(modifier.fillMaxWidth() ,horizontalArrangement = Arrangement.SpaceBetween) {
-            Box(modifier.width(screenWidth*0.44f)){
+            Box(modifier.width(screenWidth*0.44f).clickable {
+                navController.navigate(Screen.Berita.route) {
+                    popUpTo(Screen.Home.route) {
+                        inclusive = true
+                    }
+                }
+            }){
+
                 BeritaCard(
                     painter = painterResource(id = R.drawable.berita1),
                     contentDesc = "berita1",

@@ -1,4 +1,4 @@
-package com.example.ngampusyuk.feature.main.components.profileComponent
+package com.example.ngampusyuk.feature.main.components.profileComponents
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

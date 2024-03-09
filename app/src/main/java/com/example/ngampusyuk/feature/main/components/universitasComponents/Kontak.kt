@@ -1,4 +1,4 @@
-package com.example.ngampusyuk.feature.main.components.universitasComponent
+package com.example.ngampusyuk.feature.main.components.universitasComponents
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

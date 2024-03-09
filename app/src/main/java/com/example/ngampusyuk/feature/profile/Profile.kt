@@ -36,7 +36,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.ngampusyuk.R
-import com.example.ngampusyuk.feature.main.components.profileComponent.ProfileBar
+import com.example.ngampusyuk.feature.main.components.profileComponents.ProfileBar
 import com.example.ngampusyuk.feature.main.navigation.BottomNavigationBar
 import com.example.ngampusyuk.feature.main.route.Screen
 import com.example.ngampusyuk.ui.theme.CustBlue
