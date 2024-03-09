@@ -2,6 +2,7 @@ package com.example.ngampusyuk.feature.pilihBanding
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -24,6 +25,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.ngampusyuk.R
+import com.example.ngampusyuk.feature.main.route.Screen
 import com.example.ngampusyuk.ui.theme.CustBlue
 
 @Composable
@@ -55,7 +57,14 @@ fun PilihBanding(navController: NavController, modifier : Modifier = Modifier) {
                 modifier
                     .fillMaxWidth(0.5f)
                     .height(200.dp)
-                    .background(color = Color.White, shape = RoundedCornerShape(20)),
+                    .background(color = Color.White, shape = RoundedCornerShape(20))
+                    .clickable {
+                        navController.navigate(Screen.PilihUniv.route) {
+                            popUpTo(Screen.PilihBanding.route) {
+                                inclusive = true
+                            }
+                        }
+                    },
                 contentAlignment = Alignment.Center
             ){
                 Text(text = "+ Pilihan Pertama", style = MaterialTheme.typography.titleSmall)
