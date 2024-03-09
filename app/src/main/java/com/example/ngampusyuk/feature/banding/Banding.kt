@@ -2,6 +2,7 @@ package com.example.ngampusyuk.feature.banding
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -27,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.ngampusyuk.R
+import com.example.ngampusyuk.feature.main.route.Screen
 import com.example.ngampusyuk.ui.theme.CustBlue
 import com.example.ngampusyuk.ui.theme.CustDarkBlue
 
@@ -55,7 +57,14 @@ fun Banding(modifier : Modifier = Modifier, navController: NavController) {
             Spacer(modifier = Modifier.height(50.dp))
             Box(modifier = Modifier
                 .fillMaxWidth(0.7f)
-                .background(color = CustDarkBlue, shape = RoundedCornerShape(20.dp)),
+                .background(color = CustDarkBlue, shape = RoundedCornerShape(20.dp))
+                .clickable {
+                    navController.navigate(Screen.PilihBanding.route) {
+                        popUpTo(Screen.Banding.route) {
+                            inclusive = true
+                        }
+                    }
+                },
                 contentAlignment = Alignment.Center,
             ){
                 Text(modifier = Modifier.padding(vertical = 10.dp),text = "Mulai Sekarang", style = TextStyle(color = Color.White, fontWeight = FontWeight.SemiBold, fontSize = 19.sp))
