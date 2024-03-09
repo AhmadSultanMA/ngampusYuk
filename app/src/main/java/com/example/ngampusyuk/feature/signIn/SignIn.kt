@@ -124,7 +124,14 @@ fun SignIn(navController: NavController) {
                    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
                        Text(text = "Don't have an account?", style = TextStyle(color = Color.Gray, fontSize = 12.sp))
                        Spacer(modifier = Modifier.width(5.dp))
-                       Text(text = "Sign Up", style = TextStyle(color = CustDarkBlue, fontSize = 12.sp))
+                       Text(
+                           modifier = Modifier.clickable {
+                           navController.navigate(Screen.SignUp.route) {
+                               popUpTo(Screen.SignIn.route) {
+                                   inclusive = true
+                               }
+                           }},
+                           text = "Sign Up", style = TextStyle(color = CustDarkBlue, fontSize = 12.sp))
                    }
                    Spacer(modifier = Modifier.height(10.dp))
                }
