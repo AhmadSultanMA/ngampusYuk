@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.ngampusyuk.feature.main.components.homeComponents.AppBar
 import com.example.ngampusyuk.feature.main.components.homeComponents.Berita
@@ -25,6 +26,8 @@ import com.example.ngampusyuk.feature.main.navigation.BottomNavigationBar
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(navController: NavController) {
+    val viewModel : HomeViewModel = viewModel()
+
     Scaffold(
         bottomBar =  {
         BottomAppBar(
@@ -44,7 +47,9 @@ fun HomeScreen(navController: NavController) {
                 Spacer(modifier = Modifier.height(10.dp))
                 Fitur()
                 Spacer(modifier = Modifier.height(10.dp))
-                RekomendasiKampus(navController)
+                viewModel.kampus.forEach{ kampus ->
+                    RekomendasiKampus(navController, kampus)
+                }
                 Spacer(modifier = Modifier.height(10.dp))
                 Berita(navController)
                 Spacer(modifier = Modifier.height(100.dp))

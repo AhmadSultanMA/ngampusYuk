@@ -32,11 +32,11 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.ngampusyuk.R
 import com.example.ngampusyuk.feature.main.route.Screen
+import com.example.ngampusyuk.model.kampus.KampusModel
 import com.example.ngampusyuk.ui.theme.CustDarkGreen
 
 @Composable
-fun RekomendasiKampus(navController: NavController,modifier: Modifier = Modifier) {
-    val items = listOf("1. Universitas Indonesia (UI)", "2. Universitas Gajah Mada (UGM)", "3. Institut Teknologi Bandung (ITB)")
+fun RekomendasiKampus(navController: NavController, kampus : KampusModel, modifier: Modifier = Modifier) {
     Column(
         modifier.padding(start = 15.dp, end = 15.dp)
     ) {
@@ -51,15 +51,13 @@ fun RekomendasiKampus(navController: NavController,modifier: Modifier = Modifier
             style = TextStyle(fontSize = 12.sp)
         )
         Spacer(modifier.height(10.dp))
-        items.forEach{
-            item -> KampusBox(navController,text = item)
-            Spacer(modifier.height(10.dp))
+        KampusBox(navController, kampus)
+        Spacer(modifier.height(10.dp))
         }
-    }
 }
 
 @Composable
-fun KampusBox(navController: NavController ,modifier: Modifier = Modifier, text : String) {
+fun KampusBox(navController: NavController, kampus: KampusModel ,modifier: Modifier = Modifier) {
     Card(
         elevation = CardDefaults.cardElevation(
             defaultElevation = 8.dp
@@ -91,17 +89,17 @@ fun KampusBox(navController: NavController ,modifier: Modifier = Modifier, text 
                 Spacer(modifier = Modifier.width(15.dp))
                 Column {
                     Text(
-                        text = text,
+                        text = kampus.nama,
                         style = TextStyle(fontSize = 13.sp, fontWeight = FontWeight.Medium)
                     )
                     Text(
-                        text = "JL. Bulaksumur, Sleman. D.I Yogyakarta",
+                        text = kampus.alamat,
                         style = TextStyle(fontSize = 10.sp, fontWeight = FontWeight.Light)
                     )
                     Spacer(modifier = Modifier.height(8.dp))
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Text(
-                            text = "Akreditasi : Unggul",
+                            text = "Akreditasi : ${kampus.akreditasi}",
                             Modifier
                                 .background(
                                     color = CustDarkGreen,
