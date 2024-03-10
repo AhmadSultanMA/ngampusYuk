@@ -64,7 +64,7 @@ fun KampusBox(navController: NavController, kampus: KampusModel ,modifier: Modif
         ),
         modifier = Modifier
             .clickable {
-                navController.navigate(Screen.Universitas.route) {
+                navController.navigate("${Screen.Universitas.route}/${kampus.id}") {
                     popUpTo(Screen.Home.route) {
                         inclusive = true
                     }

@@ -27,9 +27,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.ngampusyuk.R
+import com.example.ngampusyuk.model.kampus.KampusModel
 
 @Composable
-fun Kontak(modifier: Modifier = Modifier) {
+fun Kontak(kampus: KampusModel?, modifier: Modifier = Modifier) {
     val screenWidth = LocalConfiguration.current.screenWidthDp.dp
     Column (
         modifier
@@ -59,7 +60,7 @@ fun Kontak(modifier: Modifier = Modifier) {
                     )
                     Spacer(modifier = Modifier.width(10.dp))
                     Column {
-                        Text(text = "+62-815-15002", style = TextStyle(fontWeight = FontWeight.Medium, fontSize = 12.sp))
+                        Text(text = kampus?.no_telp ?: "", style = TextStyle(fontWeight = FontWeight.Medium, fontSize = 12.sp))
                         Text(text = "Nomor Telepon", style = TextStyle(color = Color.Gray, fontSize = 10.sp))
                     }
                 }
@@ -84,7 +85,7 @@ fun Kontak(modifier: Modifier = Modifier) {
                     )
                     Spacer(modifier = Modifier.width(10.dp))
                     Column {
-                        Text(text = "sipp@ui.ac.id", style = TextStyle(fontWeight = FontWeight.Medium, fontSize = 12.sp))
+                        Text(text = kampus?.email_kampus ?: "", style = TextStyle(fontWeight = FontWeight.Medium, fontSize = 12.sp))
                         Text(text = "Email", style = TextStyle(color = Color.Gray, fontSize = 10.sp))
                     }
                 }

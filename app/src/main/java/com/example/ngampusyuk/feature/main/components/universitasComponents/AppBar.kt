@@ -27,9 +27,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.ngampusyuk.R
+import com.example.ngampusyuk.model.kampus.KampusModel
 
 @Composable
-fun AppBar(modifier: Modifier = Modifier,) {
+fun AppBar(kampus : KampusModel?, modifier: Modifier = Modifier) {
     val screenWidth = LocalConfiguration.current.screenWidthDp.dp
     Column(modifier.fillMaxWidth()) {
         Image(
@@ -57,14 +58,14 @@ fun AppBar(modifier: Modifier = Modifier,) {
                     Image(painter = painterResource(id = R.drawable.logo_ui), contentDescription = "logoUI", Modifier.size(48.dp))
                     Spacer(modifier = Modifier.width(10.dp))
                     Column {
-                        Text(text = "Universitas Indonesia",
+                        Text(text = kampus?.nama ?: "",
                             style = TextStyle(
                                 fontWeight = FontWeight.SemiBold,
                                 fontSize = 22.sp,
                                 color = Color.Black
                             )
                         )
-                        Text(text = "ui.ac.id",
+                        Text(text = kampus?.email_kampus ?: "",
                             style = TextStyle(
                                 fontWeight = FontWeight.Medium,
                                 fontSize = 14.sp,
@@ -92,7 +93,7 @@ fun AppBar(modifier: Modifier = Modifier,) {
                             style = TextStyle(fontSize = 14.sp, fontWeight = FontWeight.Medium)
                         )
                         Text(
-                            text = "Universitas",
+                            text = kampus?.jenis ?: "",
                             color = Color.Gray,
                             style = TextStyle(fontSize = 12.sp, fontWeight = FontWeight.Medium)
                         )
@@ -115,7 +116,7 @@ fun AppBar(modifier: Modifier = Modifier,) {
                             style = TextStyle(fontSize = 14.sp, fontWeight = FontWeight.Medium)
                         )
                         Text(
-                            text = "Negeri",
+                            text = kampus?.status ?: "",
                             color = Color.Gray,
                             style = TextStyle(fontSize = 12.sp, fontWeight = FontWeight.Medium)
                         )
@@ -138,7 +139,7 @@ fun AppBar(modifier: Modifier = Modifier,) {
                             style = TextStyle(fontSize = 14.sp, fontWeight = FontWeight.Medium)
                         )
                         Text(
-                            text = "Unggul",
+                            text = kampus?.akreditasi ?: "",
                             color = Color.Gray,
                             style = TextStyle(fontSize = 12.sp, fontWeight = FontWeight.Medium)
                         )

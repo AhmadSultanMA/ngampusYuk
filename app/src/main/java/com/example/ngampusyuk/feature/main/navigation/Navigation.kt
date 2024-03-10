@@ -1,9 +1,11 @@
 package com.example.ngampusyuk.feature.main.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.ngampusyuk.feature.banding.Banding
 import com.example.ngampusyuk.feature.berita.Berita
 import com.example.ngampusyuk.feature.editProfile.EditProfile
@@ -51,8 +53,16 @@ fun Navigation() {
             EditProfile(navController = navController)
         }
 
-        composable(route = Screen.Universitas.route) {
-            UniversitasScreen(navController = navController)
+        composable(route = "${Screen.Universitas.route}/{kampus_id}",
+            arguments = listOf(
+                navArgument("kampus_id") {
+                    type = NavType.StringType
+                }
+            )
+        )
+        {
+            val kampus_id = it.arguments?.getString("kampus_id") ?: ""
+            UniversitasScreen(navController = navController, kampus_id)
         }
 
         composable(route = Screen.Berita.route) {
