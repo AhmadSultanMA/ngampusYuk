@@ -22,14 +22,14 @@ class Repository constructor(
                     onSuccess(
                         it.documents.map { doc ->
                             KampusModel(
-                                id = doc["id"] as String,
-                                nama = doc["nama"] as String,
-                                email_kampus = doc["email_kampus"] as String,
-                                jenis = doc["jenis"] as String,
-                                akreditasi = doc["akreditasi"] as String,
-                                status = doc["status"] as String,
-                                no_telp = doc["no_telp"] as String,
-                                alamat = doc["alamat"] as String,
+                                id = doc?.getString("id") ?: "",
+                                nama = doc?.getString("nama") ?: "",
+                                email_kampus = doc?.getString("email_kampus") ?: "",
+                                jenis = doc?.getString("jenis") ?: "",
+                                akreditasi = doc?.getString("akreditasi") ?: "",
+                                status = doc?.getString("status") ?: "",
+                                no_telp = doc?.getString("no_telp") ?: "",
+                                alamat = doc?.getString("alamat") ?: "",
                             )
                         }
                     )

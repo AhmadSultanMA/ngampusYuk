@@ -40,16 +40,6 @@ fun RekomendasiKampus(navController: NavController, kampus : KampusModel, modifi
     Column(
         modifier.padding(start = 15.dp, end = 15.dp)
     ) {
-        Text(
-            text = "Rekomendasi Kampus",
-            color = Color.Black,
-            style = TextStyle(fontSize = 15.sp, fontWeight = FontWeight.Medium),
-        )
-        Text(
-            text = "Top 10 Universitas terbaik menurut Kemendikbud",
-            color = Color.Gray,
-            style = TextStyle(fontSize = 12.sp)
-        )
         Spacer(modifier.height(10.dp))
         KampusBox(navController, kampus)
         Spacer(modifier.height(10.dp))

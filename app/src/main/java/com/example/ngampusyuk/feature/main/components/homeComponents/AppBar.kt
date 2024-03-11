@@ -10,9 +10,11 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -20,12 +22,15 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -37,13 +42,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.ngampusyuk.R
+import com.example.ngampusyuk.feature.home.HomeViewModel
+import com.example.ngampusyuk.model.kampus.KampusModel
 import com.example.ngampusyuk.ui.theme.CustBlue
 
 
 @Composable
 fun AppBar(
-    modifier: Modifier = Modifier,
-    name: String
+    name: String,
+    kampus: List<KampusModel>,
+    viewModel: HomeViewModel,
+    modifier: Modifier = Modifier
 ) {
     val searchText = remember { mutableStateOf("") }
     Box(
@@ -113,7 +122,7 @@ fun AppBar(
                 )
             }
             Spacer(modifier = Modifier.height(10.dp))
-            SearchField(value = searchText.value, onValueChange = { searchText.value = it }, Modifier.fillMaxWidth())
+            SearchField(value = searchText.value, onValueChange = { searchText.value = it }, kampus, viewModel, Modifier.fillMaxWidth())
             Spacer(modifier = Modifier.height(10.dp))
         }
     }
@@ -124,29 +133,41 @@ fun AppBar(
 fun SearchField(
     value: String,
     onValueChange: (String) -> Unit,
+    kampus: List<KampusModel>,
+    viewModel: HomeViewModel,
     modifier: Modifier = Modifier
 ) {
-    OutlinedTextField(
-        modifier = modifier
-            .fillMaxWidth()
-            .background(Color.White, shape = RoundedCornerShape(20.dp)),
+        OutlinedTextField(
+            modifier = modifier
+                .fillMaxWidth()
+                .background(Color.White, shape = RoundedCornerShape(20.dp)),
 
-        value = value,
-        shape = RoundedCornerShape(20.dp),
-        onValueChange = onValueChange,
-        placeholder = { Text("Cari Fakultas", color = Color.Black, style = TextStyle(fontFamily = FontFamily(Font(R.font.poppins_regular)))) },
-        leadingIcon = {
-            Icon(
-                imageVector = Icons.Filled.Search,
-                contentDescription = "iconSearch",
-                tint = Color.Gray
+            value = value,
+            shape = RoundedCornerShape(20.dp),
+            onValueChange = {
+                onValueChange(it)
+                viewModel.filteredList.value = if (it.isNotEmpty()) {
+                    kampus.filter { kampus ->
+                        kampus.nama.contains(it, ignoreCase = true)
+                    }
+                } else {
+                    emptyList()
+                }
+            },
+            placeholder = { Text("Cari Universitas", color = Color.Black, style = TextStyle(fontFamily = FontFamily(Font(R.font.poppins_regular)))) },
+            leadingIcon = {
+                Icon(
+                    imageVector = Icons.Filled.Search,
+                    contentDescription = "iconSearch",
+                    tint = Color.Gray
+                )
+            },
+            textStyle = TextStyle(color = Color.Black),
+            singleLine = true,
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                unfocusedBorderColor = Color.White,
+                focusedBorderColor = Color.Black
             )
-        },
-        textStyle = TextStyle(color = Color.Black),
-        singleLine = true,
-        colors = TextFieldDefaults.outlinedTextFieldColors(
-            unfocusedBorderColor = Color.White,
-            focusedBorderColor = Color.Black
         )
-    )
 }
+

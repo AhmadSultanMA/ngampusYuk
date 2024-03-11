@@ -1,7 +1,11 @@
 package com.example.ngampusyuk.feature.home
 
 import android.util.Log
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.example.ngampusyuk.data.Repository
 import com.example.ngampusyuk.model.kampus.KampusModel
@@ -11,6 +15,7 @@ class HomeViewModel : ViewModel() {
     val firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
     val repository = Repository(firestore)
     val kampus = mutableStateListOf<KampusModel>()
+    var filteredList = mutableStateOf(emptyList<KampusModel>())
     init
     {
         repository.getAllKampus(

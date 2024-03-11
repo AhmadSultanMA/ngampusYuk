@@ -39,67 +39,71 @@ fun InformasiJurusan(jurusan : List<JurusanModel>, modifier: Modifier = Modifier
     ){
         Text(text = "Informasi Jurusan dan Passing Grade", style = TextStyle(fontWeight = FontWeight.Medium, fontSize = 16.sp))
         Spacer(modifier = Modifier.height(10.dp))
-        Box(
-            modifier
-                .background(color = CustBlue, shape = RoundedCornerShape(20))
-                .padding(vertical = 15.dp)
-                .fillMaxWidth(),
-            contentAlignment = Alignment.Center
-        ){
-            Text(text = "SAINS DAN TEKNOLOGI", style = TextStyle(color = Color.White, fontWeight = FontWeight.SemiBold, fontSize = 16.sp))
-        }
-        Spacer(modifier = Modifier.height(10.dp))
-        Row(
-            modifier
-                .fillMaxWidth()
-                .background(
-                    color = CustSecondary10,
-                    shape = RoundedCornerShape(topEndPercent = 20, topStartPercent = 20)
-                )
-                .padding(15.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(text = "Program Studi", style = TextStyle(fontWeight = FontWeight.SemiBold, fontSize = 16.sp))
-            Column(modifier.width(screenWidth * 0.35f)) {
-                Text(
-                    text = "Nilai Skor",
-                    modifier = Modifier.fillMaxWidth(),
-                    style = TextStyle(fontWeight = FontWeight.SemiBold, fontSize = 16.sp),
-                    textAlign = TextAlign.Center
-                )
-                Row(modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                    Text(text = "SNBP", style = TextStyle(fontWeight = FontWeight.SemiBold, fontSize = 16.sp))
-                    Text(text = "SNBT", style = TextStyle(fontWeight = FontWeight.SemiBold, fontSize = 16.sp))
+        if (jurusan.any{it.tipe == 1L}) {
+            Box(
+                modifier
+                    .background(color = CustBlue, shape = RoundedCornerShape(20))
+                    .padding(vertical = 15.dp)
+                    .fillMaxWidth(),
+                contentAlignment = Alignment.Center
+            ){
+                Text(text = "SAINS DAN TEKNOLOGI", style = TextStyle(color = Color.White, fontWeight = FontWeight.SemiBold, fontSize = 16.sp))
+            }
+            Spacer(modifier = Modifier.height(10.dp))
+            Row(
+                modifier
+                    .fillMaxWidth()
+                    .background(
+                        color = CustSecondary10,
+                        shape = RoundedCornerShape(topEndPercent = 20, topStartPercent = 20)
+                    )
+                    .padding(15.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(text = "Program Studi", style = TextStyle(fontWeight = FontWeight.SemiBold, fontSize = 16.sp))
+                Column(modifier.width(screenWidth * 0.35f)) {
+                    Text(
+                        text = "Nilai Skor",
+                        modifier = Modifier.fillMaxWidth(),
+                        style = TextStyle(fontWeight = FontWeight.SemiBold, fontSize = 16.sp),
+                        textAlign = TextAlign.Center
+                    )
+                    Row(modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+                        Text(text = "SNBP", style = TextStyle(fontWeight = FontWeight.SemiBold, fontSize = 16.sp))
+                        Text(text = "SNBT", style = TextStyle(fontWeight = FontWeight.SemiBold, fontSize = 16.sp))
+                    }
                 }
             }
-        }
-        Box(
-            modifier
-                .fillMaxWidth()
-                .background(
-                    color = CustLightBlue,
-                    shape = RoundedCornerShape(bottomStartPercent = 20, bottomEndPercent = 20)
-                )
-                .padding(15.dp)
+            Box(
+                modifier
+                    .fillMaxWidth()
+                    .background(
+                        color = CustLightBlue,
+                        shape = RoundedCornerShape(bottomStartPercent = 20, bottomEndPercent = 20)
+                    )
+                    .padding(15.dp)
 
-        ){
-            Column {
-                for (jurusans in jurusan){
-                    if (jurusans.tipe == 1L){
-                        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                            Text(text = jurusans.nama_jurusan, style = TextStyle(fontSize = 14.sp))
-                            Row(modifier.width(screenWidth * 0.35f),horizontalArrangement = Arrangement.SpaceBetween) {
-                                Text(text = jurusans.snbp.toString(), style = TextStyle(fontSize = 14.sp))
-                                Text(text = jurusans.snbt.toString(), style = TextStyle(fontSize = 14.sp))
+            ){
+                Column {
+                    for (jurusans in jurusan){
+                        if (jurusans.tipe == 1L){
+                            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+                                Text(text = jurusans.nama_jurusan, style = TextStyle(fontSize = 14.sp))
+                                Row(modifier.width(screenWidth * 0.35f),horizontalArrangement = Arrangement.SpaceBetween) {
+                                    Text(text = jurusans.snbp.toString(), style = TextStyle(fontSize = 14.sp))
+                                    Text(text = jurusans.snbt.toString(), style = TextStyle(fontSize = 14.sp))
+                                }
                             }
+                            Spacer(modifier = Modifier.height(5.dp))
                         }
-                        Spacer(modifier = Modifier.height(5.dp))
                     }
                 }
             }
         }
+
         Spacer(modifier = Modifier.height(10.dp))
+
         if (jurusan.any{it.tipe == 2L}) {
             Box(
                 modifier
