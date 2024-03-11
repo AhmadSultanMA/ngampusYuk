@@ -31,7 +31,8 @@ class HomeViewModel : ViewModel() {
                             akreditasi = model.akreditasi ?: "",
                             status = model.status ?: "",
                             no_telp = model.no_telp ?: "",
-                            alamat = model.alamat ?: ""
+                            alamat = model.alamat ?: "",
+                            logo = model.logo ?: "",
                         )
                     }
                 )

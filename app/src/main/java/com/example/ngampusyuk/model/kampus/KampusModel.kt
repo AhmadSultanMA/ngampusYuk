@@ -9,4 +9,5 @@ data class KampusModel(
     val status : String,
     val no_telp : String,
     val alamat : String,
+    val logo : String,
 )

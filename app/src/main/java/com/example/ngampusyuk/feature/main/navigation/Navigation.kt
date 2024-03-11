@@ -11,6 +11,7 @@ import com.example.ngampusyuk.feature.berita.Berita
 import com.example.ngampusyuk.feature.editProfile.EditProfile
 import com.example.ngampusyuk.feature.home.HomeScreen
 import com.example.ngampusyuk.feature.main.route.Screen
+import com.example.ngampusyuk.feature.peluang.Peluang
 import com.example.ngampusyuk.feature.pilihBanding.PilihBanding
 import com.example.ngampusyuk.feature.pilihUniv.PilihUniv
 import com.example.ngampusyuk.feature.profile.Profile
@@ -75,6 +76,10 @@ fun Navigation() {
 
         composable(route = Screen.PilihUniv.route) {
             PilihUniv(navController = navController)
+        }
+
+        composable(route = Screen.Tes.route) {
+            Peluang(navController = navController)
         }
     }
 }

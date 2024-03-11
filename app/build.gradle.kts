@@ -79,4 +79,5 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:32.7.4"))
     implementation("com.google.firebase:firebase-analytics")
 
+    implementation("io.coil-kt:coil-compose:2.4.0")
 }

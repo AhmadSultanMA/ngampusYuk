@@ -26,6 +26,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import com.example.ngampusyuk.R
 import com.example.ngampusyuk.model.kampus.KampusModel
 
@@ -55,7 +56,7 @@ fun AppBar(kampus : KampusModel?, modifier: Modifier = Modifier) {
                     .fillMaxSize()
                     .background(color = Color.White)
                     .padding(10.dp)) {
-                    Image(painter = painterResource(id = R.drawable.logo_ui), contentDescription = "logoUI", Modifier.size(48.dp))
+                    AsyncImage(model = kampus?.logo ?: "", contentDescription = "logo", Modifier.size(48.dp))
                     Spacer(modifier = Modifier.width(10.dp))
                     Column {
                         Text(text = kampus?.nama ?: "",

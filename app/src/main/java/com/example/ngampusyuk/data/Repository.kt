@@ -1,5 +1,6 @@
 package com.example.ngampusyuk.data
 
+import android.util.Log
 import com.example.ngampusyuk.model.jurusan.JurusanModel
 import com.example.ngampusyuk.model.kampus.KampusModel
 import com.google.firebase.firestore.FirebaseFirestore
@@ -30,6 +31,7 @@ class Repository constructor(
                                 status = doc?.getString("status") ?: "",
                                 no_telp = doc?.getString("no_telp") ?: "",
                                 alamat = doc?.getString("alamat") ?: "",
+                                logo = doc?.getString("logo") ?: "",
                             )
                         }
                     )
@@ -61,6 +63,7 @@ class Repository constructor(
                             status = doc["status"] as String,
                             no_telp = doc["no_telp"] as String,
                             alamat = doc["alamat"] as String,
+                            logo = doc["logo"] as String,
                         )
                     )
                     return@addSnapshotListener
@@ -68,7 +71,7 @@ class Repository constructor(
             }
     }
 
-    fun getAllJurusan(
+    fun getAllJurusanByKampus(
         kampus_id: String,
         onSuccess: (List<JurusanModel>) -> Unit,
         onFailed: (Exception) -> Unit
@@ -81,23 +84,126 @@ class Repository constructor(
                     onFailed(error)
                     return@addSnapshotListener
                 }
-                value?.let {
-                    onSuccess(
-                        it.map { doc ->
-                            JurusanModel(
-                                kampus_id = doc?.getString("kampus_id") ?: "",
-                                fakultas_id = doc?.getString("fakultas_id") ?: "",
-                                id = doc?.getString("id") ?: "",
-                                nama_jurusan = doc?.getString("nama_jurusan") ?: "",
-                                snbp = doc?.getDouble("snbp") ?: 0.0,
-                                snbt = doc?.getDouble("snbt") ?: 0.0,
-                                tipe = doc?.getLong("tipe") ?: 0,
-                             )
+                value?.let { snapshot ->
+                    val jurusanList = mutableListOf<JurusanModel>()
+                    for (doc in snapshot.documents) {
+                        val kampusId = doc.getString("kampus_id") ?: ""
+                        val fakultasId = doc.getString("fakultas_id") ?: ""
+                        val id = doc.getString("id") ?: ""
+                        val namaJurusan = doc.getString("nama_jurusan") ?: ""
+                        val snbp = doc["snbp"]
+                        val snbt = doc["snbt"]
+                        val tipe = doc.getLong("tipe") ?: 0
+
+                        if (snbp is Number && snbt is Number) {
+                            jurusanList.add(
+                                JurusanModel(
+                                    kampus_id = kampusId,
+                                    fakultas_id = fakultasId,
+                                    id = id,
+                                    nama_jurusan = namaJurusan,
+                                    snbp = snbp.toDouble(),
+                                    snbt = snbt.toDouble(),
+                                    tipe = tipe
+                                )
+                            )
+                        } else {
+                            Log.e("ERROR", "SNBP is not number")
                         }
-                    )
-                    return@addSnapshotListener
+                    }
+                    onSuccess(jurusanList)
                 }
             }
-
     }
+
+    fun getAllJurusan(
+        onSuccess: (List<JurusanModel>) -> Unit,
+        onFailed: (Exception) -> Unit
+    ) {
+        firestore
+            .collection("jurusan")
+            .addSnapshotListener { value, error ->
+                if (error != null) {
+                    onFailed(error)
+                    return@addSnapshotListener
+                }
+                value?.let { snapshot ->
+                    val jurusanList = mutableListOf<JurusanModel>()
+                    for (doc in snapshot.documents) {
+                        val kampusId = doc.getString("kampus_id") ?: ""
+                        val fakultasId = doc.getString("fakultas_id") ?: ""
+                        val id = doc.getString("id") ?: ""
+                        val namaJurusan = doc.getString("nama_jurusan") ?: ""
+                        val snbp = doc["snbp"]
+                        val snbt = doc["snbt"]
+                        val tipe = doc.getLong("tipe") ?: 0
+
+                        if (snbp is Number && snbt is Number) {
+                            jurusanList.add(
+                                JurusanModel(
+                                    kampus_id = kampusId,
+                                    fakultas_id = fakultasId,
+                                    id = id,
+                                    nama_jurusan = namaJurusan,
+                                    snbp = snbp.toDouble(),
+                                    snbt = snbt.toDouble(),
+                                    tipe = tipe
+                                )
+                            )
+                        } else {
+                            Log.e("ERROR", "SNBP is not number")
+                        }
+                    }
+                    onSuccess(jurusanList)
+                }
+            }
+    }
+
+    fun getAllJurusanByTes(
+        nama_jurusan: String,
+        skor: Double,
+        onSuccess: (List<JurusanModel>) -> Unit,
+        onFailed: (Exception) -> Unit
+    ){
+        firestore
+            .collection("jurusan")
+            .whereEqualTo("nama_jurusan", nama_jurusan)
+            .whereLessThanOrEqualTo("snbt", skor)
+            .addSnapshotListener { value, error ->
+                if (error != null) {
+                    onFailed(error)
+                    return@addSnapshotListener
+                }
+                value?.let { snapshot ->
+                    val jurusanList = mutableListOf<JurusanModel>()
+                    for (doc in snapshot.documents) {
+                        val kampusId = doc.getString("kampus_id") ?: ""
+                        val fakultasId = doc.getString("fakultas_id") ?: ""
+                        val id = doc.getString("id") ?: ""
+                        val namaJurusan = doc.getString("nama_jurusan") ?: ""
+                        val snbp = doc["snbp"]
+                        val snbt = doc["snbt"]
+                        val tipe = doc.getLong("tipe") ?: 0
+
+                        if (snbp is Number && snbt is Number) {
+                            jurusanList.add(
+                                JurusanModel(
+                                    kampus_id = kampusId,
+                                    fakultas_id = fakultasId,
+                                    id = id,
+                                    nama_jurusan = namaJurusan,
+                                    snbp = snbp.toDouble(),
+                                    snbt = snbt.toDouble(),
+                                    tipe = tipe
+                                )
+                            )
+                        } else {
+                            Log.e("ERROR", "SNBP is not number")
+                        }
+                    }
+                    onSuccess(jurusanList)
+                }
+            }
+    }
+
 }

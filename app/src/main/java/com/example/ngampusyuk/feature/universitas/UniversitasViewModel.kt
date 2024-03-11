@@ -18,7 +18,7 @@ class UniversitasViewModel: ViewModel() {
     fun getAllJurusan(
         kampus_id : String
     ){
-        repository.getAllJurusan(
+        repository.getAllJurusanByKampus(
             kampus_id,
             onSuccess = {
                 jurusan.clear()
@@ -29,8 +29,8 @@ class UniversitasViewModel: ViewModel() {
                             fakultas_id = model.fakultas_id ?: "",
                             id = model.id ?: "",
                             nama_jurusan = model.nama_jurusan ?: "",
-                            snbt = model.snbt ?: 0.0,
                             snbp = model.snbp ?: 0.0,
+                            snbt = model.snbt ?: 0.0,
                             tipe = model.tipe ?: 0,
                         )
                     }
