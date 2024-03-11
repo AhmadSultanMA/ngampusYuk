@@ -101,11 +101,6 @@ fun EditProfile(navController: NavController) {
                 NamaField(value = "", onValueChange = {}, Modifier.height(50.dp))
 
                 Spacer(modifier = Modifier.height(15.dp))
-                Text(text = "Jenjang", style = TextStyle(fontSize = 13.sp))
-                Spacer(modifier = Modifier.height(10.dp))
-                NamaField(value = "", onValueChange = {}, Modifier.height(50.dp))
-
-                Spacer(modifier = Modifier.height(15.dp))
                 Text(text = "Email", style = TextStyle(fontSize = 13.sp))
                 Spacer(modifier = Modifier.height(10.dp))
                 NamaField(value = "", onValueChange = {}, Modifier.height(50.dp))

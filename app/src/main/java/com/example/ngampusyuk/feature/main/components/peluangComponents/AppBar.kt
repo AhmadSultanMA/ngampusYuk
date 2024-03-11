@@ -13,7 +13,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import com.example.ngampusyuk.R
 import com.example.ngampusyuk.ui.theme.CustBlue
 
 @Composable
@@ -22,10 +26,21 @@ fun AppBar() {
     Modifier
         .fillMaxWidth()
         .height(100.dp)
-        .background(color = CustBlue)
-        .padding(15.dp),
+        .background(color = CustBlue.copy(alpha = 0.8f)),
         contentAlignment = Alignment.BottomCenter)
     {
-        Text(text = "Cek Peluangmu!", style = MaterialTheme.typography.headlineSmall, color = Color.White)
+        Image(
+            painter = painterResource(id = R.drawable.abstract_bg),
+            contentDescription = "abstractBg",
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.Crop,
+
+        )
+        Text(
+            text = "Cek Peluangmu!",
+            style = MaterialTheme.typography.headlineSmall,
+            color = Color.White,
+            modifier = Modifier.padding(15.dp)
+            )
     }
 }

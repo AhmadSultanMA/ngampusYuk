@@ -66,8 +66,15 @@ fun Navigation() {
             UniversitasScreen(navController = navController, kampus_id)
         }
 
-        composable(route = Screen.Berita.route) {
-            Berita(navController = navController)
+        composable(route = "${Screen.Berita.route}/{berita_id}",
+            arguments = listOf(
+                navArgument("berita_id") {
+                    type = NavType.StringType
+                }
+            ))
+        {
+            val berita_id = it.arguments?.getString("berita_id") ?: ""
+            Berita(navController = navController, berita_id)
         }
 
         composable(route = Screen.PilihBanding.route) {
