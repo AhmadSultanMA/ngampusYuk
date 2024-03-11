@@ -26,7 +26,7 @@ fun FilteredList(viewModel: PeluangViewModel) {
         ) {
             LazyColumn(
                 modifier = Modifier
-                    .offset(0.dp,280.dp)
+                    .offset(0.dp,255.dp)
                     .fillMaxWidth()
                     .background(color = Color.White, shape = RoundedCornerShape(20))
             ) {

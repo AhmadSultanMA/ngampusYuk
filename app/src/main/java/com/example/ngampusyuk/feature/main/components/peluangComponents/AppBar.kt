@@ -21,7 +21,7 @@ fun AppBar() {
     Box(modifier =
     Modifier
         .fillMaxWidth()
-        .height(80.dp)
+        .height(100.dp)
         .background(color = CustBlue)
         .padding(15.dp),
         contentAlignment = Alignment.BottomCenter)
