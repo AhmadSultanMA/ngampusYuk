@@ -58,11 +58,6 @@ fun SignUp(modifier : Modifier = Modifier, navController: NavController) {
 
     LaunchedEffect(key1 = viewModel.isSuccess.value){
         if (viewModel.isSuccess.value) {
-            email.value = ""
-            password.value = ""
-            nama.value = ""
-            nomor.value = ""
-
             navController.navigate(Screen.SignIn.route) {
                 popUpTo(Screen.SignUp.route) {
                     inclusive = true

@@ -1,5 +1,6 @@
 package com.example.ngampusyuk.data.user
 
+import com.example.ngampusyuk.model.kampus.KampusModel
 import com.example.ngampusyuk.model.user.UserModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -43,34 +44,40 @@ class AuthRepository constructor(
     fun signIn(
         email: String,
         password: String,
-        onSuccess: (UserModel) -> Unit,
+        onSuccess: (Boolean) -> Unit,
         onFailed: (Exception) -> Unit
     ){
         auth.signInWithEmailAndPassword(email, password)
             .addOnSuccessListener {
-                firestore
-                    .collection("user")
-                    .document(it.user?.uid ?: "")
-                    .addSnapshotListener{value, error ->
-                        if (error != null){
-                            onFailed(error)
-                            return@addSnapshotListener
-                        }
-                        value?.let { doc ->
-                            onSuccess(
-                                UserModel(
-                                    uid = it.user?.uid ?: "",
-                                    nama = doc["nama"] as String,
-                                    no_telp = doc["no_telp"] as String,
-                                )
-                            )
-                            return@addSnapshotListener
-                        }
-                    }
+                onSuccess(true)
+            }
+            .addOnFailureListener {
+                onFailed(it)
             }
     }
 
-    fun isLogin() = auth.currentUser != null
-    fun uid() = auth.currentUser?.uid ?: ""
-    fun email() = auth.currentUser?.email ?: ""
+    fun getUser(
+        uid: String,
+        onSuccess: (UserModel) -> Unit,
+        onFailed: (Exception) -> Unit,
+    ){
+        firestore
+            .collection("user")
+            .document(uid)
+            .addSnapshotListener { value, error ->
+                if (error != null) {
+                    onFailed(error)
+                }
+                value?.let { doc ->
+                    onSuccess(
+                        UserModel(
+                            uid = auth?.uid ?: "",
+                            nama = doc["nama"] as String,
+                            no_telp = doc["no_telp"] as String
+                        )
+                    )
+                    return@addSnapshotListener
+                }
+            }
+    }
 }

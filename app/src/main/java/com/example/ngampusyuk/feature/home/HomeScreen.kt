@@ -55,7 +55,7 @@ fun HomeScreen(navController: NavController) {
         Box {
             LazyColumn(modifier = Modifier.fillMaxSize()) {
                 item {
-                    AppBar(name = "irza", viewModel.kampus, viewModel, modifier = Modifier.height(190.dp))
+                    AppBar(name = viewModel.user.value?.nama ?: "", viewModel.kampus, viewModel, modifier = Modifier.height(190.dp))
                     Spacer(modifier = Modifier.height(10.dp))
                     Iklan()
                     Spacer(modifier = Modifier.height(10.dp))
