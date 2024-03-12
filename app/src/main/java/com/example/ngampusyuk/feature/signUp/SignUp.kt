@@ -11,21 +11,14 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -33,21 +26,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.ngampusyuk.R
-import com.example.ngampusyuk.feature.home.HomeViewModel
 import com.example.ngampusyuk.feature.main.components.signUpComponents.EmailField
 import com.example.ngampusyuk.feature.main.components.signUpComponents.NamaField
 import com.example.ngampusyuk.feature.main.components.signUpComponents.NomorField
 import com.example.ngampusyuk.feature.main.components.signUpComponents.PasswordField
 import com.example.ngampusyuk.feature.main.route.Screen
-import com.example.ngampusyuk.model.kampus.KampusModel
 import com.example.ngampusyuk.ui.theme.CustDarkBlue
 import com.example.ngampusyuk.ui.theme.CustSecondary
+import kotlinx.coroutines.delay
 
 @Composable
 fun SignUp(modifier : Modifier = Modifier, navController: NavController) {
@@ -55,6 +46,31 @@ fun SignUp(modifier : Modifier = Modifier, navController: NavController) {
     val nomor = remember { mutableStateOf("") }
     val email = remember { mutableStateOf("") }
     val password = remember { mutableStateOf("") }
+
+    val viewModel : SignUpViewModel = viewModel()
+
+    LaunchedEffect(viewModel.errMsg.value) {
+        if (viewModel.errMsg.value.isNotEmpty()) {
+            delay(3000)
+            viewModel.errMsg.value = ""
+        }
+    }
+
+    LaunchedEffect(key1 = viewModel.isSuccess.value){
+        if (viewModel.isSuccess.value) {
+            email.value = ""
+            password.value = ""
+            nama.value = ""
+            nomor.value = ""
+
+            navController.navigate(Screen.SignIn.route) {
+                popUpTo(Screen.SignUp.route) {
+                    inclusive = true
+                }
+            }
+        }
+    }
+
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.Start
@@ -96,19 +112,37 @@ fun SignUp(modifier : Modifier = Modifier, navController: NavController) {
             Spacer(modifier = Modifier.height(40.dp))
         }
         Spacer(modifier = Modifier.height(50.dp))
-        Box(
-            modifier
-                .fillMaxWidth()
-                .padding(horizontal = 15.dp)
-                .background(
-                    color = CustSecondary,
-                    shape = RoundedCornerShape(30)
-                )
-                .padding(vertical = 10.dp),
-            contentAlignment = Alignment.Center
-        ){
-            Text(text = "Sign Up", style = MaterialTheme.typography.titleMedium)
+        if (viewModel.isLoading.value){
+            Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center){
+                CircularProgressIndicator()
+            }
+        }else{
+            Box(
+                modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 15.dp)
+                    .background(
+                        color = CustSecondary,
+                        shape = RoundedCornerShape(30)
+                    )
+                    .padding(vertical = 10.dp)
+                    .clickable {
+                        if(email.value == "" || password.value == "" || nama.value == "" || nomor.value == ""){
+                            viewModel.errMsg.value = "Harap isi semua kolom"
+                        }else{
+                            viewModel.signUp(email.value, password.value, nama.value, nomor.value)
+                        }
+                    },
+                contentAlignment = Alignment.Center
+            ){
+                Text(text = "Sign Up", style = MaterialTheme.typography.titleMedium)
+            }
         }
+        Spacer(modifier = Modifier.height(5.dp))
+        Box(modifier = Modifier.fillMaxWidth().padding(horizontal = 15.dp), contentAlignment = Alignment.Center){
+            Text(text = viewModel.errMsg.value,style = MaterialTheme.typography.bodySmall, color = Color.Red)
+        }
+
     }
 }
 
