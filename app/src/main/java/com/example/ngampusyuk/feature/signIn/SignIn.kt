@@ -141,14 +141,14 @@ fun SignIn(navController: NavController) {
                            .fillMaxWidth()
                            .background(color = CustDarkBlue, shape = RoundedCornerShape(20.dp))
                            .clickable {
-//                               if(email.value == "" || password.value == ""){
-//                                   viewModel.errMsg.value = "Harap isi semua kolom"
-//                               }else{
+                               if(email.value == "" || password.value == ""){
+                                   viewModel.errMsg.value = "Harap isi semua kolom"
+                               }else{
                                    viewModel.signIn(
-                                       //email.value,password.value
-                                       "ahmad.irza18@gmail.com", "12345678"
+                                       email.value,password.value
+//                                       "ahmad.irza18@gmail.com", "12345678"
                                    )
-//                               }
+                               }
                            },
                            contentAlignment = Alignment.Center,
 
