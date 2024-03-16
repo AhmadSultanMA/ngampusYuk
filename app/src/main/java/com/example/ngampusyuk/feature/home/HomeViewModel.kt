@@ -43,6 +43,7 @@ class HomeViewModel : ViewModel() {
                             no_telp = model.no_telp ?: "",
                             alamat = model.alamat ?: "",
                             logo = model.logo ?: "",
+                            gambar_appbar = model.gambar_appbar ?: "",
                         )
                     }
                 )

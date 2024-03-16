@@ -85,5 +85,5 @@ val Typography = Typography(
         fontFamily = FontFamily(Font(R.font.poppins_regular)),
         fontWeight = FontWeight.Normal,
         fontSize = 10.sp,
-    ),
+    ),  
 )

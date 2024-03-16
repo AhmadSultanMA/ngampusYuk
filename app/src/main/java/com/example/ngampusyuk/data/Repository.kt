@@ -33,6 +33,7 @@ class Repository constructor(
                                 no_telp = doc?.getString("no_telp") ?: "",
                                 alamat = doc?.getString("alamat") ?: "",
                                 logo = doc?.getString("logo") ?: "",
+                                gambar_appbar = doc?.getString("gambar_appbar") ?: "",
                             )
                         }
                     )
@@ -65,6 +66,7 @@ class Repository constructor(
                             no_telp = doc["no_telp"] as String,
                             alamat = doc["alamat"] as String,
                             logo = doc["logo"] as String,
+                            gambar_appbar = doc["gambar_appbar"] as String,
                         )
                     )
                     return@addSnapshotListener

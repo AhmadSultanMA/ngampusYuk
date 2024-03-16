@@ -34,7 +34,6 @@ fun AppBar() {
             contentDescription = "abstractBg",
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop,
-
         )
         Text(
             text = "Cek Peluangmu!",

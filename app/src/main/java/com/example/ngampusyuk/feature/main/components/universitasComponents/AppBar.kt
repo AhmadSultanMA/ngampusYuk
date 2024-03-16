@@ -20,6 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -34,11 +35,7 @@ import com.example.ngampusyuk.model.kampus.KampusModel
 fun AppBar(kampus : KampusModel?, modifier: Modifier = Modifier) {
     val screenWidth = LocalConfiguration.current.screenWidthDp.dp
     Column(modifier.fillMaxWidth()) {
-        Image(
-            modifier = Modifier.fillMaxWidth(),
-            painter = painterResource(id = R.drawable.kampus_ui_appbar),
-            contentDescription = "uiAppBar"
-        )
+        AsyncImage(model = kampus?.gambar_appbar ?: "", contentDescription = "gambar_appbar", contentScale = ContentScale.Crop, modifier = Modifier.height(120.dp))
         Column(
             modifier
                 .padding(start = 15.dp, end = 15.dp)

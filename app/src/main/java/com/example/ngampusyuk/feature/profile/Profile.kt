@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Edit
@@ -27,6 +28,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -68,50 +70,61 @@ fun Profile(navController : NavController) {
             }
         }
     ) {
-        Column(
+        LazyColumn(
             modifier = Modifier
-                .background(color = CustBlue)
                 .fillMaxSize(),
         ) {
-            Box(
-                modifier = Modifier
-                    .offset(0.dp, 150.dp)
-                    .background(color = Color.White, shape = RoundedCornerShape(10))
-                    .fillMaxWidth()
-                    .padding(bottom = 30.dp)
-            ){
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .offset(0.dp, -55.dp)
+            item {
+                Box(modifier = Modifier
+                    .background(color = CustBlue)
                 ) {
-                    Box(modifier = Modifier.fillMaxWidth()) {
-                        Image(
-                            modifier = Modifier
-                                .width(widthScreen * 0.3f)
-                                .fillMaxWidth()
-                                .align(Alignment.Center),
-                            painter = painterResource(id = R.drawable.profil),
-                            contentDescription = "profilImage"
-                        )
-                    }
-                    Text(
-                        modifier = Modifier.fillMaxWidth(),
-                        text = "Irza",
-                        style = TextStyle(
-                            fontSize = 24.sp,
-                            fontWeight = FontWeight.SemiBold,
-                            textAlign = TextAlign.Center
-                        )
+                    Image(
+                        painter = painterResource(id = R.drawable.abstract_bg),
+                        contentDescription = "abstractBg",
+                        modifier = Modifier.fillMaxSize(),
+                        contentScale = ContentScale.Crop,
                     )
-                    Text(
-                        modifier = Modifier.fillMaxWidth(),
-                        text = "Sekolah Menengah Atas",
-                        style = TextStyle(fontSize = 14.sp, color = Color.Gray, textAlign = TextAlign.Center)
-                    )
-                    Spacer(modifier = Modifier.height(15.dp))
-                    Box(modifier = Modifier.padding(start = 15.dp, end = 15.dp)) {
-                        ProfileBar(modifier = Modifier.padding(start = 15.dp, end = 15.dp))
+                }
+                Box(
+                    modifier = Modifier
+                        .offset(0.dp, -100.dp)
+                        .background(color = Color.White, shape = RoundedCornerShape(10))
+                        .fillMaxWidth()
+                        .padding(bottom = 30.dp)
+                ){
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .offset(0.dp, -55.dp)
+                    ) {
+                        Box(modifier = Modifier.fillMaxWidth()) {
+                            Image(
+                                modifier = Modifier
+                                    .width(widthScreen * 0.3f)
+                                    .fillMaxWidth()
+                                    .align(Alignment.Center),
+                                painter = painterResource(id = R.drawable.profil),
+                                contentDescription = "profilImage"
+                            )
+                        }
+                        Text(
+                            modifier = Modifier.fillMaxWidth(),
+                            text = "Irza",
+                            style = TextStyle(
+                                fontSize = 24.sp,
+                                fontWeight = FontWeight.SemiBold,
+                                textAlign = TextAlign.Center
+                            )
+                        )
+                        Text(
+                            modifier = Modifier.fillMaxWidth(),
+                            text = "Sekolah Menengah Atas",
+                            style = TextStyle(fontSize = 14.sp, color = Color.Gray, textAlign = TextAlign.Center)
+                        )
+                        Spacer(modifier = Modifier.height(15.dp))
+                        Box(modifier = Modifier.padding(start = 15.dp, end = 15.dp)) {
+                            ProfileBar(modifier = Modifier.padding(start = 15.dp, end = 15.dp))
+                        }
                     }
                 }
             }
