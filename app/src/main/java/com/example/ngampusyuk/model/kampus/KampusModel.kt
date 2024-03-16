@@ -11,4 +11,6 @@ data class KampusModel(
     val alamat : String,
     val logo : String,
     val gambar_appbar : String,
+    val gambar_gedung : String,
+    val singkatan : String,
 )

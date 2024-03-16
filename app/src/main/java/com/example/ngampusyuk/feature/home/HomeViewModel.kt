@@ -44,6 +44,8 @@ class HomeViewModel : ViewModel() {
                             alamat = model.alamat ?: "",
                             logo = model.logo ?: "",
                             gambar_appbar = model.gambar_appbar ?: "",
+                            gambar_gedung = model.gambar_gedung ?: "",
+                            singkatan = model.singkatan ?: "",
                         )
                     }
                 )

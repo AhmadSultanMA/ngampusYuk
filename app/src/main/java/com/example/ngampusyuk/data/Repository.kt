@@ -34,6 +34,8 @@ class Repository constructor(
                                 alamat = doc?.getString("alamat") ?: "",
                                 logo = doc?.getString("logo") ?: "",
                                 gambar_appbar = doc?.getString("gambar_appbar") ?: "",
+                                gambar_gedung = doc?.getString("gambar_gedung") ?: "",
+                                singkatan = doc?.getString("singkatan") ?: "",
                             )
                         }
                     )
@@ -67,6 +69,8 @@ class Repository constructor(
                             alamat = doc["alamat"] as String,
                             logo = doc["logo"] as String,
                             gambar_appbar = doc["gambar_appbar"] as String,
+                            gambar_gedung = doc["gambar_gedung"] as String,
+                            singkatan = doc["singkatan"] as String,
                         )
                     )
                     return@addSnapshotListener
@@ -94,9 +98,19 @@ class Repository constructor(
                         val fakultasId = doc.getString("fakultas_id") ?: ""
                         val id = doc.getString("id") ?: ""
                         val namaJurusan = doc.getString("nama_jurusan") ?: ""
+                        val jalur_masuk = doc.getString("jalur_masuk") ?: ""
+                        val ukt_minimal = doc.getString("ukt_minimal") ?: ""
+                        val ukt_maximal = doc.getString("ukt_maximal") ?: ""
+                        val akreditasi = doc.getString("akreditasi") ?: ""
                         val snbp = doc["snbp"]
                         val snbt = doc["snbt"]
                         val tipe = doc.getLong("tipe") ?: 0
+                        val kuota = doc.getLong("kuota") ?: 0
+                        val passing_grade = doc.getLong("passing_grade") ?: 0
+                        val peluang_kerja = doc.getLong("peluang_kerja") ?: 0
+                        val tingkat_ketat = doc.getLong("tingkat_ketat") ?: 0
+                        val jumlah_pendaftar = doc.getLong("jumlah_pendaftar") ?: 0
+
 
                         if (snbp is Number && snbt is Number) {
                             jurusanList.add(
@@ -107,7 +121,16 @@ class Repository constructor(
                                     nama_jurusan = namaJurusan,
                                     snbp = snbp.toDouble(),
                                     snbt = snbt.toDouble(),
-                                    tipe = tipe
+                                    tipe = tipe,
+                                    jalur_masuk = jalur_masuk,
+                                    ukt_minimal = ukt_minimal,
+                                    ukt_maximal = ukt_maximal,
+                                    jumlah_pendaftar = jumlah_pendaftar,
+                                    kuota = kuota,
+                                    passing_grade = passing_grade,
+                                    peluang_kerja = peluang_kerja,
+                                    tingkat_ketat = tingkat_ketat,
+                                    akreditasi = akreditasi
                                 )
                             )
                         } else {
@@ -137,9 +160,18 @@ class Repository constructor(
                         val fakultasId = doc.getString("fakultas_id") ?: ""
                         val id = doc.getString("id") ?: ""
                         val namaJurusan = doc.getString("nama_jurusan") ?: ""
+                        val jalur_masuk = doc.getString("jalur_masuk") ?: ""
+                        val ukt_minimal = doc.getString("ukt_minimal") ?: ""
+                        val ukt_maximal = doc.getString("ukt_maximal") ?: ""
+                        val akreditasi = doc.getString("akreditasi") ?: ""
                         val snbp = doc["snbp"]
                         val snbt = doc["snbt"]
                         val tipe = doc.getLong("tipe") ?: 0
+                        val kuota = doc.getLong("kuota") ?: 0
+                        val passing_grade = doc.getLong("passing_grade") ?: 0
+                        val peluang_kerja = doc.getLong("peluang_kerja") ?: 0
+                        val tingkat_ketat = doc.getLong("tingkat_ketat") ?: 0
+                        val jumlah_pendaftar = doc.getLong("jumlah_pendaftar") ?: 0
 
                         if (snbp is Number && snbt is Number) {
                             jurusanList.add(
@@ -150,7 +182,16 @@ class Repository constructor(
                                     nama_jurusan = namaJurusan,
                                     snbp = snbp.toDouble(),
                                     snbt = snbt.toDouble(),
-                                    tipe = tipe
+                                    tipe = tipe,
+                                    jalur_masuk = jalur_masuk,
+                                    ukt_minimal = ukt_minimal,
+                                    ukt_maximal = ukt_maximal,
+                                    jumlah_pendaftar = jumlah_pendaftar,
+                                    kuota = kuota,
+                                    passing_grade = passing_grade,
+                                    peluang_kerja = peluang_kerja,
+                                    tingkat_ketat = tingkat_ketat,
+                                    akreditasi = akreditasi
                                 )
                             )
                         } else {
@@ -184,9 +225,18 @@ class Repository constructor(
                         val fakultasId = doc.getString("fakultas_id") ?: ""
                         val id = doc.getString("id") ?: ""
                         val namaJurusan = doc.getString("nama_jurusan") ?: ""
+                        val jalur_masuk = doc.getString("jalur_masuk") ?: ""
+                        val ukt_minimal = doc.getString("ukt_minimal") ?: ""
+                        val ukt_maximal = doc.getString("ukt_maximal") ?: ""
+                        val akreditasi = doc.getString("akreditasi") ?: ""
                         val snbp = doc["snbp"]
                         val snbt = doc["snbt"]
                         val tipe = doc.getLong("tipe") ?: 0
+                        val kuota = doc.getLong("kuota") ?: 0
+                        val passing_grade = doc.getLong("passing_grade") ?: 0
+                        val peluang_kerja = doc.getLong("peluang_kerja") ?: 0
+                        val tingkat_ketat = doc.getLong("tingkat_ketat") ?: 0
+                        val jumlah_pendaftar = doc.getLong("jumlah_pendaftar") ?: 0
 
                         if (snbp is Number && snbt is Number) {
                             jurusanList.add(
@@ -197,7 +247,16 @@ class Repository constructor(
                                     nama_jurusan = namaJurusan,
                                     snbp = snbp.toDouble(),
                                     snbt = snbt.toDouble(),
-                                    tipe = tipe
+                                    tipe = tipe,
+                                    jalur_masuk = jalur_masuk,
+                                    ukt_minimal = ukt_minimal,
+                                    ukt_maximal = ukt_maximal,
+                                    jumlah_pendaftar = jumlah_pendaftar,
+                                    kuota = kuota,
+                                    passing_grade = passing_grade,
+                                    peluang_kerja = peluang_kerja,
+                                    tingkat_ketat = tingkat_ketat,
+                                    akreditasi = akreditasi
                                 )
                             )
                         } else {

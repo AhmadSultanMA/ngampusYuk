@@ -20,16 +20,26 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.ViewModelFactoryDsl
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import coil.compose.AsyncImage
 import com.example.ngampusyuk.R
 import com.example.ngampusyuk.feature.main.route.Screen
 import com.example.ngampusyuk.ui.theme.CustBlue
+import com.example.ngampusyuk.ui.theme.CustDarkBlue
 
 @Composable
-fun PilihBanding(navController: NavController, modifier : Modifier = Modifier) {
+fun PilihBanding(navController: NavController, viewModel: PilihBandingViewModel,modifier : Modifier = Modifier) {
+
     Column(modifier = Modifier.fillMaxSize()) {
         Box(
             modifier
@@ -46,38 +56,125 @@ fun PilihBanding(navController: NavController, modifier : Modifier = Modifier) {
                 )
             }
         }
-        Column(
-            Modifier
-                .fillMaxSize()
-                .background(CustBlue),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.SpaceEvenly
-        ) {
-            Box(
-                modifier
-                    .fillMaxWidth(0.5f)
-                    .height(200.dp)
-                    .background(color = Color.White, shape = RoundedCornerShape(20))
-                    .clickable {
-                        navController.navigate(Screen.PilihUniv.route) {
-                            popUpTo(Screen.PilihBanding.route) {
-                                inclusive = true
+        Box(modifier = Modifier
+            .fillMaxSize()
+            .background(CustBlue)
+        ){
+            Column(
+                Modifier
+                    .fillMaxSize()
+                    .padding(horizontal = 15.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                Spacer(modifier = Modifier.height(20.dp))
+                Box(
+                    modifier
+                        .fillMaxWidth(0.5f)
+                        .height(180.dp)
+                        .background(color = Color.White, shape = RoundedCornerShape(20))
+                        .clickable {
+                            navController.navigate("${Screen.PilihUniv.route}/satu") {
+                                popUpTo(Screen.PilihBanding.route) {
+                                    inclusive = true
+                                }
                             }
+                        },
+                    contentAlignment = Alignment.Center
+                ) {
+                    if (viewModel.jurusan1.value == null) {
+                        Text(
+                            text = "+ Pilihan Pertama",
+                            style = MaterialTheme.typography.titleSmall
+                        )
+                    } else {
+                        Column(
+                            modifier.fillMaxWidth(),
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.Center
+                        ) {
+                            AsyncImage(
+                                model = viewModel.kampus1.value?.logo ?: "",
+                                contentDescription = "logo"
+                            )
+                            Text(
+                                text = viewModel.jurusan1.value?.nama_jurusan ?: "",
+                                style = MaterialTheme.typography.bodySmall
+                            )
+                            Text(
+                                text = viewModel.kampus1.value?.nama ?: "",
+                                style = MaterialTheme.typography.bodySmall
+                            )
                         }
-                    },
-                contentAlignment = Alignment.Center
-            ){
-                Text(text = "+ Pilihan Pertama", style = MaterialTheme.typography.titleSmall)
-            }
-            Image(painter = painterResource(id = R.drawable.vs), contentDescription = "vs", Modifier.size(108.dp))
-            Box(
-                modifier
-                    .fillMaxWidth(0.5f)
-                    .height(200.dp)
-                    .background(color = Color.White, shape = RoundedCornerShape(20)),
-                contentAlignment = Alignment.Center
-            ){
-                Text(text = "+ Pilihan Kedua", style = MaterialTheme.typography.titleSmall)
+                    }
+                }
+                Image(
+                    painter = painterResource(id = R.drawable.vs),
+                    contentDescription = "vs",
+                    Modifier.size(108.dp)
+                )
+                Box(
+                    modifier
+                        .fillMaxWidth(0.5f)
+                        .height(180.dp)
+                        .background(color = Color.White, shape = RoundedCornerShape(20))
+                        .clickable {
+                            navController.navigate("${Screen.PilihUniv.route}/dua") {
+                                popUpTo(Screen.PilihBanding.route) {
+                                    inclusive = true
+                                }
+                            }
+                        },
+                    contentAlignment = Alignment.Center
+                ) {
+                    if (viewModel.jurusan2.value == null) {
+                        Text(text = "+ Pilihan Kedua", style = MaterialTheme.typography.titleSmall)
+                    } else {
+                        Column(
+                            modifier.fillMaxWidth(),
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.Center
+                        ) {
+                            AsyncImage(
+                                model = viewModel.kampus2.value?.logo ?: "",
+                                contentDescription = "logo"
+                            )
+                            Text(
+                                text = viewModel.jurusan2.value?.nama_jurusan ?: "",
+                                style = MaterialTheme.typography.bodySmall
+                            )
+                            Text(
+                                text = viewModel.kampus2.value?.nama ?: "",
+                                style = MaterialTheme.typography.bodySmall
+                            )
+                        }
+                    }
+                }
+                if (viewModel.jurusan2.value != null && viewModel.jurusan1 != null) {
+                    Spacer(modifier = Modifier.height(40.dp))
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .background(color = CustDarkBlue, shape = RoundedCornerShape(20.dp))
+                            .clickable {
+                                navController.navigate(Screen.HasilBanding.route) {
+                                    popUpTo(Screen.PilihBanding.route) {
+                                        inclusive = true
+                                    }
+                                }
+                            },
+                        contentAlignment = Alignment.Center,
+                    ) {
+                        Text(
+                            modifier = Modifier.padding(vertical = 10.dp),
+                            text = "Mulai Sekarang",
+                            style = TextStyle(
+                                color = Color.White,
+                                fontWeight = FontWeight.SemiBold,
+                                fontSize = 19.sp
+                            )
+                        )
+                    }
+                }
             }
         }
     }
