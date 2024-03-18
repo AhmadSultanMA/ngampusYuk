@@ -1,6 +1,9 @@
 package com.example.ngampusyuk.data.user
 
+import com.example.ngampusyuk.model.berita.BeritaModel
 import com.example.ngampusyuk.model.kampus.KampusModel
+import com.example.ngampusyuk.model.soal.SoalModel
+import com.example.ngampusyuk.model.tryOutUser.TryOutUserModel
 import com.example.ngampusyuk.model.user.UserModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -77,6 +80,37 @@ class AuthRepository constructor(
                         )
                     )
                     return@addSnapshotListener
+                }
+            }
+    }
+
+    fun getTryoutUser(
+        tryout_id: String,
+        onSuccess: (TryOutUserModel) -> Unit,
+        onFailed: (Exception) -> Unit
+    ){
+        firestore
+            .collection("tryout_user")
+            .whereEqualTo("user_id", auth.currentUser?.uid ?: "")
+            .whereEqualTo("tryout_id", tryout_id)
+            .addSnapshotListener { value, error ->
+                if (error != null) {
+                    onFailed(error)
+                }
+                if (value != null) {
+                    val data = value.documents.firstOrNull()
+                    if (data != null) {
+                        val tryOutUserModel = TryOutUserModel(
+                            id = data.getString("id") ?: "",
+                            tryout_id = data.getString("tryout_id") ?: "",
+                            user_id = data.getString("user_id") ?: "",
+                        )
+                        onSuccess(tryOutUserModel)
+                    } else {
+                        onFailed(Exception("Data not found"))
+                    }
+                } else {
+                    onFailed(Exception("Value is null"))
                 }
             }
     }

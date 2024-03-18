@@ -15,5 +15,6 @@ sealed class Screen(val route: String){
     object PilihUniv : Screen("pilihuniv")
     object PilihJurusan : Screen("pilihjurusan")
     object HasilBanding : Screen("hasilbanding")
-
+    object PilihTO : Screen("pilihto")
+    object Soal : Screen("soal")
 }

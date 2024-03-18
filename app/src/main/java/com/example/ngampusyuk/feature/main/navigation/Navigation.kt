@@ -17,10 +17,12 @@ import com.example.ngampusyuk.feature.peluang.Peluang
 import com.example.ngampusyuk.feature.pilihBanding.PilihBanding
 import com.example.ngampusyuk.feature.pilihBanding.PilihBandingViewModel
 import com.example.ngampusyuk.feature.pilihJurusan.PilihJurusan
+import com.example.ngampusyuk.feature.pilihTO.PilihTO
 import com.example.ngampusyuk.feature.pilihUniv.PilihUniv
 import com.example.ngampusyuk.feature.profile.Profile
 import com.example.ngampusyuk.feature.signIn.SignIn
 import com.example.ngampusyuk.feature.signUp.SignUp
+import com.example.ngampusyuk.feature.soal.Soal
 import com.example.ngampusyuk.feature.splash.SplashScreen
 import com.example.ngampusyuk.feature.universitas.UniversitasScreen
 
@@ -116,6 +118,20 @@ fun Navigation() {
 
         composable(route = Screen.Tes.route) {
             Peluang(navController = navController)
+        }
+
+        composable(route = Screen.PilihTO.route) {
+            PilihTO(navController = navController)
+        }
+
+        composable(route = "${Screen.Soal.route}/{tryout_id}",
+            arguments = listOf(
+                navArgument("tryout_id") {
+                    type = NavType.StringType
+                },
+            )) {
+            val tryout_id = it.arguments?.getString("tryout_id") ?: ""
+            Soal(navController = navController, tryout_id)
         }
     }
 }

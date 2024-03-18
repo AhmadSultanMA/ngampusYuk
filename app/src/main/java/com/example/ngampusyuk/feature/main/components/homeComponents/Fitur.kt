@@ -2,6 +2,7 @@ package com.example.ngampusyuk.feature.main.components.homeComponents
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -27,11 +28,24 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.ngampusyuk.R
+import com.example.ngampusyuk.feature.main.route.Screen
 import com.example.ngampusyuk.ui.theme.CustLightBlue
 
 @Composable
-fun Fitur(modifier: Modifier = Modifier) {
+fun Fitur(navController: NavController, modifier: Modifier = Modifier) {
+    val images = listOf(
+        painterResource(R.drawable.fitur1),
+        painterResource(R.drawable.fitur2),
+        painterResource(R.drawable.fitur3)
+    )
+    val routes = listOf(
+        Screen.Tes.route,
+        Screen.Banding.route,
+        Screen.PilihTO.route
+    )
+
     Box(
         modifier
             .background(
@@ -42,11 +56,6 @@ fun Fitur(modifier: Modifier = Modifier) {
                 top = 15.dp
             )
     ) {
-        val images = listOf(
-            painterResource(R.drawable.fitur1),
-            painterResource(R.drawable.fitur1),
-            painterResource(R.drawable.fitur1)
-        )
         Column {
             Text(
                 text = "Fitur Menarik",
@@ -62,7 +71,7 @@ fun Fitur(modifier: Modifier = Modifier) {
                 modifier = Modifier.padding(start = 15.dp, end = 15.dp)
             )
             Spacer(modifier = Modifier.height(10.dp))
-            FiturCarousel(images = images, modifier
+            FiturCarousel(navController, images, routes,modifier
                 .fillMaxWidth()
                 .height(100.dp)
                 .padding(start = 15.dp)
@@ -72,7 +81,7 @@ fun Fitur(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun FiturCarousel(images: List<Painter>, modifier: Modifier = Modifier) {
+fun FiturCarousel(navController: NavController,images: List<Painter>, routes: List<String>, modifier: Modifier = Modifier) {
     val screenWidth = LocalConfiguration.current.screenWidthDp.dp
 
     LazyRow(
@@ -81,7 +90,15 @@ fun FiturCarousel(images: List<Painter>, modifier: Modifier = Modifier) {
     ) {
         itemsIndexed(images) { index, image ->
             Card(
-                modifier.fillParentMaxHeight(),
+                modifier
+                    .fillParentMaxHeight()
+                    .clickable {
+                        navController.navigate(routes[index]) {
+                            popUpTo(Screen.Home.route) {
+                                inclusive = true
+                            }
+                        }
+                    },
                 elevation = CardDefaults.cardElevation(
                     defaultElevation = 8.dp
                 )

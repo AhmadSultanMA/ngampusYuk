@@ -61,7 +61,7 @@ fun HomeScreen(navController: NavController) {
                     Spacer(modifier = Modifier.height(10.dp))
                     InfoKampus()
                     Spacer(modifier = Modifier.height(10.dp))
-                    Fitur()
+                    Fitur(navController)
                     Spacer(modifier = Modifier.height(10.dp))
                     Text(
                         text = "Rekomendasi Kampus",

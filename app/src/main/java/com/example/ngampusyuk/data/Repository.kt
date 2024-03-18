@@ -4,7 +4,10 @@ import android.util.Log
 import com.example.ngampusyuk.model.berita.BeritaModel
 import com.example.ngampusyuk.model.jurusan.JurusanModel
 import com.example.ngampusyuk.model.kampus.KampusModel
+import com.example.ngampusyuk.model.soal.SoalModel
+import com.example.ngampusyuk.model.tryout.TryOutModel
 import com.google.firebase.firestore.FirebaseFirestore
+import java.time.LocalDateTime
 
 class Repository constructor(
     private val firestore : FirebaseFirestore
@@ -321,6 +324,70 @@ class Repository constructor(
                             penulis_berita = doc["penulis_berita"] as String,
                             tanggal_berita = doc["tanggal_berita"] as String,
                         )
+                    )
+                    return@addSnapshotListener
+                }
+            }
+    }
+
+    fun getAllTO(
+        onSuccess: (List<TryOutModel>) -> Unit,
+        onFailed: (Exception) -> Unit
+    ){
+        firestore
+            .collection("tryout")
+            .addSnapshotListener { value, error ->
+                if (error != null) {
+                    onFailed(error)
+                    return@addSnapshotListener
+                }
+                value?.let {
+                    onSuccess(
+                        it.documents.map { doc ->
+                            val tanggal_start = doc["tanggal_start"]
+                            val tanggal_end = doc["tanggal_end"]
+                            TryOutModel(
+                                id = doc?.getString("id") ?: "",
+                                gambar = doc?.getString("gambar") ?: "",
+                                judul = doc?.getString("judul") ?: "",
+                                tanggal_start = tanggal_start.toString(),
+                                tanggal_end = tanggal_end.toString(),
+                            )
+                        }
+                    )
+                    return@addSnapshotListener
+                }
+            }
+    }
+
+    fun getAllSoal(
+        tryout_id: String,
+        onSuccess: (List<SoalModel>) -> Unit,
+        onFailed: (Exception) -> Unit
+    ){
+        firestore
+            .collection("soal")
+            .whereEqualTo("tryout_id", tryout_id)
+            .addSnapshotListener { value, error ->
+                if (error != null) {
+                    onFailed(error)
+                    return@addSnapshotListener
+                }
+                value?.let {
+                    onSuccess(
+                        it.documents.map { doc ->
+                            SoalModel(
+                                id = doc?.getString("id") ?: "",
+                                tryout_id = doc?.getString("tryout_id") ?: "",
+                                jawaban_a = doc?.getString("jawaban_a") ?: "",
+                                jawaban_b = doc?.getString("jawaban_b") ?: "",
+                                jawaban_c = doc?.getString("jawaban_c") ?: "",
+                                jawaban_d = doc?.getString("jawaban_d") ?: "",
+                                jawaban_benar = doc?.getString("jawaban_benar") ?: "",
+                                soal = doc?.getString("soal") ?: "",
+                                nomor = doc?.getLong("nomor") ?: 0
+                            )
+                        }
                     )
                     return@addSnapshotListener
                 }

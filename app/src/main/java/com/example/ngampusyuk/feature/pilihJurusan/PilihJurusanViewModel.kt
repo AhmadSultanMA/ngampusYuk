@@ -43,22 +43,22 @@ class PilihJurusanViewModel : ViewModel() {
                 jurusan.addAll(
                     it.map { model ->
                         JurusanModel(
-                            kampus_id = model.kampus_id ?: "",
-                            fakultas_id = model.fakultas_id ?: "",
-                            id = model.id ?: "",
-                            nama_jurusan = model.nama_jurusan ?: "",
-                            snbp = model.snbp ?: 0.0,
-                            snbt = model.snbt ?: 0.0,
-                            tipe = model.tipe ?: 0,
-                            jalur_masuk = model.jalur_masuk ?: "",
-                            ukt_minimal = model.ukt_minimal ?: "",
-                            ukt_maximal = model.ukt_maximal ?: "",
-                            akreditasi = model.akreditasi ?: "",
-                            jumlah_pendaftar = model.jumlah_pendaftar ?: 0,
-                            kuota = model.kuota ?: 0,
-                            passing_grade = model.passing_grade ?: 0,
-                            peluang_kerja = model.peluang_kerja ?: 0,
-                            tingkat_ketat = model.tingkat_ketat ?: 0
+                            kampus_id = model.kampus_id,
+                            fakultas_id = model.fakultas_id,
+                            id = model.id,
+                            nama_jurusan = model.nama_jurusan,
+                            snbp = model.snbp,
+                            snbt = model.snbt,
+                            tipe = model.tipe,
+                            jalur_masuk = model.jalur_masuk,
+                            ukt_minimal = model.ukt_minimal,
+                            ukt_maximal = model.ukt_maximal,
+                            akreditasi = model.akreditasi,
+                            jumlah_pendaftar = model.jumlah_pendaftar,
+                            kuota = model.kuota,
+                            passing_grade = model.passing_grade,
+                            peluang_kerja = model.peluang_kerja,
+                            tingkat_ketat = model.tingkat_ketat
                         )
                     }
                 )
