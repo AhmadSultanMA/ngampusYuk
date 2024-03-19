@@ -1,6 +1,7 @@
 package com.example.ngampusyuk.feature.main.components.peluangComponents
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -24,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import com.example.ngampusyuk.feature.main.route.Screen
 import com.example.ngampusyuk.model.jurusan.JurusanModel
 import com.example.ngampusyuk.model.kampus.KampusModel
 
@@ -33,8 +35,14 @@ fun RekomendasiJurusan(navController: NavController, kampus: KampusModel, jurusa
         .height(120.dp)
         .fillMaxWidth()
         .padding(horizontal = 15.dp, vertical = 5.dp)
-        .clip(shape = RoundedCornerShape(10)
-        )
+        .clip(shape = RoundedCornerShape(10))
+        .clickable {
+            navController.navigate("${Screen.Universitas.route}/${kampus.id}") {
+                popUpTo(Screen.Tes.route) {
+                    inclusive = true
+                }
+            }
+        }
     ){
         AsyncImage(
             model = kampus?.gambar_appbar ?: "",

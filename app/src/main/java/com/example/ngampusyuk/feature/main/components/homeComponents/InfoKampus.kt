@@ -1,6 +1,7 @@
 package com.example.ngampusyuk.feature.main.components.homeComponents
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -9,9 +10,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -23,11 +26,13 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.ngampusyuk.R
+import com.example.ngampusyuk.feature.main.route.Screen
 import com.example.ngampusyuk.ui.theme.CustLightBlue
 
 @Composable
-fun InfoKampus(modifier: Modifier = Modifier) {
+fun InfoKampus(navController: NavController ,modifier: Modifier = Modifier) {
     Column(
         modifier
             .fillMaxSize()
@@ -40,7 +45,7 @@ fun InfoKampus(modifier: Modifier = Modifier) {
         Text(
             text = "Info Kampus",
             color = Color.Black,
-            style = TextStyle(fontSize = 15.sp, fontWeight = FontWeight.Medium)
+            style = MaterialTheme.typography.bodyLarge,
         )
         Text(
             text = "Yuk cari tau jalur masuk Universitas kamu sekarang !",
@@ -51,7 +56,16 @@ fun InfoKampus(modifier: Modifier = Modifier) {
         Row(modifier.fillMaxWidth(),horizontalArrangement = Arrangement.SpaceBetween) {
             //SNBP
             Card(
-                modifier.height(90.dp).width(screenWidth*0.27f),
+                modifier
+                    .height(90.dp)
+                    .width(screenWidth*0.27f)
+                    .clickable {
+                        navController.navigate(Screen.SNBP.route) {
+                            popUpTo(Screen.Home.route) {
+                                inclusive = true
+                            }
+                        }
+                    },
                 elevation = CardDefaults.cardElevation(
                 defaultElevation = 8.dp
                 ),
@@ -64,7 +78,7 @@ fun InfoKampus(modifier: Modifier = Modifier) {
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Image(
-                            modifier = Modifier.width(40.dp).height(40.dp),
+                            modifier = Modifier.size(24.dp),
                             painter = painterResource(id = R.drawable.ic_snbp),
                             contentDescription = "iconSNBP"
                         )
@@ -98,7 +112,7 @@ fun InfoKampus(modifier: Modifier = Modifier) {
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Image(
-                            modifier = Modifier.width(40.dp).height(40.dp),
+                            modifier = Modifier.size(24.dp),
                             painter = painterResource(id = R.drawable.ic_snbt),
                             contentDescription = "iconSNBT"
                         )
@@ -132,7 +146,7 @@ fun InfoKampus(modifier: Modifier = Modifier) {
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Image(
-                            modifier = Modifier.width(40.dp).height(40.dp),
+                            modifier = Modifier.size(24.dp),
                             painter = painterResource(id = R.drawable.ic_mandiri),
                             contentDescription = "iconMandiri"
                         )

@@ -40,28 +40,7 @@ class PilihJurusanViewModel : ViewModel() {
             kampus_id,
             onSuccess = {
                 jurusan.clear()
-                jurusan.addAll(
-                    it.map { model ->
-                        JurusanModel(
-                            kampus_id = model.kampus_id,
-                            fakultas_id = model.fakultas_id,
-                            id = model.id,
-                            nama_jurusan = model.nama_jurusan,
-                            snbp = model.snbp,
-                            snbt = model.snbt,
-                            tipe = model.tipe,
-                            jalur_masuk = model.jalur_masuk,
-                            ukt_minimal = model.ukt_minimal,
-                            ukt_maximal = model.ukt_maximal,
-                            akreditasi = model.akreditasi,
-                            jumlah_pendaftar = model.jumlah_pendaftar,
-                            kuota = model.kuota,
-                            passing_grade = model.passing_grade,
-                            peluang_kerja = model.peluang_kerja,
-                            tingkat_ketat = model.tingkat_ketat
-                        )
-                    }
-                )
+                jurusan.addAll(it)
             },
             onFailed = {
                 Log.e("ERROR", it.toString())

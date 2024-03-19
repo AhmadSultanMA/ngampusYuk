@@ -17,24 +17,7 @@ class PilihUnivViewModel: ViewModel() {
         repository.getAllKampus(
             onSuccess = {
                 kampus.clear()
-                kampus.addAll(
-                    it.map { model ->
-                        KampusModel(
-                            id = model.id,
-                            nama = model.nama,
-                            email_kampus = model.email_kampus,
-                            jenis = model.jenis,
-                            akreditasi = model.akreditasi,
-                            status = model.status,
-                            no_telp = model.no_telp,
-                            alamat = model.alamat,
-                            logo = model.logo,
-                            gambar_appbar = model.gambar_appbar,
-                            gambar_gedung = model.gambar_gedung,
-                            singkatan = model.singkatan,
-                        )
-                    }
-                )
+                kampus.addAll(it)
             },
             onFailed = {
                 Log.e("ERROR", it.toString())

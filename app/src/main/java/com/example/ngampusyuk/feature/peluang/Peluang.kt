@@ -1,6 +1,7 @@
 package com.example.ngampusyuk.feature.peluang
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -38,7 +39,7 @@ fun Peluang(navController: NavController) {
                 BottomNavigationBar(navController = navController)
             }
         }) {
-        Box {
+        Box(Modifier.background(color = Color.White)) {
             LazyColumn(modifier = Modifier.fillMaxSize()) {
                 item{
                     AppBar()

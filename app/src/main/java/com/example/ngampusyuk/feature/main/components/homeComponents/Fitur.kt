@@ -16,6 +16,7 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -60,7 +61,7 @@ fun Fitur(navController: NavController, modifier: Modifier = Modifier) {
             Text(
                 text = "Fitur Menarik",
                 color = Color.Black,
-                style = TextStyle(fontSize = 15.sp, fontWeight = FontWeight.Medium),
+                style = MaterialTheme.typography.bodyLarge,
                 modifier = Modifier.padding(start = 15.dp, end = 15.dp)
 
             )

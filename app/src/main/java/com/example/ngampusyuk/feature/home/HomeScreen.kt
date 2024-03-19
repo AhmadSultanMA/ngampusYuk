@@ -1,6 +1,7 @@
 package com.example.ngampusyuk.feature.home
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -52,21 +53,21 @@ fun HomeScreen(navController: NavController) {
             BottomNavigationBar(navController = navController)
         }
     }) {
-        Box {
+        Box(Modifier.background(color = Color.White)) {
             LazyColumn(modifier = Modifier.fillMaxSize()) {
                 item {
                     AppBar(name = viewModel.user.value?.nama ?: "", viewModel.kampus, viewModel, modifier = Modifier.height(190.dp))
                     Spacer(modifier = Modifier.height(10.dp))
                     Iklan()
                     Spacer(modifier = Modifier.height(10.dp))
-                    InfoKampus()
+                    InfoKampus(navController)
                     Spacer(modifier = Modifier.height(10.dp))
                     Fitur(navController)
                     Spacer(modifier = Modifier.height(10.dp))
                     Text(
                         text = "Rekomendasi Kampus",
                         color = Color.Black,
-                        style = TextStyle(fontSize = 15.sp, fontWeight = FontWeight.Medium),
+                        style = MaterialTheme.typography.bodyLarge,
                         modifier = Modifier.padding(start = 15.dp, end = 15.dp)
                     )
                     Text(

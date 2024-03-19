@@ -360,6 +360,35 @@ class Repository constructor(
             }
     }
 
+    fun getTOById(
+        id: String,
+        onSuccess: (TryOutModel) -> Unit,
+        onFailed: (Exception) -> Unit
+    ){
+        firestore
+            .collection("tryout")
+            .document(id)
+            .addSnapshotListener { value, error ->
+                if (error != null) {
+                    onFailed(error)
+                }
+                value?.let { doc ->
+                    val tanggal_start = doc["tanggal_start"]
+                    val tanggal_end = doc["tanggal_end"]
+                    onSuccess(
+                        TryOutModel(
+                            id = doc?.getString("id") ?: "",
+                            gambar = doc?.getString("gambar") ?: "",
+                            judul = doc?.getString("judul") ?: "",
+                            tanggal_start = tanggal_start.toString(),
+                            tanggal_end = tanggal_end.toString()
+                            )
+                    )
+                    return@addSnapshotListener
+                }
+            }
+    }
+
     fun getAllSoal(
         tryout_id: String,
         onSuccess: (List<SoalModel>) -> Unit,
@@ -394,4 +423,57 @@ class Repository constructor(
             }
     }
 
+    fun getSoalById(
+        id: String,
+        onSuccess: (SoalModel) -> Unit,
+        onFailed: (Exception) -> Unit
+    ){
+        firestore
+            .collection("soal")
+            .document(id)
+            .addSnapshotListener { value, error ->
+                if (error != null) {
+                    onFailed(error)
+                }
+                value?.let { doc ->
+                    onSuccess(
+                        SoalModel(
+                            id = doc?.getString("id") ?: "",
+                            soal = doc?.getString("soal") ?: "",
+                            jawaban_a = doc?.getString("jawaban_a") ?: "",
+                            jawaban_b = doc?.getString("jawaban_b") ?: "",
+                            jawaban_c = doc?.getString("jawaban_c") ?: "",
+                            jawaban_d = doc?.getString("jawaban_d") ?: "",
+                            jawaban_benar = doc?.getString("jawaban_benar") ?: "",
+                            tryout_id = doc?.getString("tryout_id") ?: "",
+                            nomor = doc?.getLong("nomor") ?: 0,
+                        )
+                    )
+                    return@addSnapshotListener
+                }
+            }
+    }
+
+    fun updateSoalUser(
+        id: String,
+        jawab: String,
+        benar: Boolean,
+        onSuccess: () -> Unit,
+        onFailed: (Exception) -> Unit
+    ){
+        val updates = hashMapOf<String, Any>(
+            "jawab" to jawab,
+            "benar" to benar
+        )
+        firestore
+            .collection("soal_user")
+            .document(id)
+            .update(updates)
+            .addOnSuccessListener {
+                onSuccess()
+            }
+            .addOnFailureListener{
+                onFailed(it)
+            }
+    }
 }

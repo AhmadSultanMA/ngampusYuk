@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -23,7 +24,7 @@ fun PilihTO(navController: NavController) {
         items(viewModel.tryOut.size){ index ->
             val to = viewModel.tryOut[index]
             Spacer(modifier = Modifier.height(10.dp))
-            TryOutCard(navController, to, viewModel)
+            TryOutCard(navController, to)
         }
         item {
             Spacer(modifier = Modifier.height(10.dp))

@@ -14,6 +14,7 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -57,7 +58,7 @@ fun Iklan(modifier: Modifier = Modifier) {
             Text(
                 text = "Special Offers",
                 color = Color.Black,
-                style = TextStyle(fontSize = 15.sp, fontWeight = FontWeight.Medium)
+                style = MaterialTheme.typography.bodyLarge,
             )
             Text(
                 text = "See All",

@@ -18,21 +18,19 @@ class TryOutViewModel : ViewModel() {
     val repository = Repository(firestore)
 
     val tryOut = mutableStateListOf<TryOutModel>()
-    val tryOutUser = mutableStateOf<TryOutUserModel?>(null)
+    val tryOutUser = mutableStateListOf<TryOutUserModel>()
 
-    fun getTryOutUser(
-        tryout_id : String
-    ){
+    init {
         authRepository.getTryoutUser(
-            tryout_id,
-            onSuccess = {tryOutUser.value = it},
+            onSuccess = {
+                tryOutUser.clear()
+                tryOutUser.addAll(it)
+            },
             onFailed = {
                 Log.e("ERROR", it.toString())
             }
         )
-    }
 
-    init {
         repository.getAllTO(
             onSuccess = {
                 tryOut.clear()
@@ -44,6 +42,9 @@ class TryOutViewModel : ViewModel() {
                             tanggal_start = model.tanggal_start,
                             tanggal_end = model.tanggal_end,
                             judul = model.judul,
+                            status = mutableStateOf(tryOutUser.any{
+                                it.tryout_id == model.id && (auth.currentUser?.uid ?: "") == it.user_id
+                            })
                         )
                     }
                 )

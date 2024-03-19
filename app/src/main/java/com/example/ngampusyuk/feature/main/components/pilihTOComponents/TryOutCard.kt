@@ -33,19 +33,26 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.ngampusyuk.R
 import com.example.ngampusyuk.feature.main.route.Screen
-import com.example.ngampusyuk.feature.pilihTO.TryOutViewModel
 import com.example.ngampusyuk.model.tryout.TryOutModel
 
 @Composable
-fun TryOutCard(navController: NavController, data : TryOutModel, tryout: TryOutViewModel,modifier: Modifier = Modifier) {
+fun TryOutCard(navController: NavController, data : TryOutModel, modifier: Modifier = Modifier) {
     Card(
         modifier
             .fillMaxWidth()
             .padding(horizontal = 15.dp)
             .clickable {
-                navController.navigate("${Screen.Soal.route}/${data.id}") {
-                    popUpTo(Screen.PilihTO.route) {
-                        inclusive = true
+                if(data.status.value){
+                    navController.navigate(Screen.Nilai.route) {
+                        popUpTo(Screen.PilihTO.route) {
+                            inclusive = true
+                        }
+                    }
+                }else{
+                    navController.navigate("${Screen.Peraturan.route}/${data.id}") {
+                        popUpTo(Screen.PilihTO.route) {
+                            inclusive = true
+                        }
                     }
                 }
             },
@@ -78,11 +85,31 @@ fun TryOutCard(navController: NavController, data : TryOutModel, tryout: TryOutV
                             )
                         }
                     }
-                    Icon(
-                        Icons.Default.KeyboardArrowRight,
-                        contentDescription = "icon",
-                        tint = Color.Black
-                    )
+                    if (data.status.value){
+                        Card(
+                            shape = RoundedCornerShape(15.dp),
+                            elevation = CardDefaults.cardElevation(
+                                defaultElevation = 8.dp
+                            )
+                        ) {
+                            Row(
+                                modifier
+                                    .background(color = Color.White, shape = RoundedCornerShape(50))
+                                    .padding(horizontal = 8.dp, vertical = 4.dp),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Text(text = "Selesai", style = MaterialTheme.typography.bodySmall)
+                                Spacer(modifier = Modifier.width(3.dp))
+                                Image(painter = painterResource(id = R.drawable.ic_selesai), contentDescription = "icon", Modifier.size(18.dp))
+                            }
+                        }
+                    }else{
+                        Icon(
+                            Icons.Default.KeyboardArrowRight,
+                            contentDescription = "icon",
+                            tint = Color.Black
+                        )
+                    }
                 }
             }
         }

@@ -1,5 +1,8 @@
 package com.example.ngampusyuk.model.soal
 
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+
 data class SoalModel(
     val id : String,
     val tryout_id : String,
@@ -10,4 +13,5 @@ data class SoalModel(
     val jawaban_benar : String,
     val nomor : Long,
     val soal : String,
+    val status : MutableState<Boolean> = mutableStateOf(false)
 )

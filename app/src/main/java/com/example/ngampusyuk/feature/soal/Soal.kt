@@ -1,29 +1,123 @@
 package com.example.ngampusyuk.feature.soal
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.ngampusyuk.feature.main.components.soalComponents.AppBar
+import com.example.ngampusyuk.feature.main.components.soalComponents.IsiSoal
+import com.example.ngampusyuk.ui.theme.CustBlue
+import com.example.ngampusyuk.ui.theme.CustDarkBlue
 
 @Composable
-fun Soal(navController: NavController, tryout_id : String) {
+fun Soal(navController: NavController, tryout_id : String, tryout_user_id: String) {
     val viewModel : SoalViewModel = viewModel()
 
     LaunchedEffect(key1 = true){
         viewModel.getAllSoal(tryout_id)
     }
+    val soalNomorSatu = viewModel.soal.find { it.nomor == 1L }
+    if (soalNomorSatu != null) {
+        viewModel.getSoalById(soalNomorSatu.id)
+    }
+    val soalSortedByNomor = viewModel.soal.sortedBy { it.nomor }
 
     LazyColumn{
-        items(viewModel.soal.size){index ->
-            val soal = viewModel.soal[index]
-
-            Text(text = soal.jawaban_a)
-            Text(text = soal.jawaban_b)
-            Text(text = soal.jawaban_c)
-            Text(text = soal.jawaban_d)
+        item {
+            AppBar()
+            Spacer(modifier = Modifier.height(10.dp))
+            LazyRow {
+                items(soalSortedByNomor.size) { index ->
+                    val nomor = soalSortedByNomor[index].nomor
+                    Spacer(modifier = Modifier.width(10.dp))
+                    Box(
+                        modifier =
+                        Modifier
+                            .size(50.dp)
+                            .clip(CircleShape)
+                            .background(
+                                color =
+                                if (viewModel.soalId.value?.nomor == soalSortedByNomor[index].nomor) CustBlue
+                                else if (soalSortedByNomor[index].status.value ) Color.Green
+                                else Color.White
+                            )
+                            .clickable { viewModel.getSoalById(soalSortedByNomor[index].id) },
+                        contentAlignment = Alignment.Center,
+                    ){
+                        Text(text = nomor.toString(), style = MaterialTheme.typography.headlineSmall)
+                    }
+                }
+            }
+            Spacer(modifier = Modifier.width(20.dp))
+            IsiSoal(viewModel.soalId.value, viewModel.soalUser, viewModel, tryout_user_id)
+        }
+        item {
+            Spacer(modifier = Modifier.height(20.dp))
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center
+            ) {
+                Box(
+                    modifier = Modifier
+                        .background(color = CustDarkBlue, shape = RoundedCornerShape(20))
+                        .clickable
+                    {
+                        val currentIndex = soalSortedByNomor.indexOfFirst { it.id == viewModel.soalId.value?.id }
+                        if (currentIndex > 0) {
+                            viewModel.getSoalById(soalSortedByNomor[currentIndex - 1].id)
+                        }
+                    }
+                ) {
+                    Text(
+                        modifier = Modifier.padding(horizontal = 24.dp, vertical = 8.dp),
+                        text = "Sebelumnya", style = MaterialTheme.typography.labelMedium,
+                        color = Color.White
+                    )
+                }
+                Spacer(modifier = Modifier.width(16.dp))
+                Box(
+                    modifier = Modifier
+                        .background(color = CustDarkBlue, shape = RoundedCornerShape(20))
+                        .clickable
+                    {
+                        val currentIndex = soalSortedByNomor.indexOfFirst { it.id == viewModel.soalId.value?.id }
+                        if (currentIndex < soalSortedByNomor.size - 1) {
+                            viewModel.getSoalById(soalSortedByNomor[currentIndex + 1].id)
+                        }
+                    }
+                ) {
+                    Text(
+                        modifier = Modifier.padding(horizontal = 24.dp, vertical = 8.dp),
+                        text = "Selanjutnya", style = MaterialTheme.typography.labelMedium,
+                        color = Color.White
+                    )
+                }
+            }
+            Spacer(modifier = Modifier.height(20.dp))
         }
     }
 }

@@ -31,24 +31,7 @@ class HomeViewModel : ViewModel() {
         repository.getAllKampus(
             onSuccess = {
                 kampus.clear()
-                kampus.addAll(
-                    it.map { model ->
-                        KampusModel(
-                            id = model.id,
-                            nama = model.nama,
-                            email_kampus = model.email_kampus,
-                            jenis = model.jenis,
-                            akreditasi = model.akreditasi,
-                            status = model.status,
-                            no_telp = model.no_telp,
-                            alamat = model.alamat,
-                            logo = model.logo,
-                            gambar_appbar = model.gambar_appbar,
-                            gambar_gedung = model.gambar_gedung,
-                            singkatan = model.singkatan,
-                        )
-                    }
-                )
+                kampus.addAll(it)
             },
             onFailed = {
                 Log.e("ERROR", it.toString())
@@ -58,19 +41,7 @@ class HomeViewModel : ViewModel() {
         repository.getAllBerita(
             onSuccess = {
                 berita.clear()
-                berita.addAll(
-                    it.map { model ->
-                        BeritaModel(
-                            id = model.id,
-                            email_berita = model.email_berita,
-                            gambar_berita = model.gambar_berita,
-                            isi_berita = model.isi_berita,
-                            judul_berita = model.judul_berita,
-                            penulis_berita = model.penulis_berita,
-                            tanggal_berita = model.tanggal_berita
-                        )
-                    }
-                )
+                berita.addAll(it)
             },
             onFailed = {
                 Log.e("ERROR", it.toString())

@@ -3,10 +3,12 @@ package com.example.ngampusyuk.data.user
 import com.example.ngampusyuk.model.berita.BeritaModel
 import com.example.ngampusyuk.model.kampus.KampusModel
 import com.example.ngampusyuk.model.soal.SoalModel
+import com.example.ngampusyuk.model.soalUser.SoalUserModel
 import com.example.ngampusyuk.model.tryOutUser.TryOutUserModel
 import com.example.ngampusyuk.model.user.UserModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import java.util.UUID
 
 class AuthRepository constructor(
     val auth : FirebaseAuth,
@@ -84,33 +86,111 @@ class AuthRepository constructor(
             }
     }
 
-    fun getTryoutUser(
+    fun postTryoutUser(
         tryout_id: String,
-        onSuccess: (TryOutUserModel) -> Unit,
+        onSuccess: (String) -> Unit,
+        onFailed: (Exception) -> Unit
+    ){
+        val id = UUID.randomUUID().toString()
+        firestore
+            .collection("tryout_user")
+            .document(id)
+            .set(
+                TryOutUserModel(
+                    id = id,
+                    tryout_id = tryout_id,
+                    user_id = auth.currentUser?.uid ?: ""
+                )
+            )
+            .addOnSuccessListener {
+                onSuccess(id)
+            }
+            .addOnFailureListener {
+                onFailed(it)
+            }
+    }
+
+    fun getTryoutUser(
+        onSuccess: (List<TryOutUserModel>) -> Unit,
         onFailed: (Exception) -> Unit
     ){
         firestore
             .collection("tryout_user")
             .whereEqualTo("user_id", auth.currentUser?.uid ?: "")
-            .whereEqualTo("tryout_id", tryout_id)
             .addSnapshotListener { value, error ->
                 if (error != null) {
                     onFailed(error)
                 }
-                if (value != null) {
-                    val data = value.documents.firstOrNull()
-                    if (data != null) {
-                        val tryOutUserModel = TryOutUserModel(
-                            id = data.getString("id") ?: "",
-                            tryout_id = data.getString("tryout_id") ?: "",
-                            user_id = data.getString("user_id") ?: "",
-                        )
-                        onSuccess(tryOutUserModel)
-                    } else {
-                        onFailed(Exception("Data not found"))
-                    }
-                } else {
-                    onFailed(Exception("Value is null"))
+                value?.let {
+                    onSuccess(
+                        it.documents.map { doc ->
+                            TryOutUserModel(
+                                id = doc?.getString("id") ?: "",
+                                tryout_id = doc?.getString("tryout_id") ?: "",
+                               user_id = doc?.getString("user_id") ?: "",
+                            )
+                        }
+                    )
+                    return@addSnapshotListener
+                }
+            }
+    }
+
+    fun postSoalUser(
+        jawab: String,
+        benar: Boolean,
+        tryout_user_id: String,
+        soal_id: String,
+        onSuccess: () -> Unit,
+        onFailed: (Exception) -> Unit
+    ){
+        val id = UUID.randomUUID().toString()
+        firestore
+            .collection("soal_user")
+            .document(id)
+            .set(
+                SoalUserModel(
+                    id = id,
+                    user_id = auth.currentUser?.uid ?: "",
+                    jawab = jawab,
+                    benar = benar,
+                    soal_id = soal_id,
+                    tryout_user_id = tryout_user_id
+                )
+            )
+            .addOnSuccessListener {
+                onSuccess()
+            }
+            .addOnFailureListener {
+                onFailed(it)
+            }
+    }
+
+    fun getSoalUser(
+        onSuccess: (List<SoalUserModel>) -> Unit,
+        onFailed: (Exception) -> Unit
+    ){
+        firestore
+            .collection("soal_user")
+            .whereEqualTo("user_id", auth.currentUser?.uid ?: "")
+            .addSnapshotListener { value, error ->
+                if (error != null) {
+                    onFailed(error)
+                }
+                value?.let {
+                    onSuccess(
+                        it.documents.map { doc ->
+                            SoalUserModel(
+                                id = doc?.getString("id") ?: "",
+                                soal_id = doc?.getString("soal_id") ?: "",
+                                tryout_user_id = doc?.getString("tryout_user_id") ?: "",
+                                user_id = doc?.getString("user_id") ?: "",
+                                benar = doc?.getBoolean("benar") ?: false,
+                                jawab = doc?.getString("jawab") ?: "",
+                            )
+                        }
+                    )
+                    return@addSnapshotListener
                 }
             }
     }

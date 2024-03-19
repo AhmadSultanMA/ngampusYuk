@@ -1,4 +1,6 @@
-package com.example.ngampusyuk.feature.main.components.pilihTOComponents
+package com.example.ngampusyuk.feature.main.components.peraturanComponents
+
+
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -21,10 +23,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.ngampusyuk.feature.main.route.Screen
+import com.example.ngampusyuk.model.tryout.TryOutModel
 import com.example.ngampusyuk.ui.theme.CustBlue
 
 @Composable
-fun AppBar(navController: NavController, modifier: Modifier = Modifier) {
+fun AppBar(navController: NavController, data: TryOutModel? , modifier: Modifier = Modifier) {
     Box(modifier = Modifier
         .fillMaxWidth()
         .background(CustBlue)){
@@ -34,8 +37,8 @@ fun AppBar(navController: NavController, modifier: Modifier = Modifier) {
         ) {
             IconButton(
                 onClick = {
-                    navController.navigate(Screen.Home.route) {
-                        popUpTo(Screen.PilihTO.route) {
+                    navController.navigate(Screen.PilihTO.route) {
+                        popUpTo("${Screen.Peraturan.route}/${data?.id}") {
                             inclusive = true
                         }
                     }
@@ -48,7 +51,7 @@ fun AppBar(navController: NavController, modifier: Modifier = Modifier) {
             }
             Text(
                 modifier = Modifier.fillMaxWidth(0.83f),
-                text = "Try Out",
+                text = data?.judul ?: "",
                 style = TextStyle(color = Color.White, fontSize = 24.sp, fontWeight = FontWeight.Bold, textAlign = TextAlign.Center)
             )
         }

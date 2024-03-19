@@ -1,4 +1,4 @@
-package com.example.ngampusyuk.feature.main.components.pilihTOComponents
+package com.example.ngampusyuk.feature.main.components.snbpComponents
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -35,7 +35,7 @@ fun AppBar(navController: NavController, modifier: Modifier = Modifier) {
             IconButton(
                 onClick = {
                     navController.navigate(Screen.Home.route) {
-                        popUpTo(Screen.PilihTO.route) {
+                        popUpTo(Screen.SNBP.route) {
                             inclusive = true
                         }
                     }
@@ -48,7 +48,7 @@ fun AppBar(navController: NavController, modifier: Modifier = Modifier) {
             }
             Text(
                 modifier = Modifier.fillMaxWidth(0.83f),
-                text = "Try Out",
+                text = "SNBP",
                 style = TextStyle(color = Color.White, fontSize = 24.sp, fontWeight = FontWeight.Bold, textAlign = TextAlign.Center)
             )
         }

@@ -1,6 +1,7 @@
 package com.example.ngampusyuk.feature.universitas
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -41,7 +42,7 @@ fun UniversitasScreen(navController: NavController, kampus_id : String) {
                 BottomNavigationBar(navController = navController)
             }
         }) {
-        LazyColumn(modifier = Modifier.fillMaxSize()) {
+        LazyColumn(modifier = Modifier.fillMaxSize().background(color = Color.White)) {
             item {
                 AppBar(viewModel.kampus.value)
                 Kontak(viewModel.kampus.value)
