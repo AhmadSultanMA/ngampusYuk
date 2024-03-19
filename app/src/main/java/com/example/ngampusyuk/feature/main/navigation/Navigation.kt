@@ -25,6 +25,7 @@ import com.example.ngampusyuk.feature.profile.Profile
 import com.example.ngampusyuk.feature.signIn.SignIn
 import com.example.ngampusyuk.feature.signUp.SignUp
 import com.example.ngampusyuk.feature.snbp.SNBP
+import com.example.ngampusyuk.feature.snbpDetail.SNBPDetail
 import com.example.ngampusyuk.feature.soal.Soal
 import com.example.ngampusyuk.feature.splash.SplashScreen
 import com.example.ngampusyuk.feature.universitas.UniversitasScreen
@@ -154,6 +155,16 @@ fun Navigation() {
             )) {
             val id = it.arguments?.getString("id") ?: ""
             Peraturan(navController = navController, id)
+        }
+
+        composable(route = "${Screen.SNBPDetail.route}/{id}",
+            arguments = listOf(
+                navArgument("id") {
+                    type = NavType.StringType
+                },
+            )) {
+            val id = it.arguments?.getString("id") ?: ""
+            SNBPDetail(navController = navController, id)
         }
 
         composable(route = Screen.SNBP.route) {

@@ -4,6 +4,7 @@ import android.util.Log
 import com.example.ngampusyuk.model.berita.BeritaModel
 import com.example.ngampusyuk.model.jurusan.JurusanModel
 import com.example.ngampusyuk.model.kampus.KampusModel
+import com.example.ngampusyuk.model.snbp.SnbpModel
 import com.example.ngampusyuk.model.soal.SoalModel
 import com.example.ngampusyuk.model.tryout.TryOutModel
 import com.google.firebase.firestore.FirebaseFirestore
@@ -474,6 +475,61 @@ class Repository constructor(
             }
             .addOnFailureListener{
                 onFailed(it)
+            }
+    }
+
+    fun getAllSNBP(
+        onSuccess: (List<SnbpModel>) -> Unit,
+        onFailed: (Exception) -> Unit
+    ){
+        firestore
+            .collection("snbp")
+            .addSnapshotListener { value, error ->
+                if (error != null) {
+                    onFailed(error)
+                    return@addSnapshotListener
+                }
+                value?.let {
+                    onSuccess(
+                        it.documents.map { doc ->
+                            SnbpModel(
+                                id = doc?.getString("id") ?: "",
+                                isi = doc?.getString("isi") ?: "",
+                                gambar= doc?.getString("gambar") ?: "",
+                                judul = doc?.getString("judul") ?: "",
+                                sub_judul = doc?.getString("sub_judul") ?: "",
+                            )
+                        }
+                    )
+                    return@addSnapshotListener
+                }
+            }
+    }
+
+    fun getSNBPById(
+        id: String,
+        onSuccess: (SnbpModel) -> Unit,
+        onFailed: (Exception) -> Unit
+    ) {
+        firestore
+            .collection("snbp")
+            .document(id)
+            .addSnapshotListener { value, error ->
+                if (error != null) {
+                    onFailed(error)
+                }
+                value?.let { doc ->
+                    onSuccess(
+                        SnbpModel(
+                            id = doc?.getString("id") ?: "",
+                            isi = doc?.getString("isi") ?: "",
+                            gambar= doc?.getString("gambar") ?: "",
+                            judul = doc?.getString("judul") ?: "",
+                            sub_judul = doc?.getString("sub_judul") ?: "",
+                        )
+                    )
+                    return@addSnapshotListener
+                }
             }
     }
 }

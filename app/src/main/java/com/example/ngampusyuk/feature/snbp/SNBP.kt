@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
@@ -19,17 +20,22 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.ngampusyuk.feature.main.components.homeComponents.BeritaCard
 import com.example.ngampusyuk.feature.main.components.snbpComponents.AppBar
 import com.example.ngampusyuk.feature.main.components.snbpComponents.JadwalBulan
 import com.example.ngampusyuk.feature.main.components.snbpComponents.JadwalCalendar
 import com.example.ngampusyuk.feature.main.components.snbpComponents.SemuaAlur
 import com.example.ngampusyuk.feature.main.components.snbpComponents.SemuaJadwal
 import com.example.ngampusyuk.feature.main.components.snbpComponents.SemuaPersyaratan
+import com.example.ngampusyuk.feature.main.components.snbpComponents.SemuaProsedur
+import com.example.ngampusyuk.feature.main.components.snbpComponents.SnbpCard
 import com.example.ngampusyuk.feature.main.components.snbpComponents.SyaratSekolah
 import com.example.ngampusyuk.feature.main.components.snbpComponents.SyaratSiswa
-import com.example.ngampusyuk.ui.theme.CustDarkBlue
+import com.example.ngampusyuk.feature.main.route.Screen
 import com.example.ngampusyuk.ui.theme.Primary05
 
 @Composable
@@ -38,6 +44,8 @@ fun SNBP(navController: NavController) {
     val selectedItem = remember{
         mutableStateOf("Semua")
     }
+    val viewModel: SNBPViewModel = viewModel()
+    val screenWidth = LocalConfiguration.current.screenWidthDp.dp
 
     LazyColumn{
         item{
@@ -79,11 +87,42 @@ fun SNBP(navController: NavController) {
                     )
                 }
                 Spacer(modifier = Modifier.height(10.dp))
+            }
+                val chunks = viewModel.snbp.chunked(2)
+                items(chunks.size){index ->
+                    Row(Modifier.fillMaxWidth().padding(horizontal = 15.dp) ,horizontalArrangement = Arrangement.SpaceBetween) {
+                        chunks[index].forEach{item->
+                            Box(modifier = Modifier
+                                .width(screenWidth * 0.44f)
+                                .clickable {
+                                    navController.navigate("${Screen.SNBPDetail.route}/${item.id}") {
+                                        popUpTo(Screen.SNBP.route) {
+                                            inclusive = true
+                                        }
+                                    }
+                                },){
+                                SnbpCard(
+                                    item.gambar,
+                                    item.judul,
+                                    item.sub_judul
+                                )
+                            }
+                        }
+                    }
+                    if (index < chunks.size - 1) {
+                        Spacer(modifier = Modifier.height(10.dp))
+                    }
+                }
+            item{
+                Spacer(modifier = Modifier.height(10.dp))
                 SemuaJadwal(selectedItem)
                 Spacer(modifier = Modifier.height(10.dp))
                 SemuaPersyaratan(selectedItem)
                 Spacer(modifier = Modifier.height(10.dp))
                 SemuaAlur()
+                Spacer(modifier = Modifier.height(10.dp))
+                SemuaProsedur()
+                Spacer(modifier = Modifier.height(10.dp))
             }
         }else if (selectedItem.value == "Jadwal"){
             item{
