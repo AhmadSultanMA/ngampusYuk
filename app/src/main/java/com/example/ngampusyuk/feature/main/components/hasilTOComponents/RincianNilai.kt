@@ -18,11 +18,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 
 @Composable
 fun RincianNilai(paint: Painter, text: String, nilai: Long, color: Color) {
+    val screenWidth = LocalConfiguration.current.screenWidthDp.dp
     Box(
         modifier = Modifier
             .padding(horizontal = 15.dp)
@@ -35,7 +37,7 @@ fun RincianNilai(paint: Painter, text: String, nilai: Long, color: Color) {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Image(painter = paint, contentDescription = "ic", Modifier.size(60.dp))
-            Text(modifier = Modifier.width(220.dp),text = text, style = MaterialTheme.typography.labelLarge, color = Color.White, textAlign = TextAlign.Start)
+            Text(modifier = Modifier.width(screenWidth * 0.5f),text = text, style = MaterialTheme.typography.labelLarge, color = Color.White, textAlign = TextAlign.Start)
             Spacer(modifier = Modifier.width(10.dp))
             Text(text = nilai.toString(), style = MaterialTheme.typography.labelLarge, color = Color.White)
 
