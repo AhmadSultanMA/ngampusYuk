@@ -21,6 +21,7 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
@@ -49,6 +50,7 @@ fun Input(viewModel: PeluangViewModel, navController: NavController, modifier: M
                 ) {
                     Text(
                         modifier = Modifier
+                            .background(color = Color.White)
                             .padding(vertical = 4.dp, horizontal = 12.dp)
                             .clickable {
                                 navController.navigate(Screen.PilihTO.route) {
@@ -101,7 +103,8 @@ fun Skor(
         OutlinedTextField(
             modifier = modifier
                 .fillMaxWidth()
-                .background(Color.White, shape = RoundedCornerShape(20.dp)),
+                .background(Color.White)
+                .clip(shape = RoundedCornerShape(20.dp)),
             value = value,
             shape = RoundedCornerShape(20.dp),
             onValueChange = {
@@ -139,7 +142,8 @@ fun jurusan(
         OutlinedTextField(
             modifier = modifier
                 .fillMaxWidth()
-                .background(Color.White, shape = RoundedCornerShape(20.dp)),
+                .background(Color.White)
+                .clip(shape = RoundedCornerShape(20.dp)),
             value = value,
             shape = RoundedCornerShape(20.dp),
             onValueChange = {

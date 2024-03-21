@@ -1,7 +1,9 @@
 package com.example.ngampusyuk.feature.signIn
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -13,11 +15,14 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -113,23 +118,9 @@ fun SignIn(navController: NavController) {
                    )
 
                    Column {
-                       Text(text = "Email",
-                           style = TextStyle(
-                               fontSize = 16.sp,
-                               fontWeight = FontWeight.SemiBold,
-                           )
-                       )
+                       EmailField(value = email.value, onValueChange = { email.value = it },Modifier.height(60.dp))
                        Spacer(modifier = Modifier.height(10.dp))
-                       EmailField(value = email.value, onValueChange = { email.value = it },Modifier.height(50.dp))
-                       Spacer(modifier = Modifier.height(10.dp))
-                       Text(text = "Password",
-                           style = TextStyle(
-                               fontSize = 16.sp,
-                               fontWeight = FontWeight.SemiBold,
-                           )
-                       )
-                       Spacer(modifier = Modifier.height(10.dp))
-                       PasswordField(value = password.value, onValueChange = { password.value = it },Modifier.height(50.dp))
+                       PasswordField(value = password.value, onValueChange = { password.value = it },Modifier.height(60.dp))
                    }
 
                    if (viewModel.isLoading.value){
@@ -141,14 +132,13 @@ fun SignIn(navController: NavController) {
                            .fillMaxWidth()
                            .background(color = CustDarkBlue, shape = RoundedCornerShape(20.dp))
                            .clickable {
-//                               if(email.value == "" || password.value == ""){
-//                                   viewModel.errMsg.value = "Harap isi semua kolom"
-//                               }else{
+                               if(email.value == "" || password.value == ""){
+                                   viewModel.errMsg.value = "Harap isi semua kolom"
+                               }else{
                                    viewModel.signIn(
-//                                       email.value,password.value
-                                       "ahmad.irza18@gmail.com", "12345678"
+                                       email.value,password.value
                                    )
-//                               }
+                               }
                            },
                            contentAlignment = Alignment.Center,
 
@@ -189,16 +179,22 @@ fun EmailField(
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    TextField(
+    OutlinedTextField(
+        modifier = modifier
+            .fillMaxWidth()
+            .background(Color.White),
         value = value,
-        onValueChange = onValueChange,
-        modifier
-            .fillMaxWidth(),
-        colors = TextFieldDefaults.textFieldColors(
-            Color.Black,
-            unfocusedIndicatorColor = Color.Black,
-            focusedIndicatorColor = Color.Black,
-            focusedSupportingTextColor = Color.Black,
+        shape = RoundedCornerShape(20),
+        onValueChange =onValueChange,
+        label = {
+            Text("Email", color = Color.Black,
+                style = MaterialTheme.typography.labelMedium
+            ) },
+        textStyle = TextStyle(color = Color.Black),
+        singleLine = true,
+        colors = TextFieldDefaults.outlinedTextFieldColors(
+            unfocusedBorderColor = Color.Black,
+            focusedBorderColor = Color.Black,
         )
     )
 }
@@ -210,18 +206,23 @@ fun PasswordField(
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
-
-    TextField(
+    OutlinedTextField(
+        modifier = modifier
+            .fillMaxWidth()
+            .background(Color.White),
         value = value,
         onValueChange = onValueChange,
-        modifier
-            .fillMaxWidth(),
+        shape = RoundedCornerShape(20),
+        label = {
+            Text("Password", color = Color.Black,
+                style = MaterialTheme.typography.labelMedium
+            ) },
+        textStyle = TextStyle(color = Color.Black),
+        singleLine = true,
         visualTransformation = PasswordVisualTransformation(),
-        colors = TextFieldDefaults.textFieldColors(
-            Color.Black,
-            unfocusedIndicatorColor = Color.Black,
-            focusedIndicatorColor = Color.Black,
-            focusedSupportingTextColor = Color.Black,
+        colors = TextFieldDefaults.outlinedTextFieldColors(
+            unfocusedBorderColor = Color.Black,
+            focusedBorderColor = Color.Black,
         )
     )
 }

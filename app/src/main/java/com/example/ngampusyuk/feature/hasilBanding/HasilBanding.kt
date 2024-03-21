@@ -67,7 +67,7 @@ fun HasilBanding(navController : NavController, bandingViewModel: PilihBandingVi
                     Column(
                         modifier = Modifier
                             .fillMaxSize()
-                            .background(color = Color.White, RoundedCornerShape(10))
+                            .background(color = Color.White)
                             .padding(horizontal = 20.dp),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
