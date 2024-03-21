@@ -19,6 +19,7 @@ val Primary05 =Color(0xFF365486)
 val Secondary01 = Color(0xFFDCF2F1)
 val Aksen06 = Color(0xFFF44336)
 val Warning01 = Color(0xFFF6BB83)
+val Warning03 = Color(0xFFFFC107)
 
 val Purple40 = Color(0xFF6650a4)
 val PurpleGrey40 = Color(0xFF625b71)

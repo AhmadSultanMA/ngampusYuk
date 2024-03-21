@@ -43,7 +43,7 @@ fun TryOutCard(navController: NavController, data : TryOutModel, modifier: Modif
             .padding(horizontal = 15.dp)
             .clickable {
                 if(data.status.value){
-                    navController.navigate(Screen.Nilai.route) {
+                    navController.navigate(Screen.HasilTO.route) {
                         popUpTo(Screen.PilihTO.route) {
                             inclusive = true
                         }

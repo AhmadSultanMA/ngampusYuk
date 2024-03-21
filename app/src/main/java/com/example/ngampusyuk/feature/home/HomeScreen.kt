@@ -58,7 +58,7 @@ fun HomeScreen(navController: NavController) {
                 item {
                     AppBar(name = viewModel.user.value?.nama ?: "", viewModel.kampus, viewModel, modifier = Modifier.height(190.dp))
                     Spacer(modifier = Modifier.height(10.dp))
-                    Iklan()
+                    Iklan(navController)
                     Spacer(modifier = Modifier.height(10.dp))
                     InfoKampus(navController)
                     Spacer(modifier = Modifier.height(10.dp))

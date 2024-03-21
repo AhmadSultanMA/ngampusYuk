@@ -1,15 +1,18 @@
 package com.example.ngampusyuk.feature.soal
 
 import android.util.Log
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.ngampusyuk.data.Repository
 import com.example.ngampusyuk.data.user.AuthRepository
 import com.example.ngampusyuk.model.soal.SoalModel
 import com.example.ngampusyuk.model.soalUser.SoalUserModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.launch
 
 class SoalViewModel : ViewModel() {
     val firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
@@ -19,16 +22,9 @@ class SoalViewModel : ViewModel() {
 
     val soal = mutableStateListOf<SoalModel>()
     val soalId = mutableStateOf<SoalModel?>(null)
-    val soalUser = mutableStateListOf<SoalUserModel>()
+    val mapJawaban = mutableMapOf<String, MutableState<String>>()
+    val isSuccess = mutableStateOf(false)
 
-    init {
-        authRepository.getSoalUser(
-            onSuccess = {soalUser.addAll(it)},
-            onFailed = {
-                Log.e("ERROR", it.toString())
-            }
-        )
-    }
     fun getAllSoal(
         tryout_id : String
     ){
@@ -47,13 +43,11 @@ class SoalViewModel : ViewModel() {
                             jawaban_d = model.jawaban_d,
                             jawaban_benar = model.jawaban_benar,
                             soal = model.soal,
-                            nomor = model.nomor,
-                            status = mutableStateOf(soalUser.any{
-                                it.soal_id == model.id && (auth.currentUser?.uid ?: "") == it.user_id
-                            })
+                            nomor = model.nomor
                         )
                     }
                 )
+                mapJawaban.putAll(it.associate { it.id to mutableStateOf("") })
             },
             onFailed = {
                 Log.e("ERROR", it.toString())
@@ -66,49 +60,35 @@ class SoalViewModel : ViewModel() {
     ){
         repository.getSoalById(
             id,
-            onSuccess = {soalModel ->
-                soalModel.status.value = soalUser.any {
-                    it.soal_id == soalModel.id && (auth.currentUser?.uid ?: "") == it.user_id
+            onSuccess = { it },
+            onFailed = {
+                Log.e("ERROR", it.toString())
+            }
+        )
+    }
+
+    fun postSoalUserList(
+        soalList: List<SoalModel>,
+        tryout_user_id: String
+    ) {
+        isSuccess.value = false
+        soalList.forEach { soal ->
+            val jawab = mapJawaban[soal.id]?.value ?: ""
+            val benar = mapJawaban[soal.id]?.value == soal.jawaban_benar
+            authRepository.postSoalUser(
+                jawab = jawab,
+                benar = benar,
+                tryout_user_id = tryout_user_id,
+                soal_id = soal.id,
+                onSuccess = {},
+                onFailed = {
+                    Log.e("ERROR", it.toString())
                 }
-                soalId.value = soalModel
-            },
-            onFailed = {
-                Log.e("ERROR", it.toString())
-            }
-        )
+            )
+        }
+        isSuccess.value = true
     }
 
-    fun postSoalUser(
-        jawab: String,
-        benar: Boolean,
-        tryout_user_id: String,
-        soal_id: String,
-    ){
-        authRepository.postSoalUser(
-            jawab = jawab,
-            benar = benar,
-            tryout_user_id = tryout_user_id,
-            soal_id = soal_id,
-            onSuccess = {},
-            onFailed = {
-                Log.e("ERROR", it.toString())
-            }
-        )
-    }
-
-    fun updateSoalUser(
-        id: String,
-        benar: Boolean,
-        jawab: String
-    ){
-        repository.updateSoalUser(
-            id = id,
-            benar = benar,
-            jawab = jawab,
-            onSuccess = {},
-            onFailed = {
-                Log.e("ERROR", it.toString())
-            }
-        )
-    }
 }
+
+

@@ -1,6 +1,7 @@
 package com.example.ngampusyuk.feature.main.components.homeComponents
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -32,12 +33,14 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.ngampusyuk.R
+import com.example.ngampusyuk.feature.main.route.Screen
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @Composable
-fun Iklan(modifier: Modifier = Modifier) {
+fun Iklan(navController: NavController ,modifier: Modifier = Modifier) {
     Column(
         modifier
             .fillMaxSize()
@@ -67,14 +70,14 @@ fun Iklan(modifier: Modifier = Modifier) {
             )
         }
         Spacer(modifier = Modifier.height(10.dp))
-        IklanCarousel(images = images, modifier = Modifier
+        IklanCarousel(images = images,navController ,modifier = Modifier
             .fillMaxWidth()
             .height(120.dp))
     }
 }
 
 @Composable
-fun IklanCarousel(images: List<Painter>, modifier: Modifier = Modifier) {
+fun IklanCarousel(images: List<Painter>,navController: NavController , modifier: Modifier = Modifier) {
     var index by remember { mutableStateOf(0) }
     val scrollState = rememberLazyListState()
     val coroutineScope = rememberCoroutineScope()
@@ -96,7 +99,15 @@ fun IklanCarousel(images: List<Painter>, modifier: Modifier = Modifier) {
     ) {
         itemsIndexed(images) { index, image ->
             Card(
-                modifier.fillParentMaxHeight(),
+                modifier
+                    .fillParentMaxHeight()
+                    .clickable {
+                    navController.navigate(Screen.Invoice.route) {
+                        popUpTo(Screen.Home.route) {
+                            inclusive = true
+                        }
+                    }
+                },
                 elevation = CardDefaults.cardElevation(
                     defaultElevation = 8.dp
                 )

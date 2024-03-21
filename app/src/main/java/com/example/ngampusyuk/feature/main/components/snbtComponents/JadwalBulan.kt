@@ -1,4 +1,4 @@
-package com.example.ngampusyuk.feature.main.components.snbpComponents
+package com.example.ngampusyuk.feature.main.components.snbtComponents
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -73,7 +73,7 @@ fun JadwalBulan() {
                     Image(painter = painterResource(id = R.drawable.ic_pencil), contentDescription = "icon", Modifier.size(24.dp))
                 }
                 Column {
-                    Text(text = "Pendaftaran", style = MaterialTheme.typography.labelSmall)
+                    Text(text = "Pembuatan", style = MaterialTheme.typography.labelSmall)
                     Text(
                         text = "Pembuatan akun SNPMB",
                         style = MaterialTheme.typography.bodySmall,
@@ -115,14 +115,14 @@ fun JadwalBulan() {
                     Image(painter = painterResource(id = R.drawable.ic_computer), contentDescription = "icon", Modifier.size(24.dp))
                 }
                 Column {
-                    Text(text = "Input Nilai", style = MaterialTheme.typography.labelSmall)
+                    Text(text = "Pendaftaran", style = MaterialTheme.typography.labelSmall)
                     Text(
-                        text = "Memasukkan Nilai Rapor",
+                        text = "Lakukan login ke portal SNPMB",
                         style = MaterialTheme.typography.bodySmall,
                         color = Color.White
                     )
                     Text(
-                        text = "Semester 1 - 5",
+                        text = "pada periode pendaftaran SNBT",
                         style = MaterialTheme.typography.bodySmall,
                         color = Color.White
                     )
@@ -162,9 +162,9 @@ fun JadwalBulan() {
                     Image(painter = painterResource(id = R.drawable.ic_book), contentDescription = "icon", Modifier.size(24.dp))
                 }
                 Column {
-                    Text(text = "Pengumuman", style = MaterialTheme.typography.labelSmall)
+                    Text(text = "Pengunduhan", style = MaterialTheme.typography.labelSmall)
                     Text(
-                        text = "Pengumuman Eligible",
+                        text = "Unduh kartu peserta UTBK",
                         style = MaterialTheme.typography.bodySmall,
                         color = Color.White
                     )

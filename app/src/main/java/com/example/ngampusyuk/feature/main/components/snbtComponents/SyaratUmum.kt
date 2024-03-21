@@ -1,4 +1,4 @@
-package com.example.ngampusyuk.feature.main.components.snbpComponents
+package com.example.ngampusyuk.feature.main.components.snbtComponents
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -27,17 +27,15 @@ import com.example.ngampusyuk.R
 import com.example.ngampusyuk.ui.theme.Secondary01
 
 @Composable
-fun SyaratSiswa() {
+fun SyaratUmum() {
     Column(
         Modifier
             .fillMaxWidth()
             .padding(horizontal = 15.dp)
     )
     {
-        Box(modifier = Modifier
-            .fillMaxWidth()
-            .clip(shape = RoundedCornerShape(20)), contentAlignment = Alignment.BottomCenter){
-            Image(modifier = Modifier.fillMaxWidth(), painter = painterResource(id = R.drawable.syarat_siswa), contentDescription = "gambar")
+        Box(modifier = Modifier.fillMaxWidth().clip(shape = RoundedCornerShape(20)), contentAlignment = Alignment.BottomCenter){
+            Image(modifier = Modifier.fillMaxWidth(), painter = painterResource(id = R.drawable.syarat_umum), contentDescription = "gambar")
             Box(
                 Modifier
                     .fillMaxWidth()
@@ -46,7 +44,7 @@ fun SyaratSiswa() {
             {
                 Row {
                     Spacer(modifier = Modifier.width(30.dp))
-                    Text(text = "Persyaratan Siswa", style = MaterialTheme.typography.bodyMedium, color = Color.White)
+                    Text(text = "Persyaratan Umum", style = MaterialTheme.typography.bodyMedium, color = Color.White)
                 }
             }
         }
@@ -78,45 +76,11 @@ fun SyaratSiswa() {
                 }
                 Spacer(modifier = Modifier.width(15.dp))
                 Column {
-                    Text(text = "Warga Negara Indonesia (WNI) yang memiliki Nomor Induk Kependudukan (NIK).", style = MaterialTheme.typography.bodySmall)
-                    Text(text = "Tidak pernah menikah dan tidak memiliki anak kandung.", style = MaterialTheme.typography.bodySmall)
+                    Text(text = "Merupakan Warga Negara Indonesia (WNI).", style = MaterialTheme.typography.bodySmall)
+                    Text(text = "Memiliki Nomor Induk Kependudukan (NIK).", style = MaterialTheme.typography.bodySmall)
                     Text(text = "Sehat jasmani dan rohani.", style = MaterialTheme.typography.bodySmall)
-                    Text(text = "Bebas dari narkoba.", style = MaterialTheme.typography.bodySmall)
-                }
-            }
-        }
-        Spacer(modifier = Modifier.height(10.dp))
-        Card(
-            Modifier
-                .fillMaxWidth(),
-            shape = RoundedCornerShape(15.dp),
-            elevation = CardDefaults.cardElevation(
-                defaultElevation = 10.dp
-            )
-        ) {
-            Row(
-                Modifier
-                    .fillMaxWidth()
-                    .background(color = Color.White)
-                    .padding(20.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Box(
-                    modifier = Modifier
-                        .background(color = Secondary01, shape = RoundedCornerShape(20))
-                        .padding(15.dp),
-                    contentAlignment = Alignment.Center
-                )
-                {
-                    Image(painter = painterResource(id = R.drawable.ic_syarat_book), contentDescription = "icon")
-                }
-                Spacer(modifier = Modifier.width(15.dp))
-                Column {
-                    Text(text = "Memiliki NISN dan terdaftar di PDSS.", style = MaterialTheme.typography.bodySmall)
-                    Text(text = "Merupakan siswa SMA/SMK/MA kelas terakhir (kelas XII) pada tahun 2024 yang memiliki prestasi unggul.", style = MaterialTheme.typography.bodySmall)
-                    Text(text = "Memiliki nilai rapor yang telah diisikan di PDSS sesuai dengan ketentuan.", style = MaterialTheme.typography.bodySmall)
-                    Text(text = "Lulus SMA/SMK/MA dengan nilai rata-rata minimal 7,00 untuk semua mata pelajaran.", style = MaterialTheme.typography.bodySmall)
+                    Text(text = "Tidak pernah terdaftar sebagai mahasiswa program Sarjana/Diploma di PTN.", style = MaterialTheme.typography.bodySmall)
+                    Text(text = "Usia maksimal 25 tahun per 1 Juli 2024.", style = MaterialTheme.typography.bodySmall)
                 }
             }
         }

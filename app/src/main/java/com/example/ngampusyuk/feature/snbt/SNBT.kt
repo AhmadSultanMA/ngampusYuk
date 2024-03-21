@@ -1,4 +1,4 @@
-package com.example.ngampusyuk.feature.snbp
+package com.example.ngampusyuk.feature.snbt
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -24,27 +24,29 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.example.ngampusyuk.feature.main.components.snbpComponents.AppBar
-import com.example.ngampusyuk.feature.main.components.snbpComponents.JadwalBulan
-import com.example.ngampusyuk.feature.main.components.snbpComponents.JadwalCalendar
-import com.example.ngampusyuk.feature.main.components.snbpComponents.SemuaAlur
-import com.example.ngampusyuk.feature.main.components.snbpComponents.SemuaJadwal
-import com.example.ngampusyuk.feature.main.components.snbpComponents.SemuaPersyaratan
-import com.example.ngampusyuk.feature.main.components.snbpComponents.SemuaProsedur
-import com.example.ngampusyuk.feature.main.components.snbpComponents.SnbpCard
-import com.example.ngampusyuk.feature.main.components.snbpComponents.SyaratSekolah
-import com.example.ngampusyuk.feature.main.components.snbpComponents.SyaratSiswa
+import com.example.ngampusyuk.feature.main.components.snbtComponents.AppBar
+import com.example.ngampusyuk.feature.main.components.snbtComponents.JadwalBulan
+import com.example.ngampusyuk.feature.main.components.snbtComponents.JadwalCalendar
+import com.example.ngampusyuk.feature.main.components.snbtComponents.SemuaAlur
+import com.example.ngampusyuk.feature.main.components.snbtComponents.SemuaJadwal
+import com.example.ngampusyuk.feature.main.components.snbtComponents.SemuaPersyaratan
+import com.example.ngampusyuk.feature.main.components.snbtComponents.InfoLanjut
+import com.example.ngampusyuk.feature.main.components.snbtComponents.SnbtCard
+import com.example.ngampusyuk.feature.main.components.snbtComponents.SyaratAkademik
+import com.example.ngampusyuk.feature.main.components.snbtComponents.SyaratLain
+import com.example.ngampusyuk.feature.main.components.snbtComponents.SyaratUmum
 import com.example.ngampusyuk.feature.main.route.Screen
+import com.example.ngampusyuk.feature.snbp.SNBTViewModel
 import com.example.ngampusyuk.ui.theme.Primary05
 
 @Composable
-fun SNBP(navController: NavController) {
+fun SNBT(navController: NavController) {
     val items = listOf("Semua", "Jadwal", "Persyaratan", "Pendaftaran")
     val selectedItem = remember{
         mutableStateOf("Semua")
     }
-    val viewModel: SNBPViewModel = viewModel()
     val screenWidth = LocalConfiguration.current.screenWidthDp.dp
+    val viewModel : SNBTViewModel = viewModel()
 
     LazyColumn{
         item{
@@ -78,40 +80,40 @@ fun SNBP(navController: NavController) {
             item {
                 Spacer(modifier = Modifier.height(10.dp))
                 Column(Modifier.padding(horizontal = 15.dp)) {
-                    Text(text = "Definisi SNBP", style = MaterialTheme.typography.bodyMedium)
+                    Text(text = "Definisi SNBT", style = MaterialTheme.typography.bodyMedium)
                     Text(
-                        text = "Kenali lebih dalam mengenai SBNP 2024",
+                        text = "Kenali lebih dalam mengenai SNBT 2024",
                         style = MaterialTheme.typography.bodySmall,
                         color = Color.Gray
                     )
                 }
                 Spacer(modifier = Modifier.height(10.dp))
             }
-                val chunks = viewModel.snbp.chunked(2)
-                items(chunks.size){index ->
-                    Row(Modifier.fillMaxWidth().padding(horizontal = 15.dp) ,horizontalArrangement = Arrangement.SpaceBetween) {
-                        chunks[index].forEach{item->
-                            Box(modifier = Modifier
-                                .width(screenWidth * 0.44f)
-                                .clickable {
-                                    navController.navigate("${Screen.SNBPDetail.route}/${item.id}") {
-                                        popUpTo(Screen.SNBP.route) {
-                                            inclusive = true
-                                        }
+            val chunks = viewModel.snbt.chunked(2)
+            items(chunks.size){index ->
+                Row(Modifier.fillMaxWidth().padding(horizontal = 15.dp) ,horizontalArrangement = Arrangement.SpaceBetween) {
+                    chunks[index].forEach{item->
+                        Box(modifier = Modifier
+                            .width(screenWidth * 0.44f)
+                            .clickable {
+                                navController.navigate("${Screen.SNBTDetail.route}/${item.id}") {
+                                    popUpTo(Screen.SNBT.route) {
+                                        inclusive = true
                                     }
-                                },){
-                                SnbpCard(
-                                    item.gambar,
-                                    item.judul,
-                                    item.sub_judul
-                                )
-                            }
+                                }
+                            },){
+                            SnbtCard(
+                                item.gambar,
+                                item.judul,
+                                item.sub_judul
+                            )
                         }
                     }
-                    if (index < chunks.size - 1) {
-                        Spacer(modifier = Modifier.height(10.dp))
-                    }
                 }
+                if (index < chunks.size - 1) {
+                    Spacer(modifier = Modifier.height(10.dp))
+                }
+            }
             item{
                 Spacer(modifier = Modifier.height(10.dp))
                 SemuaJadwal(selectedItem)
@@ -120,16 +122,16 @@ fun SNBP(navController: NavController) {
                 Spacer(modifier = Modifier.height(10.dp))
                 SemuaAlur()
                 Spacer(modifier = Modifier.height(10.dp))
-                SemuaProsedur()
+                InfoLanjut()
                 Spacer(modifier = Modifier.height(15.dp))
             }
         }else if (selectedItem.value == "Jadwal"){
             item{
                 Spacer(modifier = Modifier.height(10.dp))
                 Column(Modifier.padding(horizontal = 15.dp)) {
-                    Text(text = "Jadwal SNBP", style = MaterialTheme.typography.bodyMedium)
+                    Text(text = "Jadwal SNBT", style = MaterialTheme.typography.bodyMedium)
                     Text(
-                        text = "Kenali lebih dalam mengenai SBNP 2024",
+                        text = "Kenali lebih dalam mengenai SBNT 2024",
                         style = MaterialTheme.typography.bodySmall,
                         color = Color.Gray
                     )
@@ -144,26 +146,37 @@ fun SNBP(navController: NavController) {
             item {
                 Spacer(modifier = Modifier.height(10.dp))
                 Column(Modifier.padding(horizontal = 15.dp)) {
-                    Text(text = "Persyaratan Siswa", style = MaterialTheme.typography.bodyMedium)
+                    Text(text = "Persyaratan Umum", style = MaterialTheme.typography.bodyMedium)
                     Text(
-                        text = "Pelajari lebih lanjut persyaratan menuju SNBP ",
+                        text = "Pelajari lebih lanjut persyaratan menuju SNBT ",
                         style = MaterialTheme.typography.bodySmall,
                         color = Color.Gray
                     )
                 }
                 Spacer(modifier = Modifier.height(10.dp))
-                SyaratSiswa()
-                Spacer(modifier = Modifier.height(15.dp))
+                SyaratUmum()
+                Spacer(modifier = Modifier.height(10.dp))
                 Column(Modifier.padding(horizontal = 15.dp)) {
-                    Text(text = "Persyaratan Sekolah", style = MaterialTheme.typography.bodyMedium)
+                    Text(text = "Persyaratan Akademik", style = MaterialTheme.typography.bodyMedium)
                     Text(
-                        text = "Pelajari persyaratan sekolah kalian dan persiapkan untuk menuju SNBP 2024",
+                        text = "Pelajari persyaratan Akademik kalian dan persiapkan untuk menuju SNBT 2024",
                         style = MaterialTheme.typography.bodySmall,
                         color = Color.Gray
                     )
                 }
                 Spacer(modifier = Modifier.height(10.dp))
-                SyaratSekolah()
+                SyaratAkademik()
+                Spacer(modifier = Modifier.height(10.dp))
+                Column(Modifier.padding(horizontal = 15.dp)) {
+                    Text(text = "Persyaratan Lainnya", style = MaterialTheme.typography.bodyMedium)
+                    Text(
+                        text = "Penuhi persyartan lainnya  dan persiapkan untuk menuju SNBT 2024",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = Color.Gray
+                    )
+                }
+                Spacer(modifier = Modifier.height(10.dp))
+                SyaratLain()
                 Spacer(modifier = Modifier.height(15.dp))
             }
         }else if(selectedItem.value == "Pendaftaran"){

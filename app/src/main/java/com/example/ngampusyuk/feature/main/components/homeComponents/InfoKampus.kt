@@ -99,7 +99,16 @@ fun InfoKampus(navController: NavController ,modifier: Modifier = Modifier) {
 
             //SNBT
             Card(
-                modifier.height(90.dp).width(screenWidth*0.27f),
+                modifier
+                    .height(90.dp)
+                    .width(screenWidth*0.27f)
+                    .clickable {
+                        navController.navigate(Screen.SNBT.route) {
+                            popUpTo(Screen.Home.route) {
+                                inclusive = true
+                            }
+                        }
+                    },
                 elevation = CardDefaults.cardElevation(
                     defaultElevation = 8.dp
                 ),
@@ -133,7 +142,16 @@ fun InfoKampus(navController: NavController ,modifier: Modifier = Modifier) {
 
             //Mandiri
             Card(
-                modifier.height(90.dp).width(screenWidth*0.27f),
+                modifier
+                    .height(90.dp)
+                    .width(screenWidth*0.27f)
+                    .clickable {
+                        navController.navigate(Screen.Mandiri.route) {
+                            popUpTo(Screen.Home.route) {
+                                inclusive = true
+                            }
+                        }
+                    },
                 elevation = CardDefaults.cardElevation(
                     defaultElevation = 8.dp
                 ),

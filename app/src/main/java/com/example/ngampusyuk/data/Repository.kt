@@ -428,7 +428,7 @@ class Repository constructor(
         id: String,
         onSuccess: (SoalModel) -> Unit,
         onFailed: (Exception) -> Unit
-    ){
+    ) {
         firestore
             .collection("soal")
             .document(id)
@@ -452,29 +452,6 @@ class Repository constructor(
                     )
                     return@addSnapshotListener
                 }
-            }
-    }
-
-    fun updateSoalUser(
-        id: String,
-        jawab: String,
-        benar: Boolean,
-        onSuccess: () -> Unit,
-        onFailed: (Exception) -> Unit
-    ){
-        val updates = hashMapOf<String, Any>(
-            "jawab" to jawab,
-            "benar" to benar
-        )
-        firestore
-            .collection("soal_user")
-            .document(id)
-            .update(updates)
-            .addOnSuccessListener {
-                onSuccess()
-            }
-            .addOnFailureListener{
-                onFailed(it)
             }
     }
 
@@ -532,4 +509,61 @@ class Repository constructor(
                 }
             }
     }
+
+
+    fun getAllSNBT(
+        onSuccess: (List<SnbpModel>) -> Unit,
+        onFailed: (Exception) -> Unit
+    ){
+        firestore
+            .collection("snbt")
+            .addSnapshotListener { value, error ->
+                if (error != null) {
+                    onFailed(error)
+                    return@addSnapshotListener
+                }
+                value?.let {
+                    onSuccess(
+                        it.documents.map { doc ->
+                            SnbpModel(
+                                id = doc?.getString("id") ?: "",
+                                isi = doc?.getString("isi") ?: "",
+                                gambar= doc?.getString("gambar") ?: "",
+                                judul = doc?.getString("judul") ?: "",
+                                sub_judul = doc?.getString("sub_judul") ?: "",
+                            )
+                        }
+                    )
+                    return@addSnapshotListener
+                }
+            }
+    }
+
+    fun getSNBTById(
+        id: String,
+        onSuccess: (SnbpModel) -> Unit,
+        onFailed: (Exception) -> Unit
+    ) {
+        firestore
+            .collection("snbt")
+            .document(id)
+            .addSnapshotListener { value, error ->
+                if (error != null) {
+                    onFailed(error)
+                }
+                value?.let { doc ->
+                    onSuccess(
+                        SnbpModel(
+                            id = doc?.getString("id") ?: "",
+                            isi = doc?.getString("isi") ?: "",
+                            gambar= doc?.getString("gambar") ?: "",
+                            judul = doc?.getString("judul") ?: "",
+                            sub_judul = doc?.getString("sub_judul") ?: "",
+                        )
+                    )
+                    return@addSnapshotListener
+                }
+            }
+    }
+
 }

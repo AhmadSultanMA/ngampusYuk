@@ -11,9 +11,11 @@ import com.example.ngampusyuk.feature.banding.Banding
 import com.example.ngampusyuk.feature.berita.Berita
 import com.example.ngampusyuk.feature.editProfile.EditProfile
 import com.example.ngampusyuk.feature.hasilBanding.HasilBanding
+import com.example.ngampusyuk.feature.hasilTO.HasilTO
 import com.example.ngampusyuk.feature.home.HomeScreen
+import com.example.ngampusyuk.feature.invoice.Invoice
 import com.example.ngampusyuk.feature.main.route.Screen
-import com.example.ngampusyuk.feature.nilai.Nilai
+import com.example.ngampusyuk.feature.mandiri.Mandiri
 import com.example.ngampusyuk.feature.peluang.Peluang
 import com.example.ngampusyuk.feature.peraturan.Peraturan
 import com.example.ngampusyuk.feature.pilihBanding.PilihBanding
@@ -26,6 +28,8 @@ import com.example.ngampusyuk.feature.signIn.SignIn
 import com.example.ngampusyuk.feature.signUp.SignUp
 import com.example.ngampusyuk.feature.snbp.SNBP
 import com.example.ngampusyuk.feature.snbpDetail.SNBPDetail
+import com.example.ngampusyuk.feature.snbt.SNBT
+import com.example.ngampusyuk.feature.snbtDetail.SNBTDetail
 import com.example.ngampusyuk.feature.soal.Soal
 import com.example.ngampusyuk.feature.splash.SplashScreen
 import com.example.ngampusyuk.feature.universitas.UniversitasScreen
@@ -128,11 +132,8 @@ fun Navigation() {
             PilihTO(navController = navController)
         }
 
-        composable(route = Screen.Nilai.route) {
-            Nilai(navController = navController)
-        }
-
-        composable(route = "${Screen.Soal.route}/{tryout_id}/{tryout_user_id}",
+        composable(
+            route = "${Screen.Soal.route}/{tryout_id}/{tryout_user_id}",
             arguments = listOf(
                 navArgument("tryout_id") {
                     type = NavType.StringType
@@ -147,28 +148,61 @@ fun Navigation() {
             Soal(navController = navController, tryout_id, tryout_user_id)
         }
 
-        composable(route = "${Screen.Peraturan.route}/{id}",
+        composable(
+            route = "${Screen.Peraturan.route}/{id}",
             arguments = listOf(
                 navArgument("id") {
                     type = NavType.StringType
                 },
-            )) {
+            )
+        ) {
             val id = it.arguments?.getString("id") ?: ""
             Peraturan(navController = navController, id)
         }
 
-        composable(route = "${Screen.SNBPDetail.route}/{id}",
+        composable(
+            route = "${Screen.SNBPDetail.route}/{id}",
             arguments = listOf(
                 navArgument("id") {
                     type = NavType.StringType
                 },
-            )) {
+            )
+        ) {
             val id = it.arguments?.getString("id") ?: ""
             SNBPDetail(navController = navController, id)
+        }
+
+        composable(
+            route = "${Screen.SNBTDetail.route}/{id}",
+            arguments = listOf(
+                navArgument("id") {
+                    type = NavType.StringType
+                },
+            )
+        ) {
+            val id = it.arguments?.getString("id") ?: ""
+            SNBTDetail(navController = navController, id)
         }
 
         composable(route = Screen.SNBP.route) {
             SNBP(navController = navController)
         }
+
+        composable(route = Screen.SNBT.route) {
+            SNBT(navController = navController)
+        }
+
+        composable(route = Screen.HasilTO.route) {
+            HasilTO(navController = navController)
+        }
+
+        composable(route = Screen.Mandiri.route) {
+            Mandiri(navController = navController)
+        }
+
+        composable(route = Screen.Invoice.route) {
+            Invoice(navController = navController)
+        }
+
     }
 }

@@ -10,14 +10,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -28,8 +24,7 @@ import com.example.ngampusyuk.model.soalUser.SoalUserModel
 import com.example.ngampusyuk.ui.theme.CustDarkBlue
 
 @Composable
-fun IsiSoal(soal: SoalModel?, soalUser: List<SoalUserModel>, viewModel: SoalViewModel,tryout_user_id: String) {
-    val soalTerjawab = soalUser.find { it.soal_id == soal?.id }
+fun IsiSoal(soal: SoalModel?, jawaban: String, onJawabanChange:(String?)->Unit) {
 
     Column(
         Modifier.padding(15.dp)
@@ -41,31 +36,16 @@ fun IsiSoal(soal: SoalModel?, soalUser: List<SoalUserModel>, viewModel: SoalView
             Box(modifier = Modifier
                 .background(
                     color =
-                    if (soalTerjawab?.jawab == soal?.jawaban_a) Color.Green
+                    if (jawaban == soal?.jawaban_a) Color.Green
                     else CustDarkBlue,
                     shape = RoundedCornerShape(10)
                 )
                 .size(35.dp)
                 .clickable {
-                    if (soalTerjawab == null) {
-                        viewModel.postSoalUser(
-                            jawab = soal?.jawaban_a ?: "",
-                            benar = soal?.jawaban_a == soal?.jawaban_benar,
-                            soal_id = soal?.id ?: "",
-                            tryout_user_id = tryout_user_id
-                        )
-                    } else {
-                        if (soalTerjawab.jawab != soal?.jawaban_a) {
-                            viewModel.updateSoalUser(
-                                id = soalTerjawab.id ?: "",
-                                benar = soal?.jawaban_a == soal?.jawaban_benar,
-                                jawab = soal?.jawaban_a ?: "",
-                            )
-                        }
-                    }
+                    onJawabanChange(soal?.jawaban_a)
                 },
                 contentAlignment = Alignment.Center
-                )
+            )
             {
                 Text(text = "A", style = MaterialTheme.typography.titleLarge, color = Color.White)
             }
@@ -77,28 +57,13 @@ fun IsiSoal(soal: SoalModel?, soalUser: List<SoalUserModel>, viewModel: SoalView
         Row(verticalAlignment = Alignment.CenterVertically) {
             Box(modifier = Modifier
                 .background(
-                    if (soalTerjawab?.jawab == soal?.jawaban_b) Color.Green
+                    if (jawaban == soal?.jawaban_b) Color.Green
                     else CustDarkBlue,
                     shape = RoundedCornerShape(10)
                 )
                 .size(35.dp)
                 .clickable {
-                    if (soalTerjawab == null) {
-                        viewModel.postSoalUser(
-                            jawab = soal?.jawaban_b ?: "",
-                            benar = soal?.jawaban_b == soal?.jawaban_benar,
-                            soal_id = soal?.id ?: "",
-                            tryout_user_id = tryout_user_id
-                        )
-                    } else {
-                        if (soalTerjawab.jawab != soal?.jawaban_b) {
-                            viewModel.updateSoalUser(
-                                id = soalTerjawab.id ?: "",
-                                benar = soal?.jawaban_b == soal?.jawaban_benar,
-                                jawab = soal?.jawaban_b ?: "",
-                            )
-                        }
-                    }
+                    onJawabanChange(soal?.jawaban_b)
                 },
                 contentAlignment = Alignment.Center
             )
@@ -113,28 +78,13 @@ fun IsiSoal(soal: SoalModel?, soalUser: List<SoalUserModel>, viewModel: SoalView
         Row(verticalAlignment = Alignment.CenterVertically) {
             Box(modifier = Modifier
                 .background(
-                    if (soalTerjawab?.jawab == soal?.jawaban_c) Color.Green
+                    if (jawaban == soal?.jawaban_c) Color.Green
                     else CustDarkBlue,
                     shape = RoundedCornerShape(10)
                 )
                 .size(35.dp)
                 .clickable {
-                    if (soalTerjawab == null) {
-                        viewModel.postSoalUser(
-                            jawab = soal?.jawaban_c ?: "",
-                            benar = soal?.jawaban_c == soal?.jawaban_benar,
-                            soal_id = soal?.id ?: "",
-                            tryout_user_id = tryout_user_id
-                        )
-                    } else {
-                        if (soalTerjawab.jawab != soal?.jawaban_c) {
-                            viewModel.updateSoalUser(
-                                id = soalTerjawab.id ?: "",
-                                benar = soal?.jawaban_c == soal?.jawaban_benar,
-                                jawab = soal?.jawaban_c ?: "",
-                            )
-                        }
-                    }
+                    onJawabanChange(soal?.jawaban_c)
                 },
                 contentAlignment = Alignment.Center
             )
@@ -149,28 +99,13 @@ fun IsiSoal(soal: SoalModel?, soalUser: List<SoalUserModel>, viewModel: SoalView
         Row(verticalAlignment = Alignment.CenterVertically) {
             Box(modifier = Modifier
                 .background(
-                    if (soalTerjawab?.jawab == soal?.jawaban_d) Color.Green
+                    if (jawaban == soal?.jawaban_d) Color.Green
                     else CustDarkBlue,
                     shape = RoundedCornerShape(10)
                 )
                 .size(35.dp)
                 .clickable {
-                    if (soalTerjawab == null) {
-                        viewModel.postSoalUser(
-                            jawab = soal?.jawaban_d ?: "",
-                            benar = soal?.jawaban_d == soal?.jawaban_benar,
-                            soal_id = soal?.id ?: "",
-                            tryout_user_id = tryout_user_id
-                        )
-                    } else {
-                        if (soalTerjawab.jawab != soal?.jawaban_d) {
-                            viewModel.updateSoalUser(
-                                id = soalTerjawab.id ?: "",
-                                benar = soal?.jawaban_d == soal?.jawaban_benar,
-                                jawab = soal?.jawaban_d ?: "",
-                            )
-                        }
-                    }
+                    onJawabanChange(soal?.jawaban_d)
                 },
                 contentAlignment = Alignment.Center
             )

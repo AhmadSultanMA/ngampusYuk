@@ -1,4 +1,4 @@
-package com.example.ngampusyuk.feature.main.components.snbpComponents
+package com.example.ngampusyuk.feature.main.components.snbtComponents
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -27,17 +27,16 @@ import com.example.ngampusyuk.R
 import com.example.ngampusyuk.ui.theme.Secondary01
 
 @Composable
-fun SyaratSiswa() {
+fun SyaratAkademik() {
     Column(
         Modifier
             .fillMaxWidth()
             .padding(horizontal = 15.dp)
     )
     {
-        Box(modifier = Modifier
-            .fillMaxWidth()
-            .clip(shape = RoundedCornerShape(20)), contentAlignment = Alignment.BottomCenter){
-            Image(modifier = Modifier.fillMaxWidth(), painter = painterResource(id = R.drawable.syarat_siswa), contentDescription = "gambar")
+        Box(modifier = Modifier.fillMaxWidth().clip(shape = RoundedCornerShape(20)), contentAlignment = Alignment.BottomCenter)
+        {
+            Image(modifier = Modifier.fillMaxWidth(), painter = painterResource(id = R.drawable.syarat_akademik), contentDescription = "gambar")
             Box(
                 Modifier
                     .fillMaxWidth()
@@ -46,42 +45,7 @@ fun SyaratSiswa() {
             {
                 Row {
                     Spacer(modifier = Modifier.width(30.dp))
-                    Text(text = "Persyaratan Siswa", style = MaterialTheme.typography.bodyMedium, color = Color.White)
-                }
-            }
-        }
-        Spacer(modifier = Modifier.height(10.dp))
-        Card(
-            Modifier
-                .fillMaxWidth(),
-            shape = RoundedCornerShape(15.dp),
-            elevation = CardDefaults.cardElevation(
-                defaultElevation = 10.dp
-            )
-        ) {
-            Row(
-                Modifier
-                    .fillMaxWidth()
-                    .background(color = Color.White)
-                    .padding(20.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Box(
-                    modifier = Modifier
-                        .background(color = Secondary01, shape = RoundedCornerShape(20))
-                        .padding(15.dp),
-                    contentAlignment = Alignment.Center
-                )
-                {
-                    Image(painter = painterResource(id = R.drawable.ic_lonceng), contentDescription = "icon")
-                }
-                Spacer(modifier = Modifier.width(15.dp))
-                Column {
-                    Text(text = "Warga Negara Indonesia (WNI) yang memiliki Nomor Induk Kependudukan (NIK).", style = MaterialTheme.typography.bodySmall)
-                    Text(text = "Tidak pernah menikah dan tidak memiliki anak kandung.", style = MaterialTheme.typography.bodySmall)
-                    Text(text = "Sehat jasmani dan rohani.", style = MaterialTheme.typography.bodySmall)
-                    Text(text = "Bebas dari narkoba.", style = MaterialTheme.typography.bodySmall)
+                    Text(text = "Persyaratan Akademik", style = MaterialTheme.typography.bodyMedium, color = Color.White)
                 }
             }
         }
@@ -113,10 +77,8 @@ fun SyaratSiswa() {
                 }
                 Spacer(modifier = Modifier.width(15.dp))
                 Column {
-                    Text(text = "Memiliki NISN dan terdaftar di PDSS.", style = MaterialTheme.typography.bodySmall)
-                    Text(text = "Merupakan siswa SMA/SMK/MA kelas terakhir (kelas XII) pada tahun 2024 yang memiliki prestasi unggul.", style = MaterialTheme.typography.bodySmall)
-                    Text(text = "Memiliki nilai rapor yang telah diisikan di PDSS sesuai dengan ketentuan.", style = MaterialTheme.typography.bodySmall)
-                    Text(text = "Lulus SMA/SMK/MA dengan nilai rata-rata minimal 7,00 untuk semua mata pelajaran.", style = MaterialTheme.typography.bodySmall)
+                    Text(text = "Lulus SMA/MA/SMK/sederajat dan Kejar Paket C tahun 2023, 2022, dan 2021.", style = MaterialTheme.typography.bodySmall)
+                    Text(text = "Memiliki nilai rapor yang baik, terutama pada mata pelajaran yang diujikan dalam UTBK (Tes Potensi Akademik, Bahasa Indonesia, dan Bahasa Inggris).", style = MaterialTheme.typography.bodySmall)
                 }
             }
         }
