@@ -100,14 +100,7 @@ fun IklanCarousel(images: List<Painter>,navController: NavController , modifier:
         itemsIndexed(images) { index, image ->
             Card(
                 modifier
-                    .fillParentMaxHeight()
-                    .clickable {
-                    navController.navigate(Screen.Invoice.route) {
-                        popUpTo(Screen.Home.route) {
-                            inclusive = true
-                        }
-                    }
-                },
+                    .fillParentMaxHeight(),
                 elevation = CardDefaults.cardElevation(
                     defaultElevation = 8.dp
                 )
