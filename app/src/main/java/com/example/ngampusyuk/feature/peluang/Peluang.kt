@@ -43,7 +43,7 @@ fun Peluang(navController: NavController) {
             LazyColumn(modifier = Modifier.fillMaxSize()) {
                 item{
                     AppBar()
-                    Input(viewModel)
+                    Input(viewModel, navController)
                     Text(
                         text = "Rekomendasi", style = MaterialTheme.typography.titleMedium,
                         modifier = Modifier.padding(horizontal = 15.dp)

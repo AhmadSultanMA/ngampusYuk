@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -21,6 +22,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.ngampusyuk.feature.main.components.invoiceComponents.AppBar
 import com.example.ngampusyuk.feature.main.components.invoiceComponents.DetailPembayaran
@@ -30,6 +32,8 @@ import com.example.ngampusyuk.ui.theme.CustDarkBlue
 
 @Composable
 fun Invoice(navController: NavController) {
+    val viewModel: InvoiceViewModel = viewModel()
+
     LazyColumn(
         Modifier
             .fillMaxSize()
@@ -48,24 +52,32 @@ fun Invoice(navController: NavController) {
                 textAlign = TextAlign.Center
             )
             Spacer(modifier = Modifier.height(20.dp))
-            Box(modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 50.dp)
-                .background(color = CustDarkBlue, shape = RoundedCornerShape(20.dp))
-                .clickable {
-                    navController.navigate(Screen.Home.route) {
-                        popUpTo(Screen.Invoice.route) {
-                            inclusive = true
-                        }
-                    }
-                },
-                contentAlignment = Alignment.Center,
-                ){
-                Text(
-                    modifier = Modifier.padding(vertical = 10.dp),
-                    text = "Beli Paket",
-                    style = MaterialTheme.typography.titleSmall, color = Color.White
-                )
+            if (viewModel.isLoading.value){
+                Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center){
+                    CircularProgressIndicator()
+                }
+            }else {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 50.dp)
+                        .background(color = CustDarkBlue, shape = RoundedCornerShape(20.dp))
+                        .clickable {
+                            viewModel.updateUserPremium()
+                            navController.navigate(Screen.StatusBayar.route) {
+                                popUpTo(Screen.Invoice.route) {
+                                    inclusive = true
+                                }
+                            }
+                        },
+                    contentAlignment = Alignment.Center,
+                ) {
+                    Text(
+                        modifier = Modifier.padding(vertical = 10.dp),
+                        text = "Beli Paket",
+                        style = MaterialTheme.typography.titleSmall, color = Color.White
+                    )
+                }
             }
         }
     }

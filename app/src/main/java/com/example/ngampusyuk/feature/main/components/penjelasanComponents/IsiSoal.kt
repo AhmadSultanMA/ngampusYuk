@@ -1,7 +1,6 @@
-package com.example.ngampusyuk.feature.main.components.soalComponents
+package com.example.ngampusyuk.feature.main.components.penjelasanComponents
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -18,14 +17,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.example.ngampusyuk.feature.soal.SoalViewModel
 import com.example.ngampusyuk.model.soal.SoalModel
-import com.example.ngampusyuk.model.soalUser.SoalUserModel
 import com.example.ngampusyuk.ui.theme.Aksen02
+import com.example.ngampusyuk.ui.theme.CustBlue
 import com.example.ngampusyuk.ui.theme.CustDarkBlue
 
 @Composable
-fun IsiSoal(soal: SoalModel?, jawaban: String, onJawabanChange:(String?)->Unit) {
+fun IsiSoal(soal : SoalModel?, jawaban:String?) {
 
     Column(
         Modifier.padding(15.dp)
@@ -37,14 +35,12 @@ fun IsiSoal(soal: SoalModel?, jawaban: String, onJawabanChange:(String?)->Unit) 
             Box(modifier = Modifier
                 .background(
                     color =
-                    if (jawaban == soal?.jawaban_a) Aksen02
+                    if (soal?.benar?.value == false && jawaban == soal.jawaban_a) Color.Red
+                    else if (jawaban == soal?.jawaban_a) Aksen02
                     else CustDarkBlue,
                     shape = RoundedCornerShape(10)
                 )
-                .size(35.dp)
-                .clickable {
-                    onJawabanChange(soal?.jawaban_a)
-                },
+                .size(35.dp),
                 contentAlignment = Alignment.Center
             )
             {
@@ -58,14 +54,12 @@ fun IsiSoal(soal: SoalModel?, jawaban: String, onJawabanChange:(String?)->Unit) 
         Row(verticalAlignment = Alignment.CenterVertically) {
             Box(modifier = Modifier
                 .background(
-                    if (jawaban == soal?.jawaban_b) Aksen02
+                    if (soal?.benar?.value == false && jawaban == soal.jawaban_b) Color.Red
+                    else if (jawaban == soal?.jawaban_b) Aksen02
                     else CustDarkBlue,
                     shape = RoundedCornerShape(10)
                 )
-                .size(35.dp)
-                .clickable {
-                    onJawabanChange(soal?.jawaban_b)
-                },
+                .size(35.dp),
                 contentAlignment = Alignment.Center
             )
             {
@@ -79,14 +73,12 @@ fun IsiSoal(soal: SoalModel?, jawaban: String, onJawabanChange:(String?)->Unit) 
         Row(verticalAlignment = Alignment.CenterVertically) {
             Box(modifier = Modifier
                 .background(
-                    if (jawaban == soal?.jawaban_c) Aksen02
+                    if (soal?.benar?.value == false && jawaban == soal.jawaban_c) Color.Red
+                    else if (jawaban == soal?.jawaban_c) Aksen02
                     else CustDarkBlue,
                     shape = RoundedCornerShape(10)
                 )
-                .size(35.dp)
-                .clickable {
-                    onJawabanChange(soal?.jawaban_c)
-                },
+                .size(35.dp),
                 contentAlignment = Alignment.Center
             )
             {
@@ -100,14 +92,12 @@ fun IsiSoal(soal: SoalModel?, jawaban: String, onJawabanChange:(String?)->Unit) 
         Row(verticalAlignment = Alignment.CenterVertically) {
             Box(modifier = Modifier
                 .background(
-                    if (jawaban == soal?.jawaban_d) Aksen02
+                    if (soal?.benar?.value == false && jawaban == soal.jawaban_d) Color.Red
+                    else if (jawaban == soal?.jawaban_d) Aksen02
                     else CustDarkBlue,
                     shape = RoundedCornerShape(10)
                 )
-                .size(35.dp)
-                .clickable {
-                    onJawabanChange(soal?.jawaban_d)
-                },
+                .size(35.dp),
                 contentAlignment = Alignment.Center
             )
             {

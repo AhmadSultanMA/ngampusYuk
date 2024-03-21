@@ -32,6 +32,7 @@ class AuthRepository constructor(
                             uid = it.user?.uid ?: "",
                             nama = nama,
                             no_telp = no_telp,
+                            premium = false
                         )
                     )
                     .addOnSuccessListener {
@@ -78,13 +79,31 @@ class AuthRepository constructor(
                         UserModel(
                             uid = auth?.uid ?: "",
                             nama = doc["nama"] as String,
-                            no_telp = doc["no_telp"] as String
+                            no_telp = doc["no_telp"] as String,
+                            premium = doc["premium"] as Boolean
                         )
                     )
                     return@addSnapshotListener
                 }
             }
     }
+
+    fun updateUserPremium(
+        uid: String,
+        onSuccess: () -> Unit,
+        onFailed: (Exception) -> Unit,
+    ) {
+        firestore.collection("user")
+            .document(uid)
+            .update("premium", true)
+            .addOnSuccessListener {
+                onSuccess()
+            }
+            .addOnFailureListener { error ->
+                onFailed(error)
+            }
+    }
+
 
     fun postTryoutUser(
         tryout_id: String,
@@ -140,6 +159,7 @@ class AuthRepository constructor(
         jawab: String,
         benar: Boolean,
         tryout_user_id: String,
+        tryout_id: String,
         soal_id: String,
         onSuccess: () -> Unit,
         onFailed: (Exception) -> Unit
@@ -155,7 +175,8 @@ class AuthRepository constructor(
                     jawab = jawab,
                     benar = benar,
                     soal_id = soal_id,
-                    tryout_user_id = tryout_user_id
+                    tryout_user_id = tryout_user_id,
+                    tryout_id = tryout_id
                 )
             )
             .addOnSuccessListener {
@@ -166,13 +187,15 @@ class AuthRepository constructor(
             }
     }
 
-    fun getSoalUser(
+    fun getAllSoalUserById(
+        tryout_id: String,
         onSuccess: (List<SoalUserModel>) -> Unit,
         onFailed: (Exception) -> Unit
     ){
         firestore
             .collection("soal_user")
             .whereEqualTo("user_id", auth.currentUser?.uid ?: "")
+            .whereEqualTo("tryout_id", tryout_id)
             .addSnapshotListener { value, error ->
                 if (error != null) {
                     onFailed(error)
@@ -184,6 +207,7 @@ class AuthRepository constructor(
                                 id = doc?.getString("id") ?: "",
                                 soal_id = doc?.getString("soal_id") ?: "",
                                 tryout_user_id = doc?.getString("tryout_user_id") ?: "",
+                                tryout_id = doc?.getString("tryout_id") ?: "",
                                 user_id = doc?.getString("user_id") ?: "",
                                 benar = doc?.getBoolean("benar") ?: false,
                                 jawab = doc?.getString("jawab") ?: "",
@@ -193,5 +217,13 @@ class AuthRepository constructor(
                     return@addSnapshotListener
                 }
             }
+    }
+
+    fun getTOUserById(
+        tryout_id: String,
+        onSuccess: (List<SoalUserModel>) -> Unit,
+        onFailed: (Exception) -> Unit
+    ){
+
     }
 }

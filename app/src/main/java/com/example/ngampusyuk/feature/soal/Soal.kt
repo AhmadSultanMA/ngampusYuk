@@ -33,6 +33,7 @@ import androidx.navigation.NavController
 import com.example.ngampusyuk.feature.main.components.soalComponents.AppBar
 import com.example.ngampusyuk.feature.main.components.soalComponents.IsiSoal
 import com.example.ngampusyuk.feature.main.route.Screen
+import com.example.ngampusyuk.ui.theme.Aksen02
 import kotlinx.coroutines.launch
 import com.example.ngampusyuk.ui.theme.CustBlue
 import com.example.ngampusyuk.ui.theme.CustDarkBlue
@@ -44,10 +45,6 @@ fun Soal(navController: NavController, tryout_id : String, tryout_user_id: Strin
         viewModel.getAllSoal(tryout_id)
     }
 
-    val soalNomorSatu = viewModel.soal.find { it.nomor == 1L }
-    if (soalNomorSatu != null) {
-        viewModel.getSoalById(soalNomorSatu.id)
-    }
     val soalSortedByNomor = viewModel.soal.sortedBy { it.nomor }
 
     val selectedIndex = remember{
@@ -62,7 +59,7 @@ fun Soal(navController: NavController, tryout_id : String, tryout_user_id: Strin
 
     LaunchedEffect(key1 = viewModel.isSuccess.value){
         if (viewModel.isSuccess.value) {
-            navController.navigate(Screen.HasilTO.route) {
+            navController.navigate("${Screen.HasilTO.route}/${tryout_id}") {
                 popUpTo(Screen.Soal.route) {
                     inclusive = true
                 }
@@ -86,12 +83,11 @@ fun Soal(navController: NavController, tryout_id : String, tryout_user_id: Strin
                                 .clip(CircleShape)
                                 .background(
                                     color =
-                                    if (viewModel.soalId.value?.nomor == soalSortedByNomor[index].nomor) CustBlue
-                                    else if (viewModel.mapJawaban[soalSortedByNomor[index].id]?.value != "") Color.Green
+                                    if (soalSortedByNomor[index].nomor.toInt() == selectedIndex.value+1) CustBlue
+                                    else if (viewModel.mapJawaban[soalSortedByNomor[index].id]?.value != "") Aksen02
                                     else Color.White
                                 )
                                 .clickable {
-                                    viewModel.getSoalById(soalSortedByNomor[index].id)
                                     selectedIndex.value = index
                                 },
                             contentAlignment = Alignment.Center,
@@ -125,7 +121,6 @@ fun Soal(navController: NavController, tryout_id : String, tryout_user_id: Strin
                         .clickable
                         {
                             if (selectedIndex.value > 0) {
-                                viewModel.getSoalById(soalSortedByNomor[selectedIndex.value - 1].id)
                                 selectedIndex.value -= 1
                             }
                         }
@@ -143,7 +138,6 @@ fun Soal(navController: NavController, tryout_id : String, tryout_user_id: Strin
                         .clickable
                         {
                             if (selectedIndex.value < soalSortedByNomor.size - 1) {
-                                viewModel.getSoalById(soalSortedByNomor[selectedIndex.value + 1].id)
                                 selectedIndex.value += 1
                             } else if (selectedIndex.value == soalSortedByNomor.size - 1) {
                                 viewModel.postSoalUserList(

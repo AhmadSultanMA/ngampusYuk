@@ -24,12 +24,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import com.example.ngampusyuk.feature.main.route.Screen
 import com.example.ngampusyuk.feature.peluang.PeluangViewModel
 import com.example.ngampusyuk.ui.theme.CustDarkBlue
 import com.example.ngampusyuk.ui.theme.Primary01
 
 @Composable
-fun Input(viewModel: PeluangViewModel ,modifier: Modifier = Modifier) {
+fun Input(viewModel: PeluangViewModel, navController: NavController, modifier: Modifier = Modifier) {
         Column(modifier = Modifier
             .fillMaxWidth()
             .padding(15.dp)
@@ -47,7 +49,14 @@ fun Input(viewModel: PeluangViewModel ,modifier: Modifier = Modifier) {
                 ) {
                     Text(
                         modifier = Modifier
-                            .padding(vertical = 4.dp, horizontal = 12.dp),
+                            .padding(vertical = 4.dp, horizontal = 12.dp)
+                            .clickable {
+                                navController.navigate(Screen.PilihTO.route) {
+                                    popUpTo(Screen.Tes.route) {
+                                        inclusive = true
+                                    }
+                                }
+                            },
                         text = "Cek Sekarang!", style = MaterialTheme.typography.labelMedium, color = CustDarkBlue
                     )
                 }

@@ -1,4 +1,4 @@
-package com.example.ngampusyuk.feature.main.components.pilihTOComponents
+package com.example.ngampusyuk.feature.main.components.profileComponents
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -42,17 +42,9 @@ fun TryOutCard(navController: NavController, data : TryOutModel, modifier: Modif
             .fillMaxWidth()
             .padding(horizontal = 15.dp)
             .clickable {
-                if (data.status.value) {
-                    navController.navigate("${Screen.HasilTO.route}/${data.id}") {
-                        popUpTo(Screen.PilihTO.route) {
-                            inclusive = true
-                        }
-                    }
-                } else {
-                    navController.navigate("${Screen.Peraturan.route}/${data.id}") {
-                        popUpTo(Screen.PilihTO.route) {
-                            inclusive = true
-                        }
+                navController.navigate("${Screen.HasilTO.route}/${data.id}") {
+                    popUpTo(Screen.PilihTO.route) {
+                        inclusive = true
                     }
                 }
             },
@@ -85,31 +77,11 @@ fun TryOutCard(navController: NavController, data : TryOutModel, modifier: Modif
                             )
                         }
                     }
-                    if (data.status.value){
-                        Card(
-                            shape = RoundedCornerShape(15.dp),
-                            elevation = CardDefaults.cardElevation(
-                                defaultElevation = 8.dp
-                            )
-                        ) {
-                            Row(
-                                modifier
-                                    .background(color = Color.White, shape = RoundedCornerShape(50))
-                                    .padding(horizontal = 8.dp, vertical = 4.dp),
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                Text(text = "Selesai", style = MaterialTheme.typography.bodySmall)
-                                Spacer(modifier = Modifier.width(3.dp))
-                                Image(painter = painterResource(id = R.drawable.ic_selesai), contentDescription = "icon", Modifier.size(18.dp))
-                            }
-                        }
-                    }else{
-                        Icon(
-                            Icons.Default.KeyboardArrowRight,
-                            contentDescription = "icon",
-                            tint = Color.Black
-                        )
-                    }
+                    Icon(
+                        Icons.Default.KeyboardArrowRight,
+                        contentDescription = "icon",
+                        tint = Color.Black
+                    )
                 }
             }
         }

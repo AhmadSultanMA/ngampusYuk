@@ -415,40 +415,10 @@ class Repository constructor(
                                 jawaban_d = doc?.getString("jawaban_d") ?: "",
                                 jawaban_benar = doc?.getString("jawaban_benar") ?: "",
                                 soal = doc?.getString("soal") ?: "",
+                                penjelasan = doc?.getString("penjelasan") ?: "",
                                 nomor = doc?.getLong("nomor") ?: 0
                             )
                         }
-                    )
-                    return@addSnapshotListener
-                }
-            }
-    }
-
-    fun getSoalById(
-        id: String,
-        onSuccess: (SoalModel) -> Unit,
-        onFailed: (Exception) -> Unit
-    ) {
-        firestore
-            .collection("soal")
-            .document(id)
-            .addSnapshotListener { value, error ->
-                if (error != null) {
-                    onFailed(error)
-                }
-                value?.let { doc ->
-                    onSuccess(
-                        SoalModel(
-                            id = doc?.getString("id") ?: "",
-                            soal = doc?.getString("soal") ?: "",
-                            jawaban_a = doc?.getString("jawaban_a") ?: "",
-                            jawaban_b = doc?.getString("jawaban_b") ?: "",
-                            jawaban_c = doc?.getString("jawaban_c") ?: "",
-                            jawaban_d = doc?.getString("jawaban_d") ?: "",
-                            jawaban_benar = doc?.getString("jawaban_benar") ?: "",
-                            tryout_id = doc?.getString("tryout_id") ?: "",
-                            nomor = doc?.getLong("nomor") ?: 0,
-                        )
                     )
                     return@addSnapshotListener
                 }
@@ -498,11 +468,11 @@ class Repository constructor(
                 value?.let { doc ->
                     onSuccess(
                         SnbpModel(
-                            id = doc?.getString("id") ?: "",
-                            isi = doc?.getString("isi") ?: "",
-                            gambar= doc?.getString("gambar") ?: "",
-                            judul = doc?.getString("judul") ?: "",
-                            sub_judul = doc?.getString("sub_judul") ?: "",
+                            id = doc.getString("id") ?: "",
+                            isi = doc.getString("isi") ?: "",
+                            gambar= doc.getString("gambar") ?: "",
+                            judul = doc.getString("judul") ?: "",
+                            sub_judul = doc.getString("sub_judul") ?: "",
                         )
                     )
                     return@addSnapshotListener
@@ -554,11 +524,11 @@ class Repository constructor(
                 value?.let { doc ->
                     onSuccess(
                         SnbpModel(
-                            id = doc?.getString("id") ?: "",
-                            isi = doc?.getString("isi") ?: "",
-                            gambar= doc?.getString("gambar") ?: "",
-                            judul = doc?.getString("judul") ?: "",
-                            sub_judul = doc?.getString("sub_judul") ?: "",
+                            id = doc.getString("id") ?: "",
+                            isi = doc.getString("isi") ?: "",
+                            gambar= doc.getString("gambar") ?: "",
+                            judul = doc.getString("judul") ?: "",
+                            sub_judul = doc.getString("sub_judul") ?: "",
                         )
                     )
                     return@addSnapshotListener

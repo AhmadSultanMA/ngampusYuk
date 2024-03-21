@@ -41,7 +41,7 @@ fun DetailPemesanan(modifier : Modifier = Modifier) {
             Spacer(modifier = Modifier.height(10.dp))
             Text(text = "Deskripsi : ", style = MaterialTheme.typography.bodyLarge)
             Spacer(modifier = Modifier.height(5.dp))
-            Text(text = " Paket Premium 1 Bulan free access pembahasan seluruh paket. Berlaku hingga 16 April 2024.", style = MaterialTheme.typography.labelSmall)
+            Text(text = " Paket Premium 1 Bulan free access pembahasan seluruh paket.", style = MaterialTheme.typography.labelSmall)
 
         }
     }

@@ -13,5 +13,7 @@ data class SoalModel(
     val jawaban_benar : String,
     val nomor : Long,
     val soal : String,
+    val penjelasan : String,
     val status : MutableState<Boolean> = mutableStateOf(false),
+    val benar : MutableState<Boolean> = mutableStateOf(false)
 )

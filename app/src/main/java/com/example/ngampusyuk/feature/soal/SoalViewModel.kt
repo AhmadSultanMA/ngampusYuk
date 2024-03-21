@@ -21,7 +21,6 @@ class SoalViewModel : ViewModel() {
     val repository = Repository(firestore)
 
     val soal = mutableStateListOf<SoalModel>()
-    val soalId = mutableStateOf<SoalModel?>(null)
     val mapJawaban = mutableMapOf<String, MutableState<String>>()
     val isSuccess = mutableStateOf(false)
 
@@ -32,35 +31,9 @@ class SoalViewModel : ViewModel() {
             tryout_id,
             onSuccess = {
                 soal.clear()
-                soal.addAll(
-                    it.map { model ->
-                        SoalModel(
-                            id = model.id,
-                            tryout_id = model.tryout_id,
-                            jawaban_a = model.jawaban_a,
-                            jawaban_b = model.jawaban_b,
-                            jawaban_c = model.jawaban_c,
-                            jawaban_d = model.jawaban_d,
-                            jawaban_benar = model.jawaban_benar,
-                            soal = model.soal,
-                            nomor = model.nomor
-                        )
-                    }
-                )
+                soal.addAll(it)
                 mapJawaban.putAll(it.associate { it.id to mutableStateOf("") })
             },
-            onFailed = {
-                Log.e("ERROR", it.toString())
-            }
-        )
-    }
-
-    fun getSoalById(
-        id : String
-    ){
-        repository.getSoalById(
-            id,
-            onSuccess = { it },
             onFailed = {
                 Log.e("ERROR", it.toString())
             }
@@ -80,6 +53,7 @@ class SoalViewModel : ViewModel() {
                 benar = benar,
                 tryout_user_id = tryout_user_id,
                 soal_id = soal.id,
+                tryout_id = soal.tryout_id,
                 onSuccess = {},
                 onFailed = {
                     Log.e("ERROR", it.toString())

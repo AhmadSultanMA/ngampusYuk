@@ -4,4 +4,5 @@ data class UserModel(
     val uid : String,
     val nama : String,
     val no_telp : String,
+    val premium : Boolean
 )

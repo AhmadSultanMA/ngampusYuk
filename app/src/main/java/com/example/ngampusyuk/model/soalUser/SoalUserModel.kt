@@ -9,5 +9,6 @@ data class SoalUserModel(
     val jawab : String,
     val soal_id : String,
     val user_id : String,
-    val tryout_user_id : String
+    val tryout_user_id : String,
+    val tryout_id:  String
 )

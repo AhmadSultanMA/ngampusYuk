@@ -11,7 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -22,11 +22,13 @@ import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
@@ -36,18 +38,21 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.ngampusyuk.R
-import com.example.ngampusyuk.feature.main.components.profileComponents.ProfileBar
+import com.example.ngampusyuk.feature.main.components.profileComponents.TryOutCard
 import com.example.ngampusyuk.feature.main.navigation.BottomNavigationBar
 import com.example.ngampusyuk.feature.main.route.Screen
 import com.example.ngampusyuk.ui.theme.CustBlue
+import com.example.ngampusyuk.ui.theme.CustSecondary
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Profile(navController : NavController) {
-    val widthScreen = LocalConfiguration.current.screenWidthDp.dp
+    val viewModel : ProfileViewModel = viewModel()
+
     Scaffold(
         floatingActionButton = {
             EditFloatingButton(
@@ -72,36 +77,28 @@ fun Profile(navController : NavController) {
     ) {
         LazyColumn(
             modifier = Modifier
-                .fillMaxSize(),
+                .fillMaxSize()
+                .background(
+                    Brush.verticalGradient(
+                        colors = listOf(
+                            CustSecondary,
+                            Color.White
+                        ),
+                        startY = 1f
+                    )
+                ),
         ) {
             item {
-                Box(modifier = Modifier
-                    .background(color = CustBlue)
-                ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.abstract_bg),
-                        contentDescription = "abstractBg",
-                        modifier = Modifier.fillMaxSize(),
-                        contentScale = ContentScale.Crop,
-                    )
-                }
+                Spacer(modifier = Modifier.height(30.dp))
                 Box(
                     modifier = Modifier
-                        .offset(0.dp, -100.dp)
-                        .background(color = Color.White, shape = RoundedCornerShape(10))
                         .fillMaxWidth()
-                        .padding(bottom = 30.dp)
                 ){
-                    Column(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .offset(0.dp, -55.dp)
-                    ) {
+                    Column{
                         Box(modifier = Modifier.fillMaxWidth()) {
                             Image(
                                 modifier = Modifier
-                                    .width(widthScreen * 0.3f)
-                                    .fillMaxWidth()
+                                    .size(122.dp)
                                     .align(Alignment.Center),
                                 painter = painterResource(id = R.drawable.profil),
                                 contentDescription = "profilImage"
@@ -116,17 +113,18 @@ fun Profile(navController : NavController) {
                                 textAlign = TextAlign.Center
                             )
                         )
-                        Text(
-                            modifier = Modifier.fillMaxWidth(),
-                            text = "Sekolah Menengah Atas",
-                            style = TextStyle(fontSize = 14.sp, color = Color.Gray, textAlign = TextAlign.Center)
-                        )
-                        Spacer(modifier = Modifier.height(15.dp))
-                        Box(modifier = Modifier.padding(start = 15.dp, end = 15.dp)) {
-                            ProfileBar(modifier = Modifier.padding(start = 15.dp, end = 15.dp))
-                        }
                     }
                 }
+            }
+            item{
+                Box(modifier = Modifier.padding(horizontal = 15.dp)) {
+                    Text(text = "Riwayat Try Out", style = MaterialTheme.typography.titleSmall)
+                }
+            }
+            items(viewModel.allTO.size){ index->
+                val tryout = viewModel.allTO[index]
+                TryOutCard(navController, tryout)
+                Spacer(modifier = Modifier.height(15.dp))
             }
         }
     }

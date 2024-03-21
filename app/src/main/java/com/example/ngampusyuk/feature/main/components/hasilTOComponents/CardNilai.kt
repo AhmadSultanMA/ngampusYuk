@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.dp
 import com.example.ngampusyuk.ui.theme.Warning01
 
 @Composable
-fun CardNilai() {
+fun CardNilai(jawabBenar: Long, totalSoal: Long, nama: String?) {
     Card(
         Modifier
             .padding(horizontal = 15.dp)
@@ -39,10 +39,10 @@ fun CardNilai() {
                 .background(color = Color.White)
                 .padding(20.dp),verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
             Column {
-                Text(text = "Hi, Irza", style = MaterialTheme.typography.labelLarge)
+                Text(text = nama ?: "", style = MaterialTheme.typography.labelLarge)
                 Spacer(modifier = Modifier.height(20.dp))
                 Text(text = "Jawaban Benar", style = MaterialTheme.typography.labelLarge)
-                Text(text = "14/20", style = MaterialTheme.typography.labelLarge)
+                Text(text = "${jawabBenar}/${totalSoal}", style = MaterialTheme.typography.labelLarge)
             }
             Box(modifier = Modifier
                 .background(color = Warning01, shape = RoundedCornerShape(20))

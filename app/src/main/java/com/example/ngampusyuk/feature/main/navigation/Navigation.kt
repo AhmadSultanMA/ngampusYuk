@@ -17,6 +17,7 @@ import com.example.ngampusyuk.feature.invoice.Invoice
 import com.example.ngampusyuk.feature.main.route.Screen
 import com.example.ngampusyuk.feature.mandiri.Mandiri
 import com.example.ngampusyuk.feature.peluang.Peluang
+import com.example.ngampusyuk.feature.penjelasan.Penjelasan
 import com.example.ngampusyuk.feature.peraturan.Peraturan
 import com.example.ngampusyuk.feature.pilihBanding.PilihBanding
 import com.example.ngampusyuk.feature.pilihBanding.PilihBandingViewModel
@@ -32,6 +33,7 @@ import com.example.ngampusyuk.feature.snbt.SNBT
 import com.example.ngampusyuk.feature.snbtDetail.SNBTDetail
 import com.example.ngampusyuk.feature.soal.Soal
 import com.example.ngampusyuk.feature.splash.SplashScreen
+import com.example.ngampusyuk.feature.statusBayar.StatusBayar
 import com.example.ngampusyuk.feature.universitas.UniversitasScreen
 
 @Composable
@@ -192,8 +194,14 @@ fun Navigation() {
             SNBT(navController = navController)
         }
 
-        composable(route = Screen.HasilTO.route) {
-            HasilTO(navController = navController)
+        composable(route = "${Screen.HasilTO.route}/{tryout_id}",
+            arguments = listOf(
+                navArgument("tryout_id") {
+                    type = NavType.StringType
+                },
+            )) {
+            val tryout_id = it.arguments?.getString("tryout_id") ?: ""
+            HasilTO(navController = navController, tryout_id)
         }
 
         composable(route = Screen.Mandiri.route) {
@@ -203,6 +211,21 @@ fun Navigation() {
         composable(route = Screen.Invoice.route) {
             Invoice(navController = navController)
         }
+
+        composable(route = Screen.StatusBayar.route) {
+            StatusBayar(navController = navController)
+        }
+
+        composable(route = "${Screen.Penjelasan.route}/{tryout_id}",
+            arguments = listOf(
+                navArgument("tryout_id") {
+                    type = NavType.StringType
+                },
+            )) {
+            val tryout_id = it.arguments?.getString("tryout_id") ?: ""
+            Penjelasan(navController = navController, tryout_id)
+        }
+
 
     }
 }
