@@ -16,6 +16,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.ngampusyuk.feature.pilihBanding.PilihBandingViewModel
@@ -24,8 +25,8 @@ import com.example.ngampusyuk.ui.theme.CustGray
 @Composable
 fun InformasiKampus(bandingViewModel: PilihBandingViewModel) {
     Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
-        Text(text = bandingViewModel.kampus1.value?.nama ?: "")
-        Text(text = bandingViewModel.kampus2.value?.nama ?: "")
+        Text(text = bandingViewModel.kampus1.value?.nama ?: "", textAlign = TextAlign.Center)
+        Text(text = bandingViewModel.kampus2.value?.nama ?: "", textAlign = TextAlign.Center)
     }
     Row(
         Modifier.fillMaxWidth(0.85f),
