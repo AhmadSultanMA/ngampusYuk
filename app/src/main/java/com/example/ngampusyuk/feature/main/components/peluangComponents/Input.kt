@@ -79,7 +79,9 @@ fun Input(viewModel: PeluangViewModel, navController: NavController, modifier: M
                             .background(color = Primary01)
                             .padding(vertical = 8.dp, horizontal = 24.dp)
                             .clickable {
-                                viewModel.getAllJurusanByTes()
+                                if (viewModel.jurusanText.value != "" && viewModel.skor.value != ""){
+                                    viewModel.getAllJurusanByTes()
+                                }
                             },
                         text = "Submit", style = MaterialTheme.typography.titleSmall, color = Color.White
                     )
