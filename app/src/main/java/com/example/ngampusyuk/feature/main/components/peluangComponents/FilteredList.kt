@@ -31,7 +31,7 @@ fun FilteredList(viewModel: PeluangViewModel) {
                     .fillMaxWidth()
                     .background(color = Color.White, shape = RoundedCornerShape(20))
             ) {
-                items(viewModel.filteredJurusan.value.distinctBy { it.nama_jurusan }.size) { index ->
+                items(viewModel.filteredJurusan.value.distinctBy { it.nama_jurusan }.take(3).size) { index ->
                     val distinctJurusan = viewModel.filteredJurusan.value.distinctBy { it.nama_jurusan }
                     Text(
                         text = distinctJurusan[index].nama_jurusan,

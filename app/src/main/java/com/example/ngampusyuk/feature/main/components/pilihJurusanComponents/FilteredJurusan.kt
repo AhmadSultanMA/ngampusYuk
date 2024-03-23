@@ -30,7 +30,7 @@ fun FilteredJurusan(viewModel: PilihJurusanViewModel) {
                     .fillMaxWidth()
                     .background(color = Color.White, shape = RoundedCornerShape(20))
             ) {
-                items(viewModel.filteredJurusan.value.size) { index ->
+                items(viewModel.filteredJurusan.value.take(3).size) { index ->
                     val jurusan = viewModel.filteredJurusan.value
                     Text(
                         text = jurusan[index].nama_jurusan,

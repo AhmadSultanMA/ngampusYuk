@@ -111,15 +111,8 @@ fun InformasiJurusan(jurusan : List<JurusanModel>, modifier: Modifier = Modifier
                     .padding(vertical = 15.dp)
                     .fillMaxWidth(),
                 contentAlignment = Alignment.Center
-            ) {
-                Text(
-                    text = "SOSIAL HUMANIORA",
-                    style = TextStyle(
-                        color = Color.White,
-                        fontWeight = FontWeight.SemiBold,
-                        fontSize = 16.sp
-                    )
-                )
+            ){
+                Text(text = "SOSIAL HUMANIORA", style = TextStyle(color = Color.White, fontWeight = FontWeight.SemiBold, fontSize = 16.sp))
             }
             Spacer(modifier = Modifier.height(10.dp))
             Row(
@@ -133,10 +126,7 @@ fun InformasiJurusan(jurusan : List<JurusanModel>, modifier: Modifier = Modifier
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(
-                    text = "Program Studi",
-                    style = TextStyle(fontWeight = FontWeight.SemiBold, fontSize = 16.sp)
-                )
+                Text(text = "Program Studi", style = TextStyle(fontWeight = FontWeight.SemiBold, fontSize = 16.sp))
                 Column(modifier.width(screenWidth * 0.35f)) {
                     Text(
                         text = "Nilai Skor",
@@ -145,49 +135,35 @@ fun InformasiJurusan(jurusan : List<JurusanModel>, modifier: Modifier = Modifier
                         textAlign = TextAlign.Center
                     )
                     Row(modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                        Text(
-                            text = "SNBP",
-                            style = TextStyle(fontWeight = FontWeight.SemiBold, fontSize = 16.sp)
-                        )
-                        Text(
-                            text = "SNBT",
-                            style = TextStyle(fontWeight = FontWeight.SemiBold, fontSize = 16.sp)
-                        )
+                        Text(text = "SNBP", style = TextStyle(fontWeight = FontWeight.SemiBold, fontSize = 16.sp))
+                        Text(text = "SNBT", style = TextStyle(fontWeight = FontWeight.SemiBold, fontSize = 16.sp))
                     }
                 }
             }
             Box(
                 modifier
                     .fillMaxWidth()
-
                     .background(
                         color = CustLightBlue,
                         shape = RoundedCornerShape(bottomStartPercent = 20, bottomEndPercent = 20)
                     )
                     .padding(15.dp)
 
-            ) {
-                for (jurusans in jurusan) {
-                    if(jurusans.tipe == 2L){
-                        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                            Text(text = jurusans.nama_jurusan, style = TextStyle(fontSize = 14.sp))
-                            Row(
-                                modifier.width(screenWidth * 0.35f),
-                                horizontalArrangement = Arrangement.SpaceBetween
-                            ) {
-                                Text(
-                                    text = jurusans.snbp.toString(),
-                                    style = TextStyle(fontSize = 14.sp)
-                                )
-                                Text(
-                                    text = jurusans.snbt.toString(),
-                                    style = TextStyle(fontSize = 14.sp)
-                                )
+            ){
+                Column {
+                    for (jurusans in jurusan){
+                        if (jurusans.tipe == 2L){
+                            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+                                Text(text = jurusans.nama_jurusan, style = TextStyle(fontSize = 14.sp))
+                                Row(modifier.width(screenWidth * 0.35f),horizontalArrangement = Arrangement.SpaceBetween) {
+                                    Text(text = jurusans.snbp.toString(), style = TextStyle(fontSize = 14.sp))
+                                    Text(text = jurusans.snbt.toString(), style = TextStyle(fontSize = 14.sp))
+                                }
                             }
+                            Spacer(modifier = Modifier.height(5.dp))
                         }
                     }
                 }
-
             }
         }
     }
