@@ -106,7 +106,7 @@ fun Profile(navController : NavController) {
                             }
                             Text(
                                 modifier = Modifier.fillMaxWidth(),
-                                text = "Irza",
+                                text = viewModel.user.value?.nama ?: "",
                                 style = TextStyle(
                                     fontSize = 24.sp,
                                     fontWeight = FontWeight.SemiBold,
