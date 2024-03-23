@@ -98,6 +98,7 @@ fun Skor(
     modifier: Modifier = Modifier
 ) {
     Card(
+        modifier = Modifier.clip(shape = RoundedCornerShape(20.dp)),
         elevation = CardDefaults.cardElevation(
             defaultElevation = 8.dp
         )
@@ -121,7 +122,7 @@ fun Skor(
             textStyle = TextStyle(color = Color.Black),
             singleLine = true,
             colors = TextFieldDefaults.outlinedTextFieldColors(
-                unfocusedBorderColor = Color.White,
+                unfocusedBorderColor = Color.Gray,
                 focusedBorderColor = Color.Black
             )
         )
@@ -137,8 +138,9 @@ fun jurusan(
     modifier: Modifier = Modifier
 ) {
     Card(
+        modifier = Modifier.clip(shape = RoundedCornerShape(20.dp)),
         elevation = CardDefaults.cardElevation(
-            defaultElevation = 8.dp
+            defaultElevation = 8.dp,
         )
     ) {
         OutlinedTextField(
@@ -166,7 +168,7 @@ fun jurusan(
             textStyle = TextStyle(color = Color.Black),
             singleLine = true,
             colors = TextFieldDefaults.outlinedTextFieldColors(
-                unfocusedBorderColor = Color.White,
+                unfocusedBorderColor = Color.Gray,
                 focusedBorderColor = Color.Black
             )
         )

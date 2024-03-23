@@ -19,6 +19,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -48,7 +50,6 @@ fun PilihBanding(navController: NavController, viewModel: PilihBandingViewModel,
         {
             Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(text = "Tentukan Pilihan", style = MaterialTheme.typography.headlineMedium)
-                Spacer(modifier = Modifier.height(10.dp))
                 Text(
                     modifier = Modifier.fillMaxWidth(0.8f),
                     text = "Pilih universitas dan program studi yang kamu inginkan",
@@ -58,7 +59,8 @@ fun PilihBanding(navController: NavController, viewModel: PilihBandingViewModel,
         }
         Box(modifier = Modifier
             .fillMaxSize()
-            .background(CustBlue)
+            .clip(shape = RoundedCornerShape(topEndPercent = 10, topStartPercent = 10))
+            .background(color = CustBlue)
         ){
             Column(
                 Modifier
@@ -66,7 +68,7 @@ fun PilihBanding(navController: NavController, viewModel: PilihBandingViewModel,
                     .padding(horizontal = 15.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(25.dp))
                 Box(
                     modifier
                         .fillMaxWidth(0.5f)

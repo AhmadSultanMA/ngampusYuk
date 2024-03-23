@@ -51,8 +51,8 @@ fun Iklan(navController: NavController ,modifier: Modifier = Modifier) {
     ) {
         val images = listOf(
             painterResource(R.drawable.iklan),
-            painterResource(R.drawable.iklan),
-            painterResource(R.drawable.iklan)
+            painterResource(R.drawable.iklan2),
+            painterResource(R.drawable.iklan3)
         )
         Row(modifier
             .fillMaxWidth(),

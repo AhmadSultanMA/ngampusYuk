@@ -12,6 +12,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.ngampusyuk.feature.peluang.PeluangViewModel
@@ -26,7 +27,7 @@ fun FilteredList(viewModel: PeluangViewModel) {
         ) {
             LazyColumn(
                 modifier = Modifier
-                    .offset(0.dp, 255.dp)
+                    .offset(0.dp, 263.dp)
                     .fillMaxWidth()
                     .background(color = Color.White, shape = RoundedCornerShape(20))
             ) {
@@ -37,7 +38,7 @@ fun FilteredList(viewModel: PeluangViewModel) {
                         style = MaterialTheme.typography.bodySmall,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(16.dp)
+                            .padding(15.dp)
                             .clickable {
                                 viewModel.jurusanText.value = distinctJurusan[index].nama_jurusan
                                 viewModel.filteredJurusan.value = emptyList()

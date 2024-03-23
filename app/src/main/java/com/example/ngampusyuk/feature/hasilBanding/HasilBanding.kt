@@ -24,6 +24,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -59,19 +60,21 @@ fun HasilBanding(navController : NavController, bandingViewModel: PilihBandingVi
                     modifier = Modifier
                         .background(color = CustBlue)
                         .fillMaxWidth()
-                        .height(110.dp),
+                        .height(150.dp),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text(text = "Hasil Banding", style = MaterialTheme.typography.headlineMedium)
+                    Text(text = "Hasil Banding", style = MaterialTheme.typography.headlineMedium, color = Color.White)
                 }
                     Column(
                         modifier = Modifier
+                            .offset(0.dp, -40.dp)
+                            .clip(shape = RoundedCornerShape(topStartPercent = 10, topEndPercent = 10))
                             .fillMaxSize()
                             .background(color = Color.White)
                             .padding(horizontal = 20.dp),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        Spacer(modifier = Modifier.height(20.dp))
+                        Spacer(modifier = Modifier.height(40.dp))
                         InformasiKampus(bandingViewModel)
                         Spacer(modifier = Modifier.height(20.dp))
                         BandingIndicator(

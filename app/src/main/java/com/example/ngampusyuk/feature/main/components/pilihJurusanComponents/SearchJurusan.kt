@@ -12,6 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
@@ -26,6 +27,7 @@ fun SearchJurusan(
     modifier: Modifier = Modifier
 ) {
     Card(
+        modifier = Modifier.clip(shape = RoundedCornerShape(20.dp)),
         elevation = CardDefaults.cardElevation(
             defaultElevation = 8.dp
         )
@@ -55,7 +57,7 @@ fun SearchJurusan(
             textStyle = TextStyle(color = Color.Black),
             singleLine = true,
             colors = TextFieldDefaults.outlinedTextFieldColors(
-                unfocusedBorderColor = Color.White,
+                unfocusedBorderColor = Color.Gray,
                 focusedBorderColor = Color.Black
             )
         )

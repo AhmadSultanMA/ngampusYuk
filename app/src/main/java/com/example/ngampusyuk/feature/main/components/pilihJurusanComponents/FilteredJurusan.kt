@@ -26,7 +26,7 @@ fun FilteredJurusan(viewModel: PilihJurusanViewModel) {
         ) {
             LazyColumn(
                 modifier = Modifier
-                    .offset(0.dp, 210.dp)
+                    .offset(0.dp, 224.dp)
                     .fillMaxWidth()
                     .background(color = Color.White, shape = RoundedCornerShape(20))
             ) {

@@ -16,6 +16,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Edit
+import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FabPosition
@@ -28,6 +29,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -57,15 +59,16 @@ fun Profile(navController : NavController) {
         floatingActionButton = {
             EditFloatingButton(
                 onClick = {
-                    navController.navigate(Screen.EditProfile.route){
-                        popUpTo(Screen.Profil.route) {
-                            inclusive = true
-                        }
-                    }
+//                    navController.navigate(Screen.EditProfile.route){
+//                        popUpTo(Screen.Profil.route) {
+//                            inclusive = true
+//                        }
+//                    }
                 }
             )
         },
         floatingActionButtonPosition = FabPosition.End,
+
         bottomBar =  {
             BottomAppBar(
                 tonalElevation = 8.dp,
@@ -78,41 +81,39 @@ fun Profile(navController : NavController) {
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
-                .background(
-                    Brush.verticalGradient(
-                        colors = listOf(
-                            CustSecondary,
-                            Color.White
-                        ),
-                        startY = 1f
-                    )
-                ),
         ) {
             item {
-                Spacer(modifier = Modifier.height(30.dp))
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                ){
-                    Column{
-                        Box(modifier = Modifier.fillMaxWidth()) {
-                            Image(
-                                modifier = Modifier
-                                    .size(122.dp)
-                                    .align(Alignment.Center),
-                                painter = painterResource(id = R.drawable.profil),
-                                contentDescription = "profilImage"
+                Box(Modifier.fillMaxWidth()) {
+                    Box(
+                        Modifier
+                            .fillMaxWidth()
+                            .height(120.dp)
+                            .background(color = CustBlue, shape = RoundedCornerShape(bottomStartPercent = 20, bottomEndPercent = 20))
+                    )
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                    ){
+                        Column(Modifier.padding(top = 50.dp)){
+                            Box(modifier = Modifier.fillMaxWidth()) {
+                                Image(
+                                    modifier = Modifier
+                                        .size(122.dp)
+                                        .align(Alignment.Center),
+                                    painter = painterResource(id = R.drawable.profil),
+                                    contentDescription = "profilImage"
+                                )
+                            }
+                            Text(
+                                modifier = Modifier.fillMaxWidth(),
+                                text = "Irza",
+                                style = TextStyle(
+                                    fontSize = 24.sp,
+                                    fontWeight = FontWeight.SemiBold,
+                                    textAlign = TextAlign.Center
+                                )
                             )
                         }
-                        Text(
-                            modifier = Modifier.fillMaxWidth(),
-                            text = "Irza",
-                            style = TextStyle(
-                                fontSize = 24.sp,
-                                fontWeight = FontWeight.SemiBold,
-                                textAlign = TextAlign.Center
-                            )
-                        )
                     }
                 }
             }
@@ -134,15 +135,16 @@ fun Profile(navController : NavController) {
 fun EditFloatingButton(onClick: () -> Unit) {
     val heightScreen = LocalConfiguration.current.screenHeightDp.dp
     FloatingActionButton(
+        containerColor = Color.White,
         onClick = onClick,
-        contentColor = Color.White,
         elevation = FloatingActionButtonDefaults.elevation(8.dp),
-        modifier = Modifier.offset(0.dp,-heightScreen+180.dp)
+        modifier = Modifier
+            .offset(0.dp, -heightScreen + 180.dp)
     ) {
         Icon(
-            imageVector = Icons.Outlined.Edit,
+            imageVector = Icons.Outlined.Settings,
             tint = Color.Black,
-            contentDescription = "Edit",
+            contentDescription = "Edit"
         )
     }
 }

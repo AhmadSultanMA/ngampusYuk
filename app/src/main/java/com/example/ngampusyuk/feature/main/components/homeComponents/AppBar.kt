@@ -2,6 +2,7 @@ package com.example.ngampusyuk.feature.main.components.homeComponents
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -41,8 +42,10 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.ngampusyuk.R
 import com.example.ngampusyuk.feature.home.HomeViewModel
+import com.example.ngampusyuk.feature.main.route.Screen
 import com.example.ngampusyuk.model.kampus.KampusModel
 import com.example.ngampusyuk.ui.theme.CustBlue
 
@@ -52,6 +55,7 @@ fun AppBar(
     name: String,
     kampus: List<KampusModel>,
     viewModel: HomeViewModel,
+    navController: NavController,
     modifier: Modifier = Modifier
 ) {
     val searchText = remember { mutableStateOf("") }
@@ -78,7 +82,15 @@ fun AppBar(
                 ) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Image(
-                        modifier = Modifier.width((0.5f * 100).dp),
+                        modifier = Modifier
+                            .width((0.5f * 100).dp)
+                            .clickable {
+                                navController.navigate(Screen.Profil.route) {
+                                    popUpTo(Screen.Home.route) {
+                                        inclusive = true
+                                    }
+                                }
+                            },
                         painter = painterResource(id = R.drawable.profil),
                         contentDescription = "profilImage"
                     )
